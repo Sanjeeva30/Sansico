@@ -8,7 +8,7 @@ import { schemaTypes } from "./schemas";
 export default defineConfig({
   name: "sansico",
   title: "Sansico Group",
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID || "YOUR_PROJECT_ID",
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID || "rvghw4zu",
   dataset: "production",
   plugins: [structureTool()],
   schema: { types: schemaTypes }
