@@ -1,0 +1,42 @@
+{
+  "title": "Three capabilities, one accountable partner",
+  "intro": "From the first trend board to the container at port, Sansico operates as a single accountable partner. Our three capability groups work as one team across design, manufacturing and supply-chain operations.",
+  "groups": [
+    {
+      "slug": "design-creative",
+      "num": "DESIGN",
+      "title": "Design & Creative Studio",
+      "summary": "Trend, artwork and product development that lives and breathes consumer brands.",
+      "body": "From Indonesia to the world, our studio blends tradition and global influence to develop artwork, structural packaging and product designs that perform at retail. We work inside customers' seasonal calendars — trend research, concept boards, artwork engineering, prototyping and pre-production samples — so designs arrive production-ready, in the right materials and configurations for volume manufacture.",
+      "points": ["Trend research & seasonal concept development", "Artwork engineering & structural design", "Prototyping & pre-production sampling", "Brand & licensed-property compliance"]
+    },
+    {
+      "slug": "manufacturing",
+      "num": "MAKE",
+      "title": "Manufacturing Solutions",
+      "summary": "Printing, packaging, moulding, forming and sewing — with an ISO 17025 safety laboratory in-house.",
+      "body": "Ten facilities across Indonesia and China deliver one-stop-shop printing and converting, GMI-certified packaging, injection moulding, thermo vacuum forming and cut-and-sew production. Quality is engineered in: an in-house, government-accredited ISO 17025 laboratory tests for heavy metals and phthalates, and over thirty years of continuous factory innovation keep quality and value moving in the right direction.",
+      "points": ["One-stop-shop printing & converting", "GMI-certified packaging production", "Injection moulding & thermo vacuum forming", "Cut & sew, costumes and handicrafts", "ISO 17025 in-house safety laboratory"]
+    },
+    {
+      "slug": "vendor-operations",
+      "num": "DELIVER",
+      "title": "Vendor Operations",
+      "summary": "Sourcing, EXIM, bonded-zone logistics, planning and trade compliance — door to door.",
+      "body": "Global supply-chain optimisation from sourcing through trade compliance: logistics and export-import management, bonded-zone operations, demand planning and order management, sourcing-system development, product safety and QA, training, finance and legal support. We carry the operational load so customers see one clean interface from purchase order to delivery.",
+      "points": ["Logistics & EXIM management", "Bonded-zone supply chain operations", "Planning & order management", "Compliance, product safety & QA", "Marketing, training, finance & legal support"]
+    }
+  ],
+  "facilities": [
+    { "name": "PT Printec Perkasa I", "location": "Tangerang, Banten", "focus": "Handicrafts" },
+    { "name": "PT Printec Perkasa II", "location": "Jababeka II, Cikarang", "focus": "Toy production & toy packaging" },
+    { "name": "PT Grafitecindo Ciptaprima", "location": "Jababeka I, Cikarang", "focus": "Box & GMI packaging, party items" },
+    { "name": "Foshan Sansico", "location": "Foshan, Guangdong, China", "focus": "Gift bags & tags, rigid box" },
+    { "name": "PT IGP Internasional — Bantul", "location": "Bantul, DI Yogyakarta", "focus": "Costumes, cut & sew items" },
+    { "name": "PT IGP Internasional — Sleman", "location": "Sleman, DI Yogyakarta", "focus": "Tissue paper" },
+    { "name": "PT IGP Internasional — Klaten", "location": "Klaten, Jawa Tengah", "focus": "Gift bags" },
+    { "name": "PT IGP Internasional — Piyungan", "location": "Piyungan, DI Yogyakarta", "focus": "Handicrafts" },
+    { "name": "PT IGP Internasional — Tempel", "location": "Tempel, DI Yogyakarta", "focus": "Rigid box & rollwrap" },
+    { "name": "PT Sansico Utama", "location": "Jakarta", "focus": "Group headquarters" }
+  ]
+}

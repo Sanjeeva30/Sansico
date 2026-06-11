@@ -1,0 +1,34 @@
+{
+  "name": "Sansico Group",
+  "tagline": "Joy, sustainably packaged.",
+  "mission": "To bring renewable, sustainable innovation to the global home — one gift at a time.",
+  "nav": [
+    { "label": "Capabilities", "href": "/capabilities" },
+    { "label": "Markets", "href": "/markets" },
+    { "label": "Products", "href": "/products" },
+    { "label": "Work", "href": "/work" },
+    { "label": "Sustainability", "href": "/sustainability" },
+    { "label": "Company", "href": "/company" },
+    { "label": "Careers", "href": "/careers" }
+  ],
+  "cta": { "label": "Start a conversation", "href": "/contact" },
+  "contact": {
+    "email": "sales@sansico.com",
+    "phones": [
+      { "label": "Jakarta Marketing Office", "tel": "+62218901345", "display": "+62 21 890 1345" },
+      { "label": "Foshan Marketing Office", "tel": "+8675788736000", "display": "+86 757 8873 6000" }
+    ],
+    "whatsapp": { "enabled": true, "number": "" },
+    "presence": [
+      { "country": "Indonesia", "detail": "9 manufacturing facilities — close to vendor, close to production" },
+      { "country": "China", "detail": "1 manufacturing facility — close to technology & development" },
+      { "country": "USA", "detail": "Market representation — close to business" }
+    ]
+  },
+  "social": [
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/company/sansico" },
+    { "label": "Instagram", "href": "https://www.instagram.com/sansicogroup" },
+    { "label": "TikTok", "href": "https://www.tiktok.com/@sansicogroup" }
+  ],
+  "footerNote": "© 2026 Sansico Group. All rights reserved."
+}

@@ -1,0 +1,22 @@
+{
+  "title": "An Indonesian group built for the world's shelves",
+  "intro": "Sansico Group Indonesia is an internationally recognised design and solutions provider — trading agent, vendor and trusted manufacturer for some of today's most recognisable brands.",
+  "vision": "To bring renewable, sustainable innovation to the global home — one gift at a time.",
+  "culture": "A culture of long-term relationships: with customers measured in decades, with communities measured in livelihoods, and with the environment measured in what we give back.",
+  "timeline": [
+    { "year": "1980s", "event": "Group manufacturing origins in Indonesia — four decades of continuous operation begin." },
+    { "year": "1990s", "event": "First US retail programmes; the long-term customer relationships that define the group take root." },
+    { "year": "2000s", "event": "Multi-facility expansion across Java; printing, packaging and handicraft capabilities scale." },
+    { "year": "2010s", "event": "Foshan Sansico extends the group to China; certifications deepen across security, social and environmental standards." },
+    { "year": "2022", "event": "Integrated FSC rattan supply chain launched with rural artisan communities." },
+    { "year": "2024", "event": "FSC rattan supply chain operational; NEST partnership with Target advances." },
+    { "year": "Today", "event": "Ten facilities, three countries, 25+ global customers — and a next-generation digital supply chain in build." }
+  ],
+  "innovation": [
+    { "title": "Industry 4.0, IoT & AI", "body": "Collaborative digital manufacturing that has benefited billions of units." },
+    { "title": "Automation initiatives", "body": "Advanced robotics and automation for aspirational quality and cost results." },
+    { "title": "Process innovation", "body": "Continuous improvement across production and delivery to hold quality and value." },
+    { "title": "Circular, sustainable, renewable", "body": "Sustainability engineered into all products and processes." }
+  ],
+  "leadership": { "note": "Leadership profiles to be added with photography in the content phase." }
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Certified, dated, verifiable — sustainability as a discipline, not an adjective.",
+  "intro": "Every certification Sansico holds is published with its scope and holding entity, and will carry its certificate for download. Forestry to food safety, security to social compliance — verification is the point.",
+  "pillars": [
+    { "title": "Circular Design", "body": "A restorative and regenerative business model: waste elimination, material efficiency, circular product lifecycles and a deliberate stance against linear consumption." },
+    { "title": "Low Toxicity", "body": "Eco-friendly water-based inks and adhesives minimise chemical footprints in products and communities, verified by our in-house ISO 17025 laboratory." },
+    { "title": "People & Communities", "body": "HERproject (BSR) workplace programmes for women in our workforce, and NEST handworker-standard partnerships bringing audited, fair artisan livelihoods into global supply chains." },
+    { "title": "Materials & Forestry", "body": "FSC chain of custody, Indonesian Legal Wood assurance and a gift-bag programme built on a minimum of 95% recycled paper content." }
+  ],
+  "stat": { "value": "95%", "label": "Minimum recycled content, gift-bag programme" },
+  "certifications": [
+    { "name": "FSC® Chain of Custody", "category": "Forestry", "scope": "Paper & rattan supply chains", "entity": "Group facilities", "certificate": "" },
+    { "name": "Indonesian Legal Wood", "category": "Forestry", "scope": "Timber legality assurance", "entity": "Group facilities", "certificate": "" },
+    { "name": "FSSC 22000", "category": "Food Safety", "scope": "Food-contact packaging", "entity": "PT Grafitecindo Ciptaprima", "certificate": "" },
+    { "name": "ISO 17025", "category": "Quality & Testing", "scope": "In-house laboratory — heavy metals & phthalates", "entity": "Group laboratory", "certificate": "" },
+    { "name": "ISO 9001", "category": "Quality & Testing", "scope": "Quality management systems", "entity": "Group facilities", "certificate": "" },
+    { "name": "C-TPAT / SCAN", "category": "Supply Chain Security", "scope": "US-bound supply chain security audits", "entity": "Group facilities", "certificate": "" },
+    { "name": "Higg Index", "category": "Environmental", "scope": "Facility environmental performance", "entity": "Group facilities", "certificate": "" },
+    { "name": "amfori BEPI", "category": "Environmental", "scope": "Environmental performance improvement", "entity": "Group facilities", "certificate": "" },
+    { "name": "Customer Social Compliance", "category": "Social", "scope": "Audited for Disney FAMA, Mattel, Costco, Michaels, Inditex, Target & others", "entity": "Programme facilities", "certificate": "" },
+    { "name": "HERproject (BSR)", "category": "Social", "scope": "Women's workplace empowerment programmes", "entity": "Group workforce", "certificate": "" },
+    { "name": "NEST Handworker Standard", "category": "Social", "scope": "Ethical artisan & homeworker production", "entity": "Handicraft programmes", "certificate": "" }
+  ],
+  "note": "Certificate documents, dates and registration numbers are being attached to each entry; entries without a document are listed for scope reference."
+}

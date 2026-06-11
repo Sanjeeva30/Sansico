@@ -1,0 +1,15 @@
+{
+  "title": "Our locations",
+  "items": [
+    { "name": "PT Sansico Utama", "city": "Jakarta", "address": "Jl. Semanan RT. 007/006 No. 55, Semanan Kalideres, Jakarta Barat, DKI Jakarta Raya 11850, Indonesia" },
+    { "name": "PT Printec Perkasa I", "city": "Tangerang", "address": "Jl. Kp. Kelapa PLN No. 8, Cikokol, Tangerang 15117, Banten, Indonesia" },
+    { "name": "PT Printec Perkasa II", "city": "Jababeka II, Cikarang", "address": "Kawasan Industri Jababeka II, Jl. Jababeka II Blok SS Kav. 4–5, Cikarang, Bekasi 17530, Indonesia" },
+    { "name": "PT Grafitecindo Ciptaprima", "city": "Jababeka I, Cikarang", "address": "Kawasan Industri Jababeka I, Jl. Jababeka XVII Blok V Kav. 92–93, Cikarang, Bekasi 17530, Indonesia" },
+    { "name": "Foshan Sansico", "city": "Foshan, China", "address": "NanHai Song Xia Industrial Park, SongGang NanHai Foshan, Guangdong, PR China 825234" },
+    { "name": "PT IGP Internasional — Bantul", "city": "Bantul, DI Yogyakarta", "address": "Jl. Brajan, Dusun Gatak 2, Tamantirto, Kasihan, Bantul, DI Yogyakarta 55183, Indonesia" },
+    { "name": "PT IGP Internasional — Sleman", "city": "Sleman, DI Yogyakarta", "address": "DI Yogyakarta 55571, Indonesia" },
+    { "name": "PT IGP Internasional — Klaten", "city": "Klaten, Jawa Tengah", "address": "Jawa Tengah 57454, Indonesia" },
+    { "name": "PT IGP Internasional — Piyungan", "city": "Piyungan, Bantul", "address": "Cikal, Srimulyo, Piyungan, Bantul, DI Yogyakarta 55792, Indonesia" },
+    { "name": "PT IGP Internasional — Tempel", "city": "Tempel, Sleman", "address": "Jl. Magelang No. 36 Ngebong, Margorejo, Tempel, Sleman, DI Yogyakarta 55552, Indonesia" }
+  ]
+}

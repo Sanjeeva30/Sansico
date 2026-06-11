@@ -1,0 +1,24 @@
+{
+  "hero": {
+    "type": "ink",
+    "eyebrow": "Indonesia · China · USA",
+    "title": "Joy, |sustainably| packaged.",
+    "sub": "Design, manufacturing and supply-chain operations for the world's most loved gifting, toy and packaging brands — from Indonesia to the world, for more than forty years.",
+    "primary": { "label": "Start a conversation", "href": "/contact" },
+    "secondary": { "label": "Explore capabilities", "href": "/capabilities" },
+    "videoUrl": "",
+    "posterUrl": ""
+  },
+  "manifesto": {
+    "title": "We make the things that make |moments| — the wrap, the box, the toy, the costume — for the retailers the world trusts with its celebrations.",
+    "body": "Sansico Group is an Indonesian design and manufacturing group supplying global retail for over four decades: certified at every step, dual-sourced for resilience, and built on the belief that the objects of joy should never cost the planet."
+  },
+  "stats": [
+    { "value": 40, "suffix": "+", "label": "Years in Indonesia" },
+    { "value": 30, "suffix": "+", "label": "Years US retail experience" },
+    { "value": 10, "suffix": "", "label": "Facilities, Indonesia & China" },
+    { "value": 25, "suffix": "+", "label": "Global retail customers" }
+  ],
+  "customers": ["Target", "Walmart", "Hallmark", "Mattel", "Costco", "Hasbro", "Michaels", "American Greetings", "Zara Home", "Kroger", "CVS", "Funko", "Spin Master", "Danone", "Glico", "Otsuka", "Kalbe", "TJX"],
+  "featuredWork": "fsc-rattan-nest"
+}

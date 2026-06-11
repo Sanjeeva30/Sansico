@@ -1,0 +1,42 @@
+{
+  "title": "Proof, not promises",
+  "intro": "Selected programmes with the numbers that matter. Every figure published here is verified with the customer concerned.",
+  "items": [
+    {
+      "slug": "fsc-rattan-nest",
+      "kicker": "FSC rattan & NEST — with Target",
+      "title": "From Indonesian villages to American homes",
+      "quote": "A fully certified rattan supply chain that pays artisans fairly and regenerates what it takes.",
+      "body": "Launched in 2022 and operational since 2024, Sansico's integrated FSC rattan supply chain connects smallholder harvesters and village artisan groups to US retail through a single certified chain of custody. Developed in partnership with Target under the NEST handworker standard, the programme targets emission reduction, rural livelihoods and full material traceability — turning a traditional craft into a verified, repeatable export supply chain.",
+      "stats": [
+        { "value": "FSC", "label": "Certified chain of custody" },
+        { "value": "2024", "label": "Operational since" },
+        { "value": "NEST", "label": "Handworker standard, with Target" }
+      ]
+    },
+    {
+      "slug": "mattel-printec-rolling-forecast",
+      "kicker": "Toy packaging — Mattel at Printec",
+      "title": "A rolling forecast that keeps toy shelves full",
+      "quote": "Planning discipline turned a volatile category into a dependable supply line.",
+      "body": "At PT Printec Perkasa, Sansico runs Mattel toy-packaging programmes on a rolling-forecast model: demand signals flow into materials planning and capacity allocation across batch cycles, with live-linked delivery tracking shared between the factory floor and the customer. The result is a packaging supply line that absorbs seasonal volatility without expediting costs or stockouts.",
+      "stats": [
+        { "value": "Rolling", "label": "Forecast-driven planning model" },
+        { "value": "Live", "label": "Shared delivery dashboards" },
+        { "value": "Dual", "label": "Sourced board supply for resilience" }
+      ]
+    },
+    {
+      "slug": "us-retail-seasonal-programmes",
+      "kicker": "Gifting & seasonal — US mass retail",
+      "title": "Four decades inside America's seasonal calendar",
+      "quote": "Christmas does not move. Neither do our delivery dates.",
+      "body": "For more than thirty years Sansico has produced gifting, card and seasonal programmes for Target, Walmart, Hallmark and US mass retail — engineering production across ten facilities to hit immovable seasonal windows, with C-TPAT/SCAN-audited supply-chain security and bonded-zone logistics keeping goods moving from Java to US distribution centres.",
+      "stats": [
+        { "value": "30+", "label": "Years in US retail programmes" },
+        { "value": "C-TPAT", "label": "SCAN-audited security" },
+        { "value": "10", "label": "Facilities orchestrated" }
+      ]
+    }
+  ]
+}
