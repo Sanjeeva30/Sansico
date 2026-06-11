@@ -7,17 +7,20 @@ import { getProducts, getProduct } from "@/lib/content";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  const d = await getProducts(); return d.items.map((p) => ({ slug: p.slug }));
+  const d = await getProducts();
+  return (d?.items || []).map((p) => ({ slug: p.slug }));
 }
 export async function generateMetadata({ params }) {
   const p = await getProduct(params.slug);
   if (!p) return {};
-  return { title: `${p.title} — Made in Indonesia to Specification`, description: p.body.slice(0, 155) };
+  return { title: `${p.title} — Made in Indonesia to Specification`, description: p.body?.slice(0, 155) };
 }
 
 export default async function ProductPage({ params }) {
   const p = await getProduct(params.slug);
   if (!p) notFound();
+  const specs = p?.specs || [];
+  const facilities = p?.facilities || [];
   return (
     <>
       <Reveal />
@@ -35,13 +38,13 @@ export default async function ProductPage({ params }) {
             <div className="card" style={{ marginBottom: 18 }}>
               <span className="kicker">Specification guidance</span>
               <ul className="points" style={{ marginTop: 14 }}>
-                {p.specs.map((s) => <li key={s}>{s}</li>)}
+                {specs.map((s) => <li key={s}>{s}</li>)}
               </ul>
             </div>
             <div className="card">
               <span className="kicker">Produced at</span>
               <ul style={{ marginTop: 8 }}>
-                {p.facilities.map((f) => (
+                {facilities.map((f) => (
                   <li key={f} style={{ padding: "8px 0", borderBottom: "1px solid var(--hair)", fontWeight: 600, fontSize: 14.5 }}>{f}</li>
                 ))}
               </ul>
