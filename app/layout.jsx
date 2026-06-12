@@ -38,8 +38,8 @@ const orgJsonLd = {
   sameAs: ["https://www.linkedin.com/company/sansico"]
 };
 
-export default function RootLayout({ children }) {
-  const site = getSite();
+export default async function RootLayout({ children }) {
+  const site = await getSite();
   return (
     <html lang="en" className={`${sans.variable} ${serif.variable}`}>
       <body>
