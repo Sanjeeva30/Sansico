@@ -1,3 +1,4 @@
+export const revalidate = 30;
 import PageHero from "@/components/PageHero";
 
 export const metadata = { title: "Privacy", description: "Sansico Group website privacy notice." };

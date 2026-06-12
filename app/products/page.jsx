@@ -1,3 +1,4 @@
+export const revalidate = 30;
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import CtaBand from "@/components/CtaBand";

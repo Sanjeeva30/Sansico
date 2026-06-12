@@ -1,3 +1,4 @@
+export const revalidate = 30;
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import Strip from "@/components/Strip";

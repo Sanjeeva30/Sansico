@@ -1,3 +1,4 @@
+export const revalidate = 30;
 import PageHero from "@/components/PageHero";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
