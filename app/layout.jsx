@@ -1,3 +1,4 @@
+export const revalidate = 30;
 import "./globals.css";
 import localFont from "next/font/local";
 import Header from "@/components/Header";
