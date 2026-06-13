@@ -6,7 +6,7 @@ export default {
   fields: [
     orderRankField({ type: "certification" }),
     { name: "visible",  title: "Visible on site",  type: "boolean", initialValue: true },
-    { name: "name",     title: "Certification name", type: "string" },
+    { name: "name",     title: "Certification name", type: "string", validation: R => R.required() },
     { name: "category", type: "string",
       options: { list: ["Forestry","Food Safety","Quality & Testing","Supply Chain Security","Environmental","Social"] } },
     { name: "logo",     title: "Certification body logo / seal", type: "image",

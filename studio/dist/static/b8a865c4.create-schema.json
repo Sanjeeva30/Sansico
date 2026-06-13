@@ -1,0 +1,1474 @@
+[
+  {
+    "fields": [
+      {
+        "options": {
+          "accept": "image/svg+xml,image/png,image/webp"
+        },
+        "description": "SVG or transparent PNG — replaces the text wordmark when set.",
+        "name": "logo",
+        "type": "image",
+        "title": "Brand logo"
+      },
+      {
+        "name": "tagline",
+        "type": "string"
+      },
+      {
+        "name": "mission",
+        "type": "text",
+        "title": "Mission statement (footer)"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Sans-serif (current)",
+              "value": "sans"
+            },
+            {
+              "title": "Serif",
+              "value": "serif"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "sans",
+        "name": "headingFont",
+        "type": "string",
+        "title": "Heading font"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Small",
+              "value": "sm"
+            },
+            {
+              "title": "Medium (current)",
+              "value": "md"
+            },
+            {
+              "title": "Large",
+              "value": "lg"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "md",
+        "name": "bodySize",
+        "type": "string",
+        "title": "Body text size"
+      },
+      {
+        "description": "Pick a brand colour or enter a custom hex code.",
+        "name": "accentColour",
+        "type": "string",
+        "title": "Accent colour"
+      },
+      {
+        "of": [
+          {
+            "type": "navItem",
+            "title": "Navigation item"
+          }
+        ],
+        "name": "nav",
+        "type": "array",
+        "title": "Header navigation"
+      },
+      {
+        "name": "ctaLabel",
+        "type": "string",
+        "title": "Header CTA label"
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "title": "Sales email"
+      },
+      {
+        "name": "whatsapp",
+        "type": "string",
+        "title": "WhatsApp number"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "label",
+                "type": "string"
+              },
+              {
+                "name": "display",
+                "type": "string"
+              },
+              {
+                "name": "tel",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "phones",
+        "type": "array",
+        "title": "Phone numbers"
+      }
+    ],
+    "name": "siteSettings",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "label",
+        "type": "string"
+      },
+      {
+        "name": "href",
+        "type": "string",
+        "title": "Link (e.g. /markets)"
+      }
+    ],
+    "name": "navItem",
+    "type": "object",
+    "title": "Navigation item"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Home",
+              "value": "home"
+            },
+            {
+              "title": "Capabilities",
+              "value": "capabilities"
+            },
+            {
+              "title": "Markets",
+              "value": "markets"
+            },
+            {
+              "title": "Products",
+              "value": "products"
+            },
+            {
+              "title": "Work / Case Studies",
+              "value": "work"
+            },
+            {
+              "title": "Sustainability",
+              "value": "sustainability"
+            },
+            {
+              "title": "Company",
+              "value": "company"
+            },
+            {
+              "title": "Careers",
+              "value": "careers"
+            },
+            {
+              "title": "Contact",
+              "value": "contact"
+            },
+            {
+              "title": "Team",
+              "value": "team"
+            },
+            {
+              "title": "News & Press",
+              "value": "news"
+            }
+          ]
+        },
+        "readOnly": true,
+        "name": "pageId",
+        "type": "string",
+        "title": "Page"
+      },
+      {
+        "readOnly": true,
+        "name": "label",
+        "type": "string",
+        "title": "Page name"
+      },
+      {
+        "initialValue": true,
+        "description": "Off = nav link disappears and page returns 404",
+        "name": "visible",
+        "type": "boolean"
+      },
+      {
+        "name": "navLabel",
+        "type": "string",
+        "title": "Nav label override (leave blank to use page name)"
+      },
+      {
+        "description": "Overrides the default. Keep under 60 characters.",
+        "name": "seoTitle",
+        "type": "string",
+        "title": "SEO title"
+      },
+      {
+        "rows": 3,
+        "description": "Overrides the default. Keep under 155 characters.",
+        "name": "seoDescription",
+        "type": "text",
+        "title": "SEO description"
+      },
+      {
+        "description": "1200×630px recommended. Overrides the default.",
+        "name": "seoImage",
+        "type": "image",
+        "title": "Social share image (OG image)"
+      }
+    ],
+    "name": "pageSettings",
+    "type": "document",
+    "title": "Pages"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "list": [
+            "ink",
+            "image",
+            "video"
+          ],
+          "layout": "radio"
+        },
+        "name": "heroType",
+        "type": "string",
+        "title": "Hero type"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "heroVideo",
+        "type": "url",
+        "title": "Hero video URL"
+      },
+      {
+        "hidden": "conditional",
+        "name": "heroPoster",
+        "type": "image",
+        "title": "Hero poster"
+      },
+      {
+        "name": "heroEyebrow",
+        "type": "string",
+        "title": "Hero eyebrow"
+      },
+      {
+        "name": "heroTitle",
+        "type": "string",
+        "title": "Hero title (italic word in |pipes|)"
+      },
+      {
+        "name": "heroSub",
+        "type": "text",
+        "title": "Hero subline"
+      },
+      {
+        "name": "manifestoTitle",
+        "type": "text",
+        "title": "Manifesto title (accent in |pipes|)"
+      },
+      {
+        "name": "manifestoBody",
+        "type": "text",
+        "title": "Manifesto body"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "value",
+                "type": "number",
+                "title": "Number"
+              },
+              {
+                "name": "suffix",
+                "type": "string",
+                "title": "Suffix (+, %, blank)"
+              },
+              {
+                "name": "label",
+                "type": "string"
+              },
+              {
+                "name": "bgColor",
+                "type": "string",
+                "title": "Background colour"
+              },
+              {
+                "name": "textColor",
+                "type": "string",
+                "title": "Text colour"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "stats",
+        "type": "array",
+        "title": "Animated stats"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "name",
+                "type": "string",
+                "title": "Customer name"
+              },
+              {
+                "options": {
+                  "accept": "image/svg+xml,image/png,image/webp"
+                },
+                "name": "logo",
+                "type": "image",
+                "title": "Logo (transparent SVG/PNG)"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "customers",
+        "type": "array",
+        "title": "Customer wall"
+      },
+      {
+        "to": [
+          {
+            "type": "caseStudy"
+          }
+        ],
+        "name": "featuredWork",
+        "type": "reference",
+        "title": "Featured case study"
+      }
+    ],
+    "name": "homePage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "name": "intro",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "name": "body",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "values",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "name": "location",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "text"
+              },
+              {
+                "name": "applyEmail",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "openRoles",
+        "type": "array",
+        "title": "Open roles (HR adds here)"
+      }
+    ],
+    "name": "careersPage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "readOnly": true,
+        "hidden": true,
+        "name": "orderRank",
+        "type": "string"
+      },
+      {
+        "initialValue": true,
+        "name": "visible",
+        "type": "boolean",
+        "title": "Visible on site"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "name": "num",
+        "type": "string",
+        "title": "Eyebrow (DESIGN / MAKE / DELIVER)"
+      },
+      {
+        "rows": 2,
+        "name": "summary",
+        "type": "text",
+        "title": "One-line summary"
+      },
+      {
+        "name": "colorTheme",
+        "type": "string",
+        "title": "Colour theme"
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "title": "Body (plain text)"
+      },
+      {
+        "of": [
+          {
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ],
+                          "level": "error"
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Bold"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                }
+              ]
+            },
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "of": [],
+            "type": "block"
+          }
+        ],
+        "name": "richBody",
+        "type": "array",
+        "title": "Rich body (overrides plain)"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "points",
+        "type": "array",
+        "title": "Bullet points"
+      },
+      {
+        "name": "image",
+        "type": "image",
+        "title": "Primary image"
+      },
+      {
+        "of": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "caption",
+                "type": "string"
+              }
+            ],
+            "type": "image"
+          }
+        ],
+        "name": "gallery",
+        "type": "array",
+        "title": "Image gallery"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "rows": 2,
+                "name": "description",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "subServices",
+        "type": "array",
+        "title": "Sub-services"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "value",
+                "type": "string",
+                "title": "Stat (e.g. 40+)"
+              },
+              {
+                "name": "label",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "proofPoints",
+        "type": "array",
+        "title": "Proof points / stats"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "options": {
+                  "accept": "image/svg+xml,image/png,image/webp"
+                },
+                "name": "logo",
+                "type": "image"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "customerLogos",
+        "type": "array",
+        "title": "Customer logos"
+      }
+    ],
+    "name": "capability",
+    "type": "document",
+    "title": "Capabilities"
+  },
+  {
+    "fields": [
+      {
+        "readOnly": true,
+        "hidden": true,
+        "name": "orderRank",
+        "type": "string"
+      },
+      {
+        "initialValue": true,
+        "description": "Off = hidden from nav and returns 404",
+        "name": "visible",
+        "type": "boolean",
+        "title": "Visible on site"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "title": "Accent colour"
+      },
+      {
+        "name": "tag",
+        "type": "string",
+        "title": "One-line tag"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "proof",
+        "type": "text",
+        "title": "Proof line"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image",
+        "title": "Hero image"
+      }
+    ],
+    "name": "market",
+    "type": "document",
+    "title": "Markets"
+  },
+  {
+    "fields": [
+      {
+        "readOnly": true,
+        "hidden": true,
+        "name": "orderRank",
+        "type": "string"
+      },
+      {
+        "initialValue": true,
+        "name": "visible",
+        "type": "boolean",
+        "title": "Visible on site"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "title": "Category name"
+      },
+      {
+        "options": {
+          "source": "name"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "rows": 3,
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "coverImage",
+        "type": "image",
+        "title": "Cover image"
+      }
+    ],
+    "name": "productCategory",
+    "type": "document",
+    "title": "Product Categories"
+  },
+  {
+    "fields": [
+      {
+        "readOnly": true,
+        "hidden": true,
+        "name": "orderRank",
+        "type": "string"
+      },
+      {
+        "initialValue": true,
+        "name": "visible",
+        "type": "boolean",
+        "title": "Visible on site"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "title": "Product name"
+      },
+      {
+        "options": {
+          "source": "name"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "to": [
+          {
+            "type": "productCategory"
+          }
+        ],
+        "name": "category",
+        "type": "reference"
+      },
+      {
+        "rows": 4,
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "description": "First photo is the thumbnail. Add multiple for a gallery.",
+        "of": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "caption",
+                "type": "string"
+              }
+            ],
+            "type": "image"
+          }
+        ],
+        "name": "photos",
+        "type": "array",
+        "title": "Product photos"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "label",
+                "type": "string",
+                "title": "Label (e.g. Material)"
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "title": "Value (e.g. 300gsm C1S)"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "specs",
+        "type": "array",
+        "title": "Specifications"
+      },
+      {
+        "name": "moq",
+        "type": "string",
+        "title": "Minimum order quantity"
+      }
+    ],
+    "name": "productItem",
+    "type": "document",
+    "title": "Products"
+  },
+  {
+    "fields": [
+      {
+        "readOnly": true,
+        "hidden": true,
+        "name": "orderRank",
+        "type": "string"
+      },
+      {
+        "initialValue": true,
+        "name": "visible",
+        "type": "boolean",
+        "title": "Visible on site"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "name": "kicker",
+        "type": "string",
+        "title": "Kicker (customer / programme)"
+      },
+      {
+        "options": {
+          "accept": "image/svg+xml,image/png,image/webp"
+        },
+        "name": "clientLogo",
+        "type": "image",
+        "title": "Client logo (transparent PNG/SVG)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Links to client website or press article — opens in new tab.",
+        "name": "externalUrl",
+        "type": "url",
+        "title": "External link (optional)"
+      },
+      {
+        "name": "quote",
+        "type": "text",
+        "title": "Pull quote"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "value",
+                "type": "string"
+              },
+              {
+                "name": "label",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "stats",
+        "type": "array"
+      },
+      {
+        "name": "image",
+        "type": "image",
+        "title": "Hero image"
+      },
+      {
+        "name": "publishedAt",
+        "type": "datetime",
+        "title": "Published"
+      }
+    ],
+    "name": "caseStudy",
+    "type": "document",
+    "title": "Case Studies"
+  },
+  {
+    "fields": [
+      {
+        "readOnly": true,
+        "hidden": true,
+        "name": "orderRank",
+        "type": "string"
+      },
+      {
+        "initialValue": true,
+        "name": "visible",
+        "type": "boolean",
+        "title": "Visible on site"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "title": "Certification name"
+      },
+      {
+        "options": {
+          "list": [
+            "Forestry",
+            "Food Safety",
+            "Quality & Testing",
+            "Supply Chain Security",
+            "Environmental",
+            "Social"
+          ]
+        },
+        "name": "category",
+        "type": "string"
+      },
+      {
+        "options": {
+          "accept": "image/svg+xml,image/png,image/webp"
+        },
+        "name": "logo",
+        "type": "image",
+        "title": "Certification body logo / seal"
+      },
+      {
+        "options": {
+          "accept": "application/pdf"
+        },
+        "name": "certificate",
+        "type": "file",
+        "title": "Certificate document (PDF)"
+      },
+      {
+        "name": "scope",
+        "type": "text"
+      },
+      {
+        "name": "entity",
+        "type": "string",
+        "title": "Holding entity"
+      },
+      {
+        "name": "issued",
+        "type": "date",
+        "title": "Issue date"
+      },
+      {
+        "name": "expires",
+        "type": "date",
+        "title": "Expiry date"
+      },
+      {
+        "name": "registration",
+        "type": "string",
+        "title": "Registration number"
+      }
+    ],
+    "name": "certification",
+    "type": "document",
+    "title": "Certifications"
+  },
+  {
+    "fields": [
+      {
+        "readOnly": true,
+        "hidden": true,
+        "name": "orderRank",
+        "type": "string"
+      },
+      {
+        "initialValue": true,
+        "name": "visible",
+        "type": "boolean",
+        "title": "Visible on site"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "city",
+        "type": "string"
+      },
+      {
+        "name": "address",
+        "type": "text"
+      },
+      {
+        "name": "focus",
+        "type": "string",
+        "title": "Production focus"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "photo",
+        "type": "image"
+      },
+      {
+        "name": "capacity",
+        "type": "text",
+        "title": "Capacity notes (optional)"
+      }
+    ],
+    "name": "facility",
+    "type": "document",
+    "title": "Facilities"
+  },
+  {
+    "fields": [
+      {
+        "readOnly": true,
+        "hidden": true,
+        "name": "orderRank",
+        "type": "string"
+      },
+      {
+        "initialValue": true,
+        "name": "visible",
+        "type": "boolean",
+        "title": "Visible on site"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "title": "Full name"
+      },
+      {
+        "name": "role",
+        "type": "string",
+        "title": "Job title / role"
+      },
+      {
+        "rows": 5,
+        "name": "bio",
+        "type": "text",
+        "title": "Biography"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "photo",
+        "type": "image"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "linkedin",
+        "type": "url",
+        "title": "LinkedIn URL"
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "title": "Email (optional)"
+      }
+    ],
+    "name": "person",
+    "type": "document",
+    "title": "Team"
+  },
+  {
+    "fields": [
+      {
+        "readOnly": true,
+        "hidden": true,
+        "name": "orderRank",
+        "type": "string"
+      },
+      {
+        "initialValue": true,
+        "name": "visible",
+        "type": "boolean",
+        "title": "Published / visible"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "title": "Headline"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "📝 Article (written on this site)",
+              "value": "article"
+            },
+            {
+              "title": "📰 Press mention (external article)",
+              "value": "press"
+            },
+            {
+              "title": "📱 Social post (external link)",
+              "value": "social"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "article",
+        "name": "postType",
+        "type": "string",
+        "title": "Type"
+      },
+      {
+        "name": "publishedAt",
+        "type": "datetime",
+        "title": "Published date"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "coverImage",
+        "type": "image",
+        "title": "Cover image"
+      },
+      {
+        "rows": 3,
+        "name": "excerpt",
+        "type": "text",
+        "title": "Excerpt / teaser"
+      },
+      {
+        "of": [
+          {
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ],
+                          "level": "error"
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Bold"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                }
+              ]
+            },
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "of": [],
+            "type": "block"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "caption",
+                "type": "string"
+              }
+            ],
+            "type": "image"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "body",
+        "type": "array",
+        "title": "Body (for articles)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Required for Press and Social types.",
+        "hidden": "conditional",
+        "name": "externalUrl",
+        "type": "url",
+        "title": "External URL"
+      },
+      {
+        "hidden": "conditional",
+        "name": "sourceLabel",
+        "type": "string",
+        "title": "Source (e.g. Reuters, LinkedIn)"
+      },
+      {
+        "to": [
+          {
+            "type": "person"
+          }
+        ],
+        "name": "author",
+        "type": "reference"
+      }
+    ],
+    "name": "newsPost",
+    "type": "document",
+    "title": "News & Press"
+  }
+]

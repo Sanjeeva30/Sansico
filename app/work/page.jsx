@@ -1,5 +1,6 @@
 export const revalidate = 30;
 import Link from "next/link";
+import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
@@ -28,8 +29,7 @@ export default async function Work() {
                 key={it.slug} target={it.externalUrl ? "_blank" : undefined}
                 rel={it.externalUrl ? "noopener" : undefined}>
                 {it.clientLogoUrl && (
-                  <img src={it.clientLogoUrl} alt={it.kicker}
-                    style={{ height:32, maxWidth:100, objectFit:"contain", marginBottom:14, filter:"grayscale(1)", opacity:0.7 }} />
+                  <Image src={it.clientLogoUrl} alt={it.kicker} width={100} height={32} style={{ objectFit: "contain" }} />
                 )}
                 <span className="kicker">{it.kicker}</span>
                 <h3>{it.title}</h3>

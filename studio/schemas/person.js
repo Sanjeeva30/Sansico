@@ -6,8 +6,8 @@ export default {
   fields: [
     orderRankField({ type: "person" }),
     { name: "visible",  title: "Visible on site", type: "boolean", initialValue: true },
-    { name: "name",     title: "Full name",        type: "string" },
-    { name: "role",     title: "Job title / role", type: "string" },
+    { name: "name",     title: "Full name",        type: "string", validation: R => R.required() },
+    { name: "role",     title: "Job title / role", type: "string", validation: R => R.required() },
     { name: "bio",      title: "Biography",        type: "text", rows: 5 },
     { name: "photo",    title: "Photo",            type: "image", options: { hotspot: true } },
     { name: "linkedin", title: "LinkedIn URL",     type: "url" },

@@ -1,5 +1,6 @@
 export const revalidate = 30;
 import Link from "next/link";
+import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
@@ -40,8 +41,9 @@ export default async function Products() {
           <div className="wrap rv">
             <div className="sec-head">
               {cat.coverUrl && (
-                <img src={cat.coverUrl} alt={cat.name}
-                  style={{ width:"100%", maxHeight:320, objectFit:"cover", borderRadius:8, marginBottom:32 }} />
+                <div style={{ position:"relative", width:"100%", height:320, overflow:"hidden", borderRadius:8, marginBottom:32 }}>
+  <Image src={cat.coverUrl} alt={cat.name} fill sizes="(max-width:768px) 100vw, 50vw" style={{ objectFit:"cover" }} />
+</div>
               )}
               <h2 className="kicker">{cat.name}</h2>
               {cat.description && <p className="lede" style={{ maxWidth:600 }}>{cat.description}</p>}
@@ -52,8 +54,9 @@ export default async function Products() {
                 {cat.products.map((p) => (
                   <Link key={p.slug} className="card" href={`/products/${p.slug}`}>
                     {p.thumbUrl && (
-                      <img src={p.thumbUrl} alt={p.name}
-                        style={{ width:"100%", aspectRatio:"4/3", objectFit:"cover", borderRadius:6, marginBottom:14 }} />
+                      <div style={{ position:"relative", width:"100%", aspectRatio:"4/3", overflow:"hidden", borderRadius:6, marginBottom:14 }}>
+  <Image src={p.thumbUrl} alt={p.name} fill sizes="(max-width:768px) 100vw, 50vw" style={{ objectFit:"cover" }} />
+</div>
                     )}
                     <h3 style={{ fontSize:16, margin:"0 0 8px" }}>{p.name}</h3>
                     {p.description && <p style={{ fontSize:14, margin:0, opacity:0.75 }}>{p.description.slice(0,90)}…</p>}

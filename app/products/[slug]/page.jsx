@@ -1,5 +1,6 @@
 export const revalidate = 30;
 import Link from "next/link";
+import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
@@ -33,8 +34,9 @@ export default async function ProductPage({ params }) {
                 gridTemplateColumns: p.photos.length === 1 ? "1fr" : "repeat(2,1fr)" }}>
                 {p.photos.map((ph, i) => (
                   <figure key={i} style={{ margin:0 }}>
-                    <img src={ph.url} alt={ph.caption || p.name}
-                      style={{ width:"100%", aspectRatio:"4/3", objectFit:"cover", borderRadius:6 }} />
+                    <div style={{ position:"relative", width:"100%", aspectRatio:"4/3", overflow:"hidden", borderRadius:6 }}>
+  <Image src={ph.url} alt={ph.caption || p.name} fill sizes="(max-width:768px) 100vw, 50vw" style={{ objectFit:"cover" }} />
+</div>
                     {ph.caption && (
                       <figcaption style={{ fontSize:12.5, marginTop:4, opacity:0.65 }}>{ph.caption}</figcaption>
                     )}

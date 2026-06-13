@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer({ site }) {
   return (
@@ -8,7 +9,7 @@ export default function Footer({ site }) {
           <div>
             <div className="f-logo">
               {site.logoUrl
-                ? <img src={site.logoUrl} alt="Sansico Group" style={{ height: 44, objectFit: "contain", marginBottom: 14 }} />
+                ? <Image src={site.logoUrl} alt={"Sansico Group"} width={120} height={44} style={{ objectFit: "contain" }} />
                 : <><span className="s1">S</span><span className="s2">A</span><span className="s3">N</span>
                     <span className="s4">S</span><span className="s5">I</span><span className="s6">C</span>
                     <span className="s7">O</span><em>Group</em></>

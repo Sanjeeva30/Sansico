@@ -1,5 +1,6 @@
 export const revalidate = 30;
 import Link from "next/link";
+import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
@@ -48,8 +49,9 @@ export default async function Company() {
               {c.facilities.map((f) => (
                 <div key={f.name} className="fac" style={{ flexDirection:"column" }}>
                   {f.photoUrl && (
-                    <img src={f.photoUrl} alt={f.name}
-                      style={{ width:"100%", aspectRatio:"16/9", objectFit:"cover", borderRadius:6, marginBottom:12 }} />
+                    <div style={{ position:"relative", width:"100%", aspectRatio:"16/9", overflow:"hidden", borderRadius:6, marginBottom:12 }}>
+  <Image src={f.photoUrl} alt={f.name} fill sizes="(max-width:768px) 100vw, 50vw" style={{ objectFit:"cover" }} />
+</div>
                   )}
                   <b>{f.name}</b>
                   <span>{f.city}</span>

@@ -6,11 +6,11 @@ export default {
   fields: [
     orderRankField({ type: "newsPost" }),
     { name: "visible",   title: "Published / visible", type: "boolean", initialValue: true },
-    { name: "title",     title: "Headline",   type: "string" },
-    { name: "slug",      type: "slug", options: { source: "title" } },
+    { name: "title",     title: "Headline",   type: "string", validation: R => R.required() },
+    { name: "slug",      type: "slug", options: { source: "title", validation: R => R.required() } },
     { name: "postType",  title: "Type", type: "string",
       options: { list: [
-        { title: "📝 Article (written on this site)", value: "article" },
+        { title: "📝 Article (written on this site)", value: "article", validation: R => R.required() },
         { title: "📰 Press mention (external article)", value: "press" },
         { title: "📱 Social post (external link)", value: "social" }
       ], layout: "radio" }, initialValue: "article"

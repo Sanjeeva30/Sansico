@@ -1,5 +1,6 @@
 export const revalidate = 30;
 import PageHero from "@/components/PageHero";
+import Image from "next/image";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 import Strip from "@/components/Strip";
@@ -38,8 +39,7 @@ export default async function Sustainability() {
                   <tr key={c.name}>
                     <td className="nm" style={{ display:"flex", alignItems:"center", gap:10 }}>
                       {c.logoUrl && (
-                        <img src={c.logoUrl} alt={c.name}
-                          style={{ height:28, width:28, objectFit:"contain", flexShrink:0 }} />
+                        <Image src={c.logoUrl} alt={c.name} width={28} height={28} style={{ objectFit: "contain" }} />
                       )}
                       {c.name}
                     </td>

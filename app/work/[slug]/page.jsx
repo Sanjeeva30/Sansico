@@ -1,5 +1,6 @@
 export const revalidate = 30;
 import PageHero from "@/components/PageHero";
+import Image from "next/image";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 import Arrow from "@/components/Arrow";
@@ -25,8 +26,7 @@ export default async function CasePage({ params }) {
       {c.clientLogoUrl && (
         <section className="sec" style={{ paddingBottom:0 }}>
           <div className="wrap rv">
-            <img src={c.clientLogoUrl} alt={c.kicker}
-              style={{ height:48, objectFit:"contain", filter:"grayscale(1)", opacity:0.6 }} />
+            <Image src={c.clientLogoUrl} alt={c.kicker} width={120} height={48} style={{ objectFit: "contain" }} />
           </div>
         </section>
       )}

@@ -1,5 +1,6 @@
 export const revalidate = 30;
 import Link from "next/link";
+import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
@@ -40,8 +41,9 @@ export default async function News() {
                     target={isExternal ? "_blank" : undefined}
                     rel={isExternal ? "noopener" : undefined}>
                     {p.coverUrl && (
-                      <img src={p.coverUrl} alt={p.title}
-                        style={{ width:"100%", aspectRatio:"16/9", objectFit:"cover", borderRadius:6, marginBottom:14 }} />
+                      <div style={{ position:"relative", width:"100%", aspectRatio:"16/9", overflow:"hidden", borderRadius:6, marginBottom:14 }}>
+  <Image src={p.coverUrl} alt={p.title} fill sizes="(max-width:768px) 100vw, 50vw" style={{ objectFit:"cover" }} />
+</div>
                     )}
                     <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:10 }}>
                       <span style={{ fontSize:11, fontWeight:700, textTransform:"uppercase", letterSpacing:"0.08em",

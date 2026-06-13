@@ -6,8 +6,8 @@ export default {
   fields: [
     orderRankField({ type: "productItem" }),
     { name: "visible",     title: "Visible on site", type: "boolean", initialValue: true },
-    { name: "name",        title: "Product name",    type: "string" },
-    { name: "slug",        type: "slug", options: { source: "name" } },
+    { name: "name",        title: "Product name",    type: "string", validation: R => R.required() },
+    { name: "slug",        type: "slug", options: { source: "name", validation: R => R.required() } },
     { name: "category",    title: "Category", type: "reference", to: [{ type: "productCategory" }] },
     { name: "description", title: "Description",     type: "text", rows: 4 },
     { name: "photos",      title: "Product photos",  type: "array",

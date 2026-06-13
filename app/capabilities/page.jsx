@@ -1,5 +1,6 @@
 export const revalidate = 30;
 import PageHero from "@/components/PageHero";
+import Image from "next/image";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 import Strip from "@/components/Strip";
@@ -46,8 +47,7 @@ export default async function Capabilities() {
           <div className="wrap rv">
             {/* Hero image */}
             {g.imageUrl && (
-              <img src={g.imageUrl} alt={g.title}
-                style={{ width: "100%", maxHeight: 420, objectFit: "cover", borderRadius: 8, marginBottom: 40 }} />
+              <Image src={g.imageUrl} alt={g.title} width={120} height={420} style={{ objectFit: "contain" }} />
             )}
 
             <div className="split">
@@ -101,8 +101,7 @@ export default async function Capabilities() {
                   {g.customerLogos.map((c) => (
                     <div key={c.name} title={c.name}>
                       {c.logoUrl
-                        ? <img src={c.logoUrl} alt={c.name}
-                            style={{ maxHeight: 36, maxWidth: 110, objectFit: "contain", filter: "grayscale(1)", opacity: 0.7 }} />
+                        ? <Image src={c.logoUrl} alt={c.name} width={110} height={36} style={{ objectFit: "contain" }} />
                         : <span>{c.name}</span>
                       }
                     </div>
@@ -116,8 +115,9 @@ export default async function Capabilities() {
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(220px,1fr))", gap: 14, marginTop: 40 }}>
                 {g.gallery.map((img, idx) => (
                   <figure key={idx} style={{ margin: 0 }}>
-                    <img src={img.url} alt={img.caption || g.title}
-                      style={{ width: "100%", aspectRatio: "4/3", objectFit: "cover", borderRadius: 6 }} />
+                    <div style={{ position:"relative", width:"100%", aspectRatio:"4/3", overflow:"hidden", borderRadius:6 }}>
+  <Image src={img.url} alt={img.caption || g.title} fill sizes="(max-width:768px) 100vw, 50vw" style={{ objectFit:"cover" }} />
+</div>
                     {img.caption && <figcaption style={{ fontSize: 12.5, marginTop: 6, opacity: 0.7 }}>{img.caption}</figcaption>}
                   </figure>
                 ))}
@@ -138,8 +138,9 @@ export default async function Capabilities() {
             {caps.facilities.map((f, i) => (
               <div className="fac" key={f.name}>
                 {f.photoUrl
-                  ? <img src={f.photoUrl} alt={f.name}
-                      style={{ width: "100%", aspectRatio: "16/9", objectFit: "cover", borderRadius: 6, marginBottom: 10 }} />
+                  ? <div style={{ position:"relative", width:"100%", aspectRatio:"16/9", overflow:"hidden", borderRadius:6, marginBottom:10 }}>
+  <Image src={f.photoUrl} alt={f.name} fill sizes="(max-width:768px) 100vw, 50vw" style={{ objectFit:"cover" }} />
+</div>
                   : <span className="mark" style={{ background: colors[i] }}>{marks[i]}</span>
                 }
                 <div>

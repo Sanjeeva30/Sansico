@@ -1,5 +1,6 @@
 export const revalidate = 30;
 import Link from "next/link";
+import Image from "next/image";
 import Hero from "@/components/Hero";
 import Strip from "@/components/Strip";
 import CountStats from "@/components/CountStats";
@@ -44,7 +45,7 @@ export default async function Home() {
               return (
                 <div role="listitem" key={name} title={name}>
                   {logoUrl
-                    ? <img src={logoUrl} alt={name} loading="lazy" style={{ maxHeight: 40, maxWidth: 120, objectFit: "contain", filter: "grayscale(1)", opacity: 0.7 }} />
+                    ? <Image src={logoUrl} alt={name} width={120} height={40} style={{ objectFit: "contain", filter: "grayscale(1)", opacity: 0.7 }} />
                     : <span>{name}</span>
                   }
                 </div>

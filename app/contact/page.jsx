@@ -2,42 +2,47 @@ export const revalidate = 30;
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import RfqForm from "@/components/RfqForm";
-import { getSite, getProducts } from "@/lib/content";
+import { getSite, getProductCategories, getPageSettings, getPageSeo } from "@/lib/content";
+import { notFound } from "next/navigation";
 
-export const metadata = {
-  title: "Contact — Request a Quotation",
-  description: "Start a conversation with Sansico Group: request a quotation, email sales@sansico.com, or call our Jakarta and Foshan marketing offices."
-};
+export async function generateMetadata() {
+  return getPageSeo("contact", {
+    title: "Contact — Request a Quotation",
+    description: "Start a conversation with Sansico Group: request a quotation, email sales@sansico.com, or call our Jakarta and Foshan marketing offices."
+  });
+}
 
 export default async function Contact() {
-  const site = await getSite();
-  const products = await getProducts();
+  const [site, cats, settings] = await Promise.all([getSite(), getProductCategories(), getPageSettings("contact")]);
+  if (!settings.visible) notFound();
+  const categoryNames = cats.map(c => c.name).filter(Boolean);
   return (
     <>
       <Reveal />
-      <PageHero kicker="Contact" title="Tell us what you're making" intro="Category, target market, estimated volumes and timeline — our marketing offices in Jakarta and Foshan respond within one business day." />
+      <PageHero kicker="Contact" title="Tell us what you're making"
+        intro="Category, target market, estimated volumes and timeline — our marketing offices in Jakarta and Foshan respond within one business day." />
       <section className="sec">
         <div className="wrap split rv">
           <div>
-            <h2 className="kicker" style={{ marginBottom: 24 }}>Request a quotation</h2>
-            <RfqForm categories={products.items.map((p) => p.title)} email={site.contact.email} />
+            <h2 className="kicker" style={{ marginBottom:24 }}>Request a quotation</h2>
+            <RfqForm categories={categoryNames} email={site.contact.email} />
           </div>
           <div>
-            <h2 className="kicker" style={{ marginBottom: 24 }}>Reach us directly</h2>
-            <div className="card" style={{ marginBottom: 16 }}>
+            <h2 className="kicker" style={{ marginBottom:24 }}>Reach us directly</h2>
+            <div className="card" style={{ marginBottom:16 }}>
               <span className="kicker">Email</span>
-              <p style={{ fontSize: 17, fontWeight: 600, color: "var(--ink)" }}><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></p>
+              <p style={{ fontSize:17, fontWeight:600, color:"var(--ink)" }}>
+                <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+              </p>
             </div>
             {site.contact.phones.map((p) => (
-              <div className="card" style={{ marginBottom: 16 }} key={p.tel}>
+              <div className="card" style={{ marginBottom:16 }} key={p.tel}>
                 <span className="kicker">{p.label}</span>
-                <p style={{ fontSize: 17, fontWeight: 600, color: "var(--ink)" }}><a href={`tel:${p.tel}`}>{p.display}</a></p>
+                <p style={{ fontSize:17, fontWeight:600, color:"var(--ink)" }}>
+                  <a href={`tel:${p.tel}`}>{p.display}</a>
+                </p>
               </div>
             ))}
-            <div className="card">
-              <span className="kicker">WhatsApp Business</span>
-              <p>Coming online shortly — use email or phone in the meantime.</p>
-            </div>
           </div>
         </div>
       </section>

@@ -6,9 +6,9 @@ export default {
   fields: [
     orderRankField({ type: "caseStudy" }),
     { name: "visible",     title: "Visible on site",    type: "boolean", initialValue: true },
-    { name: "title",       type: "string" },
-    { name: "slug",        type: "slug", options: { source: "title" } },
-    { name: "kicker",      title: "Kicker (customer / programme)", type: "string" },
+    { name: "title",       type: "string", validation: R => R.required() },
+    { name: "slug",        type: "slug", options: { source: "title", validation: R => R.required() } },
+    { name: "kicker",      title: "Kicker (customer / programme)", type: "string", validation: R => R.required() },
     { name: "clientLogo",  title: "Client logo (transparent PNG/SVG)", type: "image",
       options: { accept: "image/svg+xml,image/png,image/webp" } },
     { name: "externalUrl", title: "External link (optional)", type: "url",

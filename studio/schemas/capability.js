@@ -7,9 +7,9 @@ export default {
   fields: [
     orderRankField({ type: "capability" }),
     { name: "visible", title: "Visible on site", type: "boolean", initialValue: true },
-    { name: "title",   type: "string" },
-    { name: "slug",    type: "slug", options: { source: "title" } },
-    { name: "num",     title: "Eyebrow (DESIGN / MAKE / DELIVER)", type: "string" },
+    { name: "title",   type: "string", validation: R => R.required() },
+    { name: "slug",    type: "slug", options: { source: "title", validation: R => R.required() } },
+    { name: "num",     title: "Eyebrow (DESIGN / MAKE / DELIVER)", type: "string", validation: R => R.required() },
     { name: "summary", title: "One-line summary", type: "text", rows: 2 },
     { name: "colorTheme", title: "Colour theme", type: "string", components: { input: ColourPicker } },
     { name: "body",    title: "Body (plain text)", type: "text" },

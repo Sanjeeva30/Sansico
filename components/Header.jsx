@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -18,7 +19,7 @@ export default function Header({ site }) {
   useEffect(() => { setOpen(false); }, [path]);
 
   const Logo = () => site.logoUrl
-    ? <img src={site.logoUrl} alt="Sansico Group" style={{ height: 36, maxWidth: 160, objectFit: "contain" }} />
+    ? <Image src={site.logoUrl} alt={"Sansico Group"} width={160} height={36} style={{ objectFit: "contain" }} />
     : <><span>SANSICO</span> <em>Group</em></>;
 
   return (

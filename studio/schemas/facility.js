@@ -6,8 +6,8 @@ export default {
   fields: [
     orderRankField({ type: "facility" }),
     { name: "visible",  title: "Visible on site", type: "boolean", initialValue: true },
-    { name: "name",     type: "string" },
-    { name: "city",     type: "string" },
+    { name: "name",     type: "string", validation: R => R.required() },
+    { name: "city",     type: "string", validation: R => R.required() },
     { name: "address",  type: "text" },
     { name: "focus",    title: "Production focus", type: "string" },
     { name: "photo",    type: "image", options: { hotspot: true } },

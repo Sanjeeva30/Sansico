@@ -1,5 +1,6 @@
 export const revalidate = 30;
 import PageHero from "@/components/PageHero";
+import Image from "next/image";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 import { getNews, getNewsPost } from "@/lib/content";
@@ -24,7 +25,9 @@ function RichBlocks({ blocks }) {
     if (b.style === "blockquote") return <blockquote key={i}>{text}</blockquote>;
     if (b._type === "image") return (
       <figure key={i} style={{ margin:"32px 0" }}>
-        <img src={b.asset?.url} alt={b.caption || ""} style={{ width:"100%", borderRadius:6 }} />
+        <div style={{ position:"relative", width:"100%", aspectRatio:"16/9", overflow:"hidden", borderRadius:6 }}>
+  <Image src={b.asset?.url} alt={b.caption || ""} fill sizes="(max-width:768px) 100vw, 50vw" style={{ objectFit:"cover" }} />
+</div>
         {b.caption && <figcaption style={{ fontSize:13, marginTop:8, opacity:0.6 }}>{b.caption}</figcaption>}
       </figure>
     );
@@ -49,8 +52,9 @@ export default async function NewsPostPage({ params }) {
       {p.coverUrl && (
         <section className="sec" style={{ paddingBottom:0 }}>
           <div className="wrap rv">
-            <img src={p.coverUrl} alt={p.title}
-              style={{ width:"100%", maxHeight:480, objectFit:"cover", borderRadius:8 }} />
+            <div style={{ position:"relative", width:"100%", height:480, overflow:"hidden", borderRadius:8 }}>
+  <Image src={p.coverUrl} alt={p.title} fill sizes="(max-width:768px) 100vw, 50vw" style={{ objectFit:"cover" }} />
+</div>
           </div>
         </section>
       )}
@@ -60,8 +64,7 @@ export default async function NewsPostPage({ params }) {
             {p.author?.name && (
               <span style={{ display:"flex", alignItems:"center", gap:8 }}>
                 {p.author.photoUrl && (
-                  <img src={p.author.photoUrl} alt={p.author.name}
-                    style={{ width:28, height:28, borderRadius:"50%", objectFit:"cover" }} />
+                  <Image src={p.author.photoUrl} alt={p.author.name} width={28} height={28} style={{ objectFit: "contain" }} />
                 )}
                 {p.author.name}
               </span>

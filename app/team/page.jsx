@@ -1,5 +1,6 @@
 export const revalidate = 30;
 import PageHero from "@/components/PageHero";
+import Image from "next/image";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 import { getTeam, getPageSettings, getPageSeo } from "@/lib/content";
@@ -26,8 +27,9 @@ export default async function Team() {
               {team.map((p) => (
                 <div key={p.name} style={{ display:"flex", flexDirection:"column", gap:14 }}>
                   {p.photoUrl ? (
-                    <img src={p.photoUrl} alt={p.name}
-                      style={{ width:"100%", aspectRatio:"1/1", objectFit:"cover", borderRadius:8 }} />
+                    <div style={{ position:"relative", width:"100%", aspectRatio:"1/1", overflow:"hidden", borderRadius:8 }}>
+  <Image src={p.photoUrl} alt={p.name} fill sizes="(max-width:768px) 100vw, 50vw" style={{ objectFit:"cover" }} />
+</div>
                   ) : (
                     <div style={{ width:"100%", aspectRatio:"1/1", background:"var(--hair)", borderRadius:8,
                       display:"flex", alignItems:"center", justifyContent:"center",
