@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 
 export default function Header({ site }) {
   const [solid, setSolid] = useState(false);
-  const [open, setOpen] = useState(false);
-  const path = usePathname();
+  const [open, setOpen]   = useState(false);
+  const path   = usePathname();
   const onHome = path === "/";
 
   useEffect(() => {
@@ -15,20 +15,28 @@ export default function Header({ site }) {
     addEventListener("scroll", onScroll, { passive: true });
     return () => removeEventListener("scroll", onScroll);
   }, [onHome]);
-
   useEffect(() => { setOpen(false); }, [path]);
 
+  const Logo = () => site.logoUrl
+    ? <img src={site.logoUrl} alt="Sansico Group" style={{ height: 36, maxWidth: 160, objectFit: "contain" }} />
+    : <><span>SANSICO</span> <em>Group</em></>;
+
   return (
-    <header className={`hd ${solid || open ? "solid" : ""}`} style={!onHome && !solid && !open ? { background: "rgba(16,12,10,.35)", backdropFilter: "blur(6px)" } : undefined}>
+    <header className={`hd ${solid || open ? "solid" : ""}`}
+      style={!onHome && !solid && !open ? { background: "rgba(16,12,10,.35)", backdropFilter: "blur(6px)" } : undefined}>
       <div className="wrap bar">
-        <Link className="logo" href="/">SANSICO <em>Group</em></Link>
+        <Link className="logo" href="/"><Logo /></Link>
         <nav className="nav-main" aria-label="Primary">
           {site.nav.map((n) => (
-            <Link key={n.href} href={n.href} aria-current={path.startsWith(n.href) ? "page" : undefined}>{n.label}</Link>
+            <Link key={n.href} href={n.href} aria-current={path.startsWith(n.href) ? "page" : undefined}>
+              {n.label}
+            </Link>
           ))}
           <Link className="nav-cta" href={site.cta.href}>{site.cta.label}</Link>
         </nav>
-        <button className="menu-btn" aria-expanded={open} aria-label="Toggle menu" onClick={() => setOpen(!open)}>{open ? "Close" : "Menu"}</button>
+        <button className="menu-btn" aria-expanded={open} aria-label="Toggle menu" onClick={() => setOpen(!open)}>
+          {open ? "Close" : "Menu"}
+        </button>
       </div>
       <nav className={`mobile-nav ${open ? "open" : ""}`} aria-label="Mobile">
         {site.nav.map((n) => <Link key={n.href} href={n.href}>{n.label}</Link>)}

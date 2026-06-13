@@ -37,9 +37,24 @@ export default {
       ], layout: "radio" },
       initialValue: "md"
     },
-    {
-      name: "accentColour", title: "Accent colour", type: "string",
-      options: { list: PALETTE },
+    { name: "accentColour", title: "Accent colour", type: "color", options: { disableAlpha: true, colorList: [
+  { label: "Crimson",   value: { hex: "#7A0D20" } },
+  { label: "Navy",      value: { hex: "#22409E" } },
+  { label: "Green",     value: { hex: "#0D4F31" } },
+  { label: "Red",       value: { hex: "#F3263E" } },
+  { label: "Citrus",    value: { hex: "#BDDA5F" } },
+  { label: "Black",     value: { hex: "#1A1A1A" } },
+  { label: "White",     value: { hex: "#FFFFFF" } },
+  { label: "Off-white", value: { hex: "#F5F0E8" } },
+] } } },
+  { label: "Navy",      value: { hex: "#22409E" } },
+  { label: "Green",     value: { hex: "#0D4F31" } },
+  { label: "Red",       value: { hex: "#F3263E" } },
+  { label: "Citrus",    value: { hex: "#BDDA5F" } },
+  { label: "Black",     value: { hex: "#1A1A1A" } },
+  { label: "White",     value: { hex: "#FFFFFF" } },
+  { label: "Off-white", value: { hex: "#F5F0E8" } },
+] } },
       description: "Used for highlights, active states and key UI elements.",
       initialValue: "#7A0D20"
     },

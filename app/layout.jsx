@@ -7,17 +7,14 @@ import { getSite } from "@/lib/content";
 
 const sans = localFont({
   src: "./fonts/Archivo-Variable.ttf",
-  variable: "--font-sans",
-  weight: "100 900",
-  display: "swap"
+  variable: "--font-sans", weight: "100 900", display: "swap"
 });
 const serif = localFont({
   src: [
     { path: "./fonts/InstrumentSerif-Regular.ttf", weight: "400", style: "normal" },
-    { path: "./fonts/InstrumentSerif-Italic.ttf", weight: "400", style: "italic" }
+    { path: "./fonts/InstrumentSerif-Italic.ttf",  weight: "400", style: "italic" }
   ],
-  variable: "--font-serif",
-  display: "swap"
+  variable: "--font-serif", display: "swap"
 });
 
 export const metadata = {
@@ -28,22 +25,25 @@ export const metadata = {
 };
 
 const orgJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Sansico Group",
-  url: "https://www.sansico.com",
+  "@context": "https://schema.org", "@type": "Organization",
+  name: "Sansico Group", url: "https://www.sansico.com",
   slogan: "Joy, sustainably packaged.",
   description: "Indonesian design and manufacturing group: gifting, toys, handicrafts and packaging for global retail.",
   foundingLocation: { "@type": "Place", address: { "@type": "PostalAddress", addressCountry: "ID" } },
-  numberOfEmployees: undefined,
   sameAs: ["https://www.linkedin.com/company/sansico"]
 };
 
 export default async function RootLayout({ children }) {
   const site = await getSite();
+  const headingSerif = site.headingFont === "serif";
+  const bodySize = site.bodySize === "lg" ? "18px" : site.bodySize === "sm" ? "14px" : "16px";
+  const themeVars = {
+    ...(site.accentHex ? { "--accent": site.accentHex } : {}),
+    "--body-size": bodySize,
+  };
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable}`}>
-      <body>
+    <html lang="en" className={`${sans.variable} ${serif.variable}${headingSerif ? " heading-serif" : ""}`}>
+      <body style={themeVars}>
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
         <Header site={site} />

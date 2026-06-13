@@ -38,9 +38,22 @@ export default async function Home() {
             <p className="lede">Trusted for decades by the world&rsquo;s shelves</p>
           </div>
           <div className="logo-wall" role="list">
-            {home.customers.map((c) => <div role="listitem" key={c}>{c}</div>)}
+            {home.customers.map((c) => {
+              const name = c.name || c;
+              const logoUrl = c.logoUrl || null;
+              return (
+                <div role="listitem" key={name} title={name}>
+                  {logoUrl
+                    ? <img src={logoUrl} alt={name} loading="lazy" style={{ maxHeight: 40, maxWidth: 120, objectFit: "contain", filter: "grayscale(1)", opacity: 0.7 }} />
+                    : <span>{name}</span>
+                  }
+                </div>
+              );
+            })}
           </div>
-          <p className="logo-note">Customer logo artwork drops into this grid in the content phase.</p>
+          {!home.customers.some(c => c.logoUrl) && (
+            <p className="logo-note">Upload logos in the Studio — Home Page → Customer wall → each entry has a logo field.</p>
+          )}
         </div>
       </section>
 

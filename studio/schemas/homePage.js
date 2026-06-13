@@ -1,17 +1,4 @@
-const BG_COLOURS = [
-  { title: "Off-white (default)", value: "cream" },
-  { title: "Crimson",            value: "crimson" },
-  { title: "Navy",               value: "navy" },
-  { title: "Green",              value: "green" },
-  { title: "Citrus",             value: "citrus" },
-  { title: "Black",              value: "black" },
-];
-const TEXT_COLOURS = [
-  { title: "Black (default)", value: "dark" },
-  { title: "White",           value: "white" },
-  { title: "Citrus",          value: "citrus" },
-  { title: "Crimson",         value: "crimson" },
-];
+
 
 export default {
   name: "homePage", title: "Home Page", type: "document",
@@ -35,10 +22,42 @@ export default {
         { name: "value",  title: "Number",          type: "number" },
         { name: "suffix", title: "Suffix (+, %, blank)", type: "string" },
         { name: "label",  title: "Label",           type: "string" },
-        { name: "bgColor", title: "Background colour", type: "string",
-          options: { list: BG_COLOURS }, initialValue: "cream" },
-        { name: "textColor", title: "Text colour", type: "string",
-          options: { list: TEXT_COLOURS }, initialValue: "dark" }
+        { name: "bgColor", title: "Background colour", type: "color", options: { disableAlpha: true, colorList: [
+  { label: "Crimson",   value: { hex: "#7A0D20" } },
+  { label: "Navy",      value: { hex: "#22409E" } },
+  { label: "Green",     value: { hex: "#0D4F31" } },
+  { label: "Red",       value: { hex: "#F3263E" } },
+  { label: "Citrus",    value: { hex: "#BDDA5F" } },
+  { label: "Black",     value: { hex: "#1A1A1A" } },
+  { label: "White",     value: { hex: "#FFFFFF" } },
+  { label: "Off-white", value: { hex: "#F5F0E8" } },
+] } } },
+  { label: "Navy",      value: { hex: "#22409E" } },
+  { label: "Green",     value: { hex: "#0D4F31" } },
+  { label: "Red",       value: { hex: "#F3263E" } },
+  { label: "Citrus",    value: { hex: "#BDDA5F" } },
+  { label: "Black",     value: { hex: "#1A1A1A" } },
+  { label: "White",     value: { hex: "#FFFFFF" } },
+  { label: "Off-white", value: { hex: "#F5F0E8" } },
+] } }, initialValue: "cream" },
+        { name: "textColor", title: "Text colour", type: "color", options: { disableAlpha: true, colorList: [
+  { label: "Crimson",   value: { hex: "#7A0D20" } },
+  { label: "Navy",      value: { hex: "#22409E" } },
+  { label: "Green",     value: { hex: "#0D4F31" } },
+  { label: "Red",       value: { hex: "#F3263E" } },
+  { label: "Citrus",    value: { hex: "#BDDA5F" } },
+  { label: "Black",     value: { hex: "#1A1A1A" } },
+  { label: "White",     value: { hex: "#FFFFFF" } },
+  { label: "Off-white", value: { hex: "#F5F0E8" } },
+] } } },
+  { label: "Navy",      value: { hex: "#22409E" } },
+  { label: "Green",     value: { hex: "#0D4F31" } },
+  { label: "Red",       value: { hex: "#F3263E" } },
+  { label: "Citrus",    value: { hex: "#BDDA5F" } },
+  { label: "Black",     value: { hex: "#1A1A1A" } },
+  { label: "White",     value: { hex: "#FFFFFF" } },
+  { label: "Off-white", value: { hex: "#F5F0E8" } },
+] } }, initialValue: "dark" }
       ],
       preview: {
         select: { title: "label", value: "value", suffix: "suffix" },

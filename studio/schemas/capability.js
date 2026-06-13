@@ -1,10 +1,4 @@
-const THEMES = [
-  { title: "Default (off-white)", value: "default"  },
-  { title: "Crimson",            value: "crimson"   },
-  { title: "Navy",               value: "navy"      },
-  { title: "Green",              value: "green"     },
-  { title: "Citrus",             value: "citrus"    },
-];
+
 
 export default {
   name: "capability", title: "Capabilities", type: "document",
@@ -14,8 +8,24 @@ export default {
     { name: "slug",  type: "slug", options: { source: "title" } },
     { name: "num",   title: "Eyebrow (DESIGN / MAKE / DELIVER)", type: "string" },
     { name: "summary", title: "One-line summary (homepage card)", type: "text", rows: 2 },
-    { name: "colorTheme", title: "Colour theme", type: "string",
-      options: { list: THEMES, layout: "radio" }, initialValue: "default" },
+    { name: "colorTheme", title: "Colour theme", type: "color", options: { disableAlpha: true, colorList: [
+  { label: "Crimson",   value: { hex: "#7A0D20" } },
+  { label: "Navy",      value: { hex: "#22409E" } },
+  { label: "Green",     value: { hex: "#0D4F31" } },
+  { label: "Red",       value: { hex: "#F3263E" } },
+  { label: "Citrus",    value: { hex: "#BDDA5F" } },
+  { label: "Black",     value: { hex: "#1A1A1A" } },
+  { label: "White",     value: { hex: "#FFFFFF" } },
+  { label: "Off-white", value: { hex: "#F5F0E8" } },
+] } } },
+  { label: "Navy",      value: { hex: "#22409E" } },
+  { label: "Green",     value: { hex: "#0D4F31" } },
+  { label: "Red",       value: { hex: "#F3263E" } },
+  { label: "Citrus",    value: { hex: "#BDDA5F" } },
+  { label: "Black",     value: { hex: "#1A1A1A" } },
+  { label: "White",     value: { hex: "#FFFFFF" } },
+  { label: "Off-white", value: { hex: "#F5F0E8" } },
+] } }, initialValue: "default" },
     { name: "order", title: "Display order", type: "number" },
 
     // ── Body copy ──────────────────────────────────────────

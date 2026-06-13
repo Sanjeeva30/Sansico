@@ -29,13 +29,21 @@ export default function CountStats({ stats }) {
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, []);
+
   return (
-    <section className="warm" aria-label="Group at a glance">
+    <section aria-label="Group at a glance">
       <div className="wrap">
         <div className="stats-row" ref={ref}>
           {stats.map((s) => (
-            <div className="stat" key={s.label}>
-              <b data-count={s.value} data-suffix={s.suffix}>0</b>
+            <div
+              className="stat"
+              key={s.label}
+              style={{
+                background: s.bgHex || undefined,
+                color:      s.textHex || undefined,
+              }}
+            >
+              <b data-count={s.value} data-suffix={s.suffix || ""}>0</b>
               <span>{s.label}</span>
             </div>
           ))}
