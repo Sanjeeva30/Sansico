@@ -61,7 +61,7 @@ export default async function Home() {
       <section className="sec-tight" id="capabilities">
         <div className="wrap">
           <div className="sec-head rv">
-            <Link href="/capabilities"><h2 className="kicker">What we do ↗</h2></Link>
+            <Link href="/capabilities" style={{textDecoration:"underline",cursor:"pointer"}}><h2 className="kicker">What we do ↗</h2></Link>
             <p className="lede">Three capabilities, one accountable partner</p>
           </div>
           <div className="gate-grid">
@@ -83,7 +83,7 @@ export default async function Home() {
       <section className="sec warm" id="markets" style={{ marginTop: "70px" }}>
         <div className="wrap rv">
           <div className="sec-head">
-            <Link href="/markets"><h2 className="kicker">Markets we serve ↗</h2></Link>
+            <Link href="/markets" style={{textDecoration:"underline",cursor:"pointer"}}><h2 className="kicker">Markets we serve ↗</h2></Link>
             <p className="lede">Land where your category lives</p>
           </div>
           <div className="market-grid">

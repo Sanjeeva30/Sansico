@@ -131,7 +131,7 @@ export default async function Capabilities() {
       <section className="sec">
         <div className="wrap rv">
           <div className="sec-head">
-            <Link href="/company/facilities"><h2 className="kicker">Where we make ↗</h2></Link>
+            <Link href="/company/facilities" style={{textDecoration:"underline",cursor:"pointer"}}><h2 className="kicker">Where we make ↗</h2></Link>
             <p className="lede">Ten facilities, Indonesia &amp; China</p>
           </div>
           <div className="fac-grid">
