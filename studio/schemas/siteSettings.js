@@ -38,8 +38,13 @@ export default {
     },
 
     // ── Sustainability section ───────────────────────────────
-    { name: "susSection", title: "Sustainability page — mission section", type: "object",
+    { name: "susSection", title: "Sustainability page", type: "object",
       fields: [
+        { name: "pageTitle", title: "Page hero title", type: "string",
+          description: "The main heading on the Sustainability page (italic in |pipes|)",
+          placeholder: "Certified, dated, |verifiable| — sustainability as a discipline, not an adjective." },
+        { name: "pageIntro", title: "Page hero intro", type: "text",
+          description: "Short paragraph below the hero title" },
         { name: "heading", title: "Heading (italic in |pipes|)", type: "string",
           description: "e.g. Joy that |gives back| more than it takes." },
         { name: "body",    title: "Body text", type: "text" },

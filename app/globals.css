@@ -29,12 +29,12 @@ button{font:inherit}
 .nav-main{display:flex;gap:clamp(12px,2vw,28px);align-items:center}
 .nav-main a{font-size:13.5px;font-weight:600;letter-spacing:.04em;color:rgba(255,255,255,.92);transition:color .35s;padding:6px 2px;border-bottom:2px solid transparent}
 .nav-main a:hover,.nav-main a[aria-current="page"]{border-bottom-color:currentColor}
-.nav-cta{border:1.5px solid rgba(255,255,255,.85);border-radius:999px;padding:9px 20px !important;transition:all .25s}
-.nav-cta:hover{background:#fff;color:var(--crimson) !important;border-bottom-color:transparent !important}
+.nav-cta{border:2px solid rgba(255,255,255,.98);border-radius:999px;padding:9px 22px !important;transition:all .25s;font-weight:600}
+.nav-cta:hover{background:#fff;color:var(--crimson) !important}
 .hd.solid{background:rgba(255,255,255,.96);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--hair)}
 .hd.solid .logo{color:var(--ink)}
 .hd.solid .nav-main a{color:var(--ink)}
-.hd.solid .nav-cta{border-color:var(--crimson);color:var(--crimson)}
+.hd.solid .nav-cta{border-color:var(--crimson);color:var(--crimson);border-width:2px}
 .hd.solid .nav-cta:hover{background:var(--crimson);color:#fff !important}
 .menu-btn{display:none}
 .mobile-nav{display:none}
