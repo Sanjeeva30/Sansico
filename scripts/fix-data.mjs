@@ -1,8 +1,4 @@
-// Fixes two things in one command:
-// 1. Converts old colour objects {hex:"#..."} → plain hex strings
-// 2. Initialises orderRank on all orderable document types
 // Run: SANITY_TOKEN=your_editor_token node scripts/fix-data.mjs
-
 import { createClient } from "@sanity/client";
 
 const TOKEN = process.env.SANITY_TOKEN;
@@ -23,25 +19,36 @@ function extractHex(v) {
 function rankStr(i) { return String(i).padStart(8, "0"); }
 
 async function fixColours() {
-  console.log("\n🎨  Fixing colour data...");
+  console.log("\n🎨  Fixing colour data (published + drafts)...");
 
-  // Fix homePage stats bgColor + textColor
-  const home = await client.fetch(`*[_id=="homePage"][0]{ stats }`);
-  if (home?.stats?.length) {
+  // Fix both the published doc AND any draft
+  const ids = ["homePage", "drafts.homePage"];
+  for (const id of ids) {
+    const home = await client.fetch(`*[_id=="${id}"][0]{ stats }`);
+    if (!home?.stats?.length) { console.log(`  — ${id}: no stats found`); continue; }
+
+    const needsFix = home.stats.some(s =>
+      (s.bgColor && typeof s.bgColor !== "string") ||
+      (s.textColor && typeof s.textColor !== "string")
+    );
+    if (!needsFix) { console.log(`  ✓ ${id}: already clean`); continue; }
+
     const fixed = home.stats.map(s => ({
       ...s,
-      bgColor:   extractHex(s.bgColor)   || null,
-      textColor: extractHex(s.textColor) || null,
+      bgColor:   extractHex(s.bgColor)   ?? null,
+      textColor: extractHex(s.textColor) ?? null,
     }));
-    await client.patch("homePage").set({ stats: fixed }).commit();
-    console.log("  ✓ homePage stats");
+    await client.patch(id).set({ stats: fixed }).commit();
+    console.log(`  ✓ ${id}: fixed`);
   }
 
   // Fix siteSettings accentColour
-  const settings = await client.fetch(`*[_id=="siteSettings"][0]{ accentColour }`);
-  if (settings?.accentColour && typeof settings.accentColour !== "string") {
-    await client.patch("siteSettings").set({ accentColour: extractHex(settings.accentColour) }).commit();
-    console.log("  ✓ siteSettings accentColour");
+  for (const id of ["siteSettings", "drafts.siteSettings"]) {
+    const s = await client.fetch(`*[_id=="${id}"][0]{ accentColour }`);
+    if (s?.accentColour && typeof s.accentColour !== "string") {
+      await client.patch(id).set({ accentColour: extractHex(s.accentColour) }).commit();
+      console.log(`  ✓ ${id}: accentColour fixed`);
+    }
   }
 
   // Fix capabilities colorTheme
@@ -51,7 +58,7 @@ async function fixColours() {
       await client.patch(c._id).set({ colorTheme: extractHex(c.colorTheme) }).commit();
     }
   }
-  if (caps.length) console.log(`  ✓ ${caps.length} capabilities`);
+  if (caps.length) console.log(`  ✓ ${caps.length} capabilities colorTheme fixed`);
 
   // Fix markets color
   const markets = await client.fetch(`*[_type=="market"]{ _id, color }`);
@@ -60,28 +67,45 @@ async function fixColours() {
       await client.patch(m._id).set({ color: extractHex(m.color) }).commit();
     }
   }
-  if (markets.length) console.log(`  ✓ ${markets.length} markets`);
+  if (markets.length) console.log(`  ✓ ${markets.length} markets color fixed`);
+}
+
+async function removeOldOrderField() {
+  console.log("\n🧹  Removing old 'order' field from documents...");
+  const TYPES = [
+    "capability","market","caseStudy","certification",
+    "facility","person","newsPost","productCategory","productItem"
+  ];
+  for (const type of TYPES) {
+    const docs = await client.fetch(`*[_type=="${type}" && defined(order)]{ _id }`);
+    if (!docs.length) { console.log(`  ✓ ${type}: no old order field`); continue; }
+    const tx = client.transaction();
+    docs.forEach(d => tx.patch(d._id, { unset: ["order"] }));
+    await tx.commit();
+    console.log(`  ✓ ${type}: removed 'order' from ${docs.length} documents`);
+  }
 }
 
 async function initOrderRank() {
-  console.log("\n📋  Initialising order ranks...");
+  console.log("\n📋  Initialising orderRank...");
   const TYPES = [
     "capability","market","caseStudy","certification",
     "facility","person","newsPost","productCategory","productItem"
   ];
   for (const type of TYPES) {
     const docs = await client.fetch(`*[_type=="${type}" && !defined(orderRank)]|order(_createdAt asc){ _id }`);
-    if (!docs.length) { console.log(`  ✓ ${type} — already ordered`); continue; }
+    if (!docs.length) { console.log(`  ✓ ${type}: already ordered`); continue; }
     const tx = client.transaction();
     docs.forEach((d, i) => tx.patch(d._id, { set: { orderRank: rankStr(i) } }));
     await tx.commit();
-    console.log(`  ✓ ${type} — set order on ${docs.length} documents`);
+    console.log(`  ✓ ${type}: initialised ${docs.length} documents`);
   }
 }
 
 async function run() {
   await fixColours();
+  await removeOldOrderField();
   await initOrderRank();
-  console.log("\n✅  All done. Refresh the Studio.\n");
+  console.log("\n✅  All done. Discard the homePage draft in Studio then republish.\n");
 }
 run().catch(err => { console.error("❌", err.message); process.exit(1); });
