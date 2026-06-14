@@ -24,6 +24,11 @@ const structure = (S, context) =>
       orderableDocumentListDeskItem({ type: "caseStudy",       title: "Case Studies",       S, context }),
       orderableDocumentListDeskItem({ type: "certification",   title: "Certifications",     S, context }),
       orderableDocumentListDeskItem({ type: "facility",        title: "Facilities",         S, context }),
+      S.divider(),
+      S.listItem().title("🌏  Why Indonesia, Why Now")
+        .child(S.document().schemaType("whyIndonesia").documentId("whyIndonesia").title("Why Indonesia, Why Now")),
+      S.listItem().title("🏢  Company Page")
+        .child(S.document().schemaType("companyPage").documentId("companyPage").title("Company Page")),
       S.listItem().title("Careers Page")
         .child(S.document().schemaType("careersPage").documentId("careersPage").title("Careers Page")),
       S.divider(),
