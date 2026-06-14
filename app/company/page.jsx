@@ -58,7 +58,7 @@ export default async function Company() {
       {c.values?.length > 0 && (
         <section className="sec" style={{ padding:"clamp(32px,4vw,48px) 0" }}>
           <div className="wrap rv">
-            <p style={{ fontSize:10, fontWeight:800, letterSpacing:"0.18em", textTransform:"uppercase", color:"#9A8A80", margin:"0 0 20px" }}>Our Values</p>
+            <p style={{ fontSize:"clamp(1.8rem,3.5vw,2.4rem)", fontWeight:800, color:"#17120F", margin:"0 0 20px", lineHeight:1, fontFamily:"Georgia,serif" }}>Our Values</p>
             <div style={{ borderTop:"1px solid var(--hair,#E5DFD8)" }}>
               {c.values.map((v, i) => {
                 const initial = v.title?.[0] || "";
@@ -77,9 +77,7 @@ export default async function Company() {
                 );
               })}
             </div>
-            <p style={{ marginTop:10, fontSize:10, letterSpacing:"0.2em", textAlign:"right", userSelect:"none" }}>
-              {c.values.map((v, i) => v.title?.[0]).join("")}
-            </p>
+
           </div>
         </section>
       )}
