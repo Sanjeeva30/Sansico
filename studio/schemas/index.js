@@ -12,6 +12,7 @@ import caseStudy       from "./caseStudy";
 import certification   from "./certification";
 import facility        from "./facility";
 import person          from "./person";
+import whyIndonesia from "./whyIndonesia";
 import newsPost        from "./newsPost";
 
 export const schemaTypes = [
@@ -20,5 +21,5 @@ export const schemaTypes = [
   capability, market,
   productCategory, productItem,
   caseStudy, certification, facility,
-  person, newsPost,
+  person, newsPost, whyIndonesia,
 ];

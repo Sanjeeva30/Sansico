@@ -1,0 +1,70 @@
+{
+  "heroTitle": "Why Indonesia, Why Now",
+  "heroSubtitle": "Indonesia Sourcing Intelligence Brief — country-of-production perspectives for US retail senior leadership · 2025–2026",
+  "heroStats": [
+    { "value": "288M",       "label": "Indonesia population" },
+    { "value": "US$282.9B", "label": "Total exports, Jan–Dec 2025" },
+    { "value": "5.11%",     "label": "GDP growth, 2025" },
+    { "value": "RCEP",      "label": "Regional market-access platform" }
+  ],
+  "executiveTitle": "Indonesia is a credible next-scale ASEAN sourcing platform",
+  "executiveIntro": "Indonesia's case is strongest when country-of-production decisions are assessed beyond unit price alone. Through a broader sourcing lens, Indonesia offers a differentiated ASEAN proposition.",
+  "dimensions": [
+    { "title": "Cost Corridors", "body": "Yogyakarta + Central Java. Low-cost formal labor lanes support selected labor-intensive categories while keeping production inside auditable wage and employment frameworks." },
+    { "title": "Scale",          "body": "Domestic depth + export base. Indonesia combines ASEAN's largest population base with a substantial non-oil export platform and broad industrial participation." },
+    { "title": "Materials",      "body": "Natural and fiber-based adjacency. Timber, rattan, paper, plantation and natural-fiber ecosystems create product-story and supply-chain relevance beyond pure assembly." },
+    { "title": "Infrastructure", "body": "Java production belt. Industrial estates, ports, toll-road connectivity and multi-city production clusters create a more layered allocation platform." },
+    { "title": "Compliance",     "body": "Formalizing systems. Risk-based licensing, customs digitalization, labor rules and environmental permitting improve the evidence base for supplier validation." },
+    { "title": "Resilience",     "body": "Balanced ASEAN role. Indonesia strengthens ASEAN sourcing architecture by reducing over-reliance on any single platform." }
+  ],
+  "executiveConclusion": "Indonesia is not the lowest-cost answer in every category — its stronger role is as a larger, balanced ASEAN sourcing pillar where cost, scale, material depth, compliance and resilience matter together.",
+  "aseanTitle": "ASEAN diversification has entered a second phase",
+  "aseanBody": "The original COP diversification logic — moving volume out of China into the nearest available ASEAN alternative — has run its course as a complete strategy. Vietnam has scale and execution strength, yet its continued U.S. non-market economy classification for antidumping-duty purposes preserves a methodology that can increase trade-remedy exposure for affected product lines. Cambodia remains compelling on labor cost but is narrower in industrial depth. Thailand and Malaysia are stronger in infrastructure and higher-value manufacturing, but their labor-cost floors are generally higher. Indonesia's opening is a balanced COP claim: competitive labor corridors in Java, broader category applicability, domestic material adjacencies, and a more diversified industrial base.",
+  "aseanConclusion": "Indonesia's advantage is strongest where sourcing decisions reward scale, materials, compliance and resilience together — rather than ranking countries only by the lowest wage or FOB quote.",
+  "javaTitle": "Java gives Indonesia a scalable, layered production engine",
+  "javaIntro": "A single country can offer multiple production modes: higher-density industrial estates near ports, lower-cost labor corridors in Central Java and Yogyakarta, and natural-material and craft ecosystems connected to export manufacturers.",
+  "javaRegions": [
+    { "name": "Jakarta / West Java",  "description": "Industrial estates, port access and supplier services. The densest manufacturing corridor and primary export gateway." },
+    { "name": "Central Java",         "description": "Low-cost labor corridor and expanding manufacturing base. Key production zone for labor-intensive categories." },
+    { "name": "Yogyakarta",           "description": "Competitive wage floor and labor-intensive production support. One of ASEAN's most cost-effective formal manufacturing corridors." },
+    { "name": "East Java",            "description": "Manufacturing depth and export gateway options. Additional production capacity and logistics infrastructure." },
+    { "name": "Ports + Logistics",    "description": "Shipment execution, customs interface and warehouse planning. National Logistics Ecosystem reforms improving export reliability." }
+  ],
+  "javaPlatformNote": "Indonesia's value proposition is not one factory cluster. It is a layered production geography that can support sourcing, capacity planning and responsible manufacturing validation at scale.",
+  "sectorsTitle": "Manufacturing relevance to US retail is multi-category",
+  "sectorsBody": "Indonesia's manufacturing relevance to US retail buyers is not confined to a single export vertical. The strongest sourcing case is built around categories where labor availability, material proximity, export-processing capability and buyer compliance can work together. Indonesia's industrial strategy has emphasized manufacturing modernization, investment facilitation, downstream industrial capability and export competitiveness — supporting a broader supplier-development agenda than a narrow low-cost assembly base.",
+  "sectorsConclusion": "Indonesia's strongest near-term fit is in fiber-based seasonal goods, home and furniture, and paper-adjacent consumer products — where material story, manufacturing depth and compliance readiness converge.",
+  "susTitle": "Sustainability strengthens the sourcing case when tied to execution",
+  "susBody": "Indonesia's Enhanced Nationally Determined Contribution raised its 2030 emissions-reduction ambition to 31.89% unconditionally and up to 43.20% with international support. Indonesia has also published a Circular Economy Roadmap and National Action Plan for 2025–2045, linking resource efficiency, waste reduction and lower-emissions growth. The Indonesian Timber Legality Assurance System (SVLK) — a mandatory assurance scheme for timber from state-owned and private forests — provides a policy and verification foundation that can be connected to buyer-approved certification, material documentation and supplier-level due diligence.",
+  "susPoints": [
+    "NDC 2030 ambition: 31.89% unconditional emissions reduction, 43.20% with international support",
+    "Circular Economy Roadmap and National Action Plan 2025–2045",
+    "SVLK timber legality assurance — mandatory, government-backed traceability",
+    "EU-Indonesia FLEGT framework positions timber legality as an institutionalized export-control system"
+  ],
+  "tradeTitle": "Indonesia's trade framework supports long-term allocation confidence",
+  "tradeBody": "Indonesia is party to ASEAN's regional trade framework and RCEP. Recent developments reinforce Indonesia's medium-term relevance: EU and Indonesia negotiators finalized CEPA negotiations in September 2025, while Canada and Indonesia signed the Canada-Indonesia CEPA in September 2025. These agreements reinforce Indonesia's wider trajectory toward rules-based trade connectivity.",
+  "tradeAgreements": [
+    { "name": "RCEP",                  "description": "Entered into force for Indonesia in January 2023. Provides regional market-access framework across 15 Asia-Pacific economies including China, Japan, South Korea, Australia and New Zealand." },
+    { "name": "EU–Indonesia CEPA",     "description": "Negotiations finalized September 2025. Reinforces Indonesia's trajectory toward rules-based trade connectivity with the European Union." },
+    { "name": "Canada–Indonesia CEPA", "description": "Signed September 2025. Strengthens Indonesia's long-term trade architecture and strategic allocation optionality." }
+  ],
+  "fiberTitle": "Indonesia's differentiated ASEAN lane for fiber-based seasonal goods",
+  "fiberBody": "Indonesia's paper-based and fiber-based consumer categories deserve a stronger place in the ASEAN sourcing conversation. The advantage is not only paper conversion — it is the combination of printing, seasonal finishing labor, natural-material adjacencies, export manufacturing, port access and supplier ecosystems capable of working with certified-fiber requirements where buyer-approved supply chains are in place.",
+  "fiberPoints": [
+    { "title": "Why Indonesia stands out",       "body": "Many ASEAN peers can support parts of the category. Indonesia can combine paper conversion, printing, seasonal labor, natural fibers, handicraft integration and export-ready manufacturing in one national platform." },
+    { "title": "Responsible-material stories",   "body": "Fiber-based seasonal products support responsible-material sourcing, packaging-adjacent innovation, circularity and COP balance — without concentrating too heavily in any single apparel-centric platform." },
+    { "title": "Manufacturer ecosystem depth",   "body": "Export-oriented manufacturers operating multiple plants demonstrate the kind of integrated ecosystem depth that supports a broad category range within a single national COP." }
+  ],
+  "conclusionStatement": "Indonesia is a scale-and-resilience platform with responsible-manufacturing upside. Its strongest role is as a larger, validated ASEAN pillar in a balanced ASEAN sourcing architecture — supported by low-cost Java corridors, domestic material depth, digital trade facilitation, investment incentives and a sustainability framework aligned to retailer compliance expectations.",
+  "conclusionBullets": [
+    "Low-cost Java corridors + broad category applicability",
+    "Domestic material depth and natural-fiber adjacency",
+    "Digital trade facilitation and investment incentives",
+    "Sustainability framework aligned to retailer compliance expectations"
+  ],
+  "ctaHeadline": "Sourcing from Indonesia?",
+  "ctaSubline": "Talk to Sansico — forty years in Indonesia, certified at every step, and ready for the buyers who know where ASEAN is heading.",
+  "ctaBtnLabel": "Start a conversation",
+  "ctaBtnHref": "/contact"
+}
