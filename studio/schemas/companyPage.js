@@ -6,6 +6,7 @@ export default {
     { name: "title",  title: "Page title",  type: "string",
       initialValue: "An Indonesian group built for the world's shelves" },
     { name: "intro",  title: "Intro paragraph", type: "text" },
+    { name: "mission", title: "Mission statement", type: "string" },
     { name: "vision", title: "Vision statement", type: "text",
       description: "Shown in the Vision card" },
     { name: "culture",title: "Culture statement", type: "text",
