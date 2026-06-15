@@ -65,7 +65,7 @@ export default async function Company() {
                 const rest = v.title?.slice(1) || "";
                 const color = SANSI_COLORS[i] || "#7A0D20";
                 return (
-                  <div key={v.title} style={{ display:"grid", gridTemplateColumns:"clamp(40px,5vw,56px) 1fr", gap:"clamp(14px,2vw,24px)", padding:"clamp(12px,1.8vw,18px) 0", borderBottom:"1px solid var(--hair,#E5DFD8)", alignItems:"center" }}>
+                  <div key={v.title} className="card" style={{ borderRadius:12, padding:"clamp(10px,1.5vw,16px) 16px", display:"grid", gridTemplateColumns:"clamp(40px,5vw,56px) 1fr", gap:"clamp(14px,2vw,24px)", padding:"clamp(12px,1.8vw,18px) 0", borderBottom:"1px solid var(--hair,#E5DFD8)", alignItems:"center" }}>
                     <div style={{ fontSize:"clamp(1.8rem,3.5vw,2.4rem)", fontWeight:800, color, lineHeight:1, fontFamily:"Georgia,serif", userSelect:"none" }}>{initial}</div>
                     <div style={{ display:"flex", alignItems:"baseline", gap:"clamp(8px,1.5vw,16px)", flexWrap:"wrap" }}>
                       <h3 style={{ margin:0, fontSize:"clamp(0.95rem,1.4vw,1.05rem)", fontWeight:600, color:"var(--ink,#17120F)", lineHeight:1.2, flexShrink:0 }}>
