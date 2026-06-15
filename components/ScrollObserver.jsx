@@ -16,7 +16,8 @@ export default function ScrollObserver() {
           entries.forEach((e) => {
             if (e.isIntersecting) {
               e.target.classList.add("in-view");
-              io.unobserve(e.target);
+            } else {
+              e.target.classList.remove("in-view");
             }
           });
         },
