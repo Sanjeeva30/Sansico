@@ -23,7 +23,7 @@ export default function ScrollObserver() {
         },
         { threshold: 0.08, rootMargin: "0px 0px -32px 0px" }
       );
-      document.querySelectorAll("[data-animate]:not(.in-view)").forEach((el) => io.observe(el));
+      document.querySelectorAll("[data-animate]:not(.in-view), .card:not(.in-view), .fac:not(.in-view), .points li:not(.in-view)").forEach((el) => io.observe(el));
       return () => io.disconnect();
     }, 60);
     return () => clearTimeout(t);

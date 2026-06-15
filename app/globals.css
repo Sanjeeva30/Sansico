@@ -306,3 +306,33 @@ a.card:hover{border-color:var(--crimson);transform:translateY(-4px);box-shadow:0
 .scroll-ready .stats-row > *:nth-child(3)[data-animate]{transition-delay:0.24s}
 .scroll-ready .stats-row > *:nth-child(4)[data-animate]{transition-delay:0.36s}
 @media (prefers-reduced-motion:reduce) { .scroll-ready [data-animate],.scroll-ready [data-animate].in-view { opacity:1!important;transform:none!important;transition:none!important; } }
+
+/* Hero entry animation */
+@keyframes press-arrive { from { transform:rotate(-14deg) scale(1.08) translateY(-24px);opacity:0; } to { transform:rotate(-14deg) scale(1) translateY(0);opacity:1; } }
+@keyframes hero-rise { from{opacity:0;transform:translateY(36px)} to{opacity:1;transform:translateY(0)} }
+@keyframes hero-eyebrow { from{opacity:0;letter-spacing:0.05em} to{opacity:1;letter-spacing:0.34em} }
+@keyframes hero-em { from{opacity:0;transform:translateX(20px) scale(0.9)} to{opacity:1;transform:translateX(0) scale(1)} }
+.hero .press{animation:press-arrive 1.6s cubic-bezier(0.16,1,0.3,1) 0s both}
+.hero-inner .eyebrow{animation:hero-eyebrow 1.0s cubic-bezier(0.16,1,0.3,1) 0.40s both}
+.hero-inner h1{animation:hero-rise 0.9s cubic-bezier(0.16,1,0.3,1) 0.58s both}
+.hero-inner h1 em{display:inline-block;animation:hero-em 1.0s cubic-bezier(0.16,1,0.3,1) 0.75s both}
+.hero-inner .sub{animation:hero-rise 0.9s cubic-bezier(0.16,1,0.3,1) 0.80s both}
+.hero-inner .btn-light{animation:hero-rise 0.8s cubic-bezier(0.16,1,0.3,1) 0.98s both}
+.hero-inner .btn-ghost{animation:hero-rise 0.8s cubic-bezier(0.16,1,0.3,1) 1.08s both}
+.hero-inner .scroll-cue{animation:hero-rise 0.8s cubic-bezier(0.16,1,0.3,1) 1.20s both}
+@media(prefers-reduced-motion:reduce){.hero .press,.hero-inner .eyebrow,.hero-inner h1,.hero-inner h1 em,.hero-inner .sub,.hero-inner .btn-light,.hero-inner .btn-ghost,.hero-inner .scroll-cue{animation:none!important;opacity:1!important;transform:none!important}}
+
+/* Heavier card shadows */
+.card{box-shadow:0 4px 20px rgba(23,18,15,.09),0 1px 4px rgba(23,18,15,.06);transition:box-shadow 0.4s cubic-bezier(0.16,1,0.3,1),transform 0.4s cubic-bezier(0.16,1,0.3,1)}
+.card:hover{box-shadow:0 16px 56px rgba(23,18,15,.16),0 4px 16px rgba(23,18,15,.09);transform:translateY(-6px)}
+
+/* Auto-animate cards and facilities everywhere */
+.scroll-ready .card,.scroll-ready .fac,.scroll-ready .points li{opacity:0;transform:translateY(44px) scale(0.97);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1),box-shadow 0.4s ease}
+.scroll-ready .card.in-view,.scroll-ready .fac.in-view,.scroll-ready .points li.in-view{opacity:1;transform:none}
+.scroll-ready .card-grid>.card:nth-child(1){transition-delay:0.00s}
+.scroll-ready .card-grid>.card:nth-child(2){transition-delay:0.10s}
+.scroll-ready .card-grid>.card:nth-child(3){transition-delay:0.20s}
+.scroll-ready .card-grid>.card:nth-child(4){transition-delay:0.30s}
+.scroll-ready .card-grid>.card:nth-child(5){transition-delay:0.40s}
+.scroll-ready .card-grid>.card:nth-child(6){transition-delay:0.50s}
+@media(prefers-reduced-motion:reduce){.scroll-ready .card,.scroll-ready .fac,.scroll-ready .points li{opacity:1!important;transform:none!important;transition:none!important}}
