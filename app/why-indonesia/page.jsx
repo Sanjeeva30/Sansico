@@ -547,7 +547,7 @@ export default async function WhyIndonesia() {
           <div className="split" style={{ alignItems:"start",
             gap:"clamp(32px,5vw,72px)" }}>
             <div>
-              <h2 style=u{{ fontSize:"clamp(1.3rem,2.2vw,1.8rem)",
+              <h2 style={{ fontSize:"clamp(1.3rem,2.2vw,1.8rem)",
                 fontWeight:400, lineHeight:1.3, margin:"0 0 20px" }}>
                 {d.susTitle}
               </h2>
@@ -581,7 +581,7 @@ export default async function WhyIndonesia() {
         </div>
       </section>
 
-      {/* ── TRADE ARCHITECTURE ──────────────────────── */}
+      {/* ── TRADE ARCHITECTURE ─────────────────────── */}
       <section className="sec">
         <div className="wrap rv">
           <Label n={7}>Trade Architecture &amp; Market Access</Label>
@@ -598,4 +598,167 @@ export default async function WhyIndonesia() {
           </div>
           <div style={{ display:"grid",
             gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))",
-            gap:14 }}
+            gap:14 }}>
+            {d.tradeAgreements?.map((a) => (
+              <div key={a.name} data-animate style={{ background:"#fff",
+                padding:"24px 24px 28px" }}>
+                <p style={{ fontSize:18, fontWeight:700,
+                  color:"#17120F", margin:"0 0 10px" }}>
+                  {a.name}
+                </p>
+                <p style={{ fontSize:13.5, lineHeight:1.65,
+                  margin:0, color:"#6B5F58" }}>
+                  {a.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FIBER-BASED SEASONAL ────────────────────── */}
+      <section className="sec warm">
+        <div className="wrap rv">
+          <Label n={8}>Fiber-Based Seasonal Goods</Label>
+          <div style={{ marginBottom:32 }}>
+            <h2 style={{ fontSize:"clamp(1.3rem,2.2vw,1.8rem)",
+              fontWeight:400, lineHeight:1.3, margin:"0 0 16px",
+              maxWidth:600 }}>
+              {d.fiberTitle}
+            </h2>
+            <p style={{ fontSize:15, lineHeight:1.78, margin:0,
+              color:"#17120F", maxWidth:640 }}>
+              {d.fiberBody}
+            </p>
+          </div>
+          <div style={{ display:"grid",
+            gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))",
+            gap:16 }}>
+            {d.fiberPoints?.map((pt, i) => (
+              <div key={pt.title} data-animate style={{ padding:"20px 20px 24px",
+                background:"#fff", borderRadius:8,
+                border:"1px solid var(--hair,#E5DFD8)",
+                borderTop:`2px solid ${["#7A0D20","#22409E","#0D4F31"][i]}` }}>
+                <p style={{ fontSize:12, fontWeight:700,
+                  letterSpacing:"0.07em", textTransform:"uppercase",
+                  color:["#7A0D20","#22409E","#0D4F31"][i],
+                  margin:"0 0 10px" }}>
+                  {pt.title}
+                </p>
+                <p style={{ fontSize:14, lineHeight:1.65,
+                  margin:0, color:"#17120F" }}>
+                  {pt.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── STRATEGIC CONCLUSION ────────────────────── */}
+      <section className="sec">
+        <div className="wrap rv">
+          <Label n={9}>Strategic Sourcing Implication</Label>
+          <Strip style={{ marginBottom:32 }} />
+          <p style={{ fontSize:"clamp(1.1rem,2vw,1.5rem)",
+            fontWeight:300, fontStyle:"italic",
+            lineHeight:1.65, color:"#17120F",
+            maxWidth:780, margin:"0 0 40px" }}>
+            "{d.conclusionStatement}"
+          </p>
+          <ul style={{ margin:0, padding:0, listStyle:"none",
+            display:"grid",
+            gridTemplateColumns:"repeat(auto-fill,minmax(240px,1fr))",
+            gap:12 }}>
+            {d.conclusionBullets?.map((b, i) => (
+              <li key={i} data-animate style={{ display:"flex", gap:10,
+                alignItems:"start" }}>
+                <span style={{ color:"#7A0D20", flexShrink:0,
+                  fontWeight:700, fontSize:16, marginTop:-1 }}>—</span>
+                <span style={{ fontSize:14.5, lineHeight:1.6,
+                  color:"#6B5F58" }}>
+                  {b}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ── SANSICO CTA ─────────────────────────────── */}
+      <section className="sec warm"
+        style={{ borderTop:"1px solid var(--hair,#E5DFD8)" }}>
+        <div className="wrap rv" style={{ textAlign:"center",
+          padding:"clamp(28px,4vw,44px) 0" }}>
+          <Strip style={{ margin:"0 auto 28px" }} />
+          <h2 style={{ fontSize:"clamp(1.6rem,3vw,2.4rem)",
+            fontWeight:300, margin:"0 0 16px", color:"#17120F" }}>
+            {d.ctaHeadline}
+          </h2>
+          <p style={{ fontSize:15.5, lineHeight:1.7, maxWidth:480,
+            margin:"0 auto 32px", color:"#6B5F58" }}>
+            {d.ctaSubline}
+          </p>
+          <Link href={d.ctaBtnHref || "/contact"}
+            style={{ display:"inline-flex", alignItems:"center", gap:10,
+              background:"#7A0D20", color:"#fff", borderRadius:999,
+              padding:"14px 36px", fontSize:15, fontWeight:700,
+              textDecoration:"none" }}>
+            {d.ctaBtnLabel} →
+          </Link>
+          <p style={{ marginTop:20, fontSize:11, color:"#C5B9B0",
+            letterSpacing:"0.1em", textTransform:"uppercase" }}>
+            Sansico Group · Indonesia
+          </p>
+        </div>
+      </section>
+
+      {/* ── SOURCES ─────────────────────────────────── */}
+      {d.sources?.length > 0 && (
+        <section style={{ background:"#FAF8F4",
+          borderTop:"1px solid var(--hair,#E5DFD8)",
+          padding:"clamp(28px,3.5vw,44px) 0" }}>
+          <div className="wrap rv">
+            <p style={{ fontSize:11, fontWeight:700, letterSpacing:"0.12em",
+              textTransform:"uppercase", color:"#9A8A80",
+              margin:"0 0 28px" }}>
+              Sources &amp; References
+            </p>
+            {Object.entries(sourcesGrouped).map(([cat, items]) => (
+              <div key={cat} style={{ marginBottom:28 }}>
+                <p style={{ fontSize:10, fontWeight:700,
+                  letterSpacing:"0.12em", textTransform:"uppercase",
+                  color:"#7A0D20", margin:"0 0 10px" }}>
+                  {cat}
+                </p>
+                <div style={{ display:"grid",
+                  gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))",
+                  gap:"4px 24px" }}>
+                  {items.map((s, i) => (
+                    <div key={i} style={{ fontSize:12, lineHeight:1.5 }}>
+                      {s.url ? (
+                        <a href={s.url} target="_blank" rel="noopener noreferrer"
+                          style={{ color:"#7A0D20", textDecoration:"none",
+                            borderBottom:"1px solid rgba(122,13,32,0.2)" }}>
+                          {s.label}
+                        </a>
+                      ) : (
+                        <span style={{ color:"#9A8A80" }}>{s.label}</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <p style={{ fontSize:11, color:"#B0A090", margin:"24px 0 0",
+              lineHeight:1.6 }}>
+              All sources are public and were accessed between 2024 and 2026.
+              Exchange-rate conversions are indicative. Legal or tax items
+              require professional verification.
+            </p>
+          </div>
+        </section>
+      )}
+    </>
+  );
+}
