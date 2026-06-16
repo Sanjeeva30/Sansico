@@ -148,7 +148,7 @@ export default async function WhyIndonesia() {
             gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",
             gap:0, border:"1px solid var(--hair,#E5DFD8)" }}>
             {d.dimensions?.map((dim, i) => (
-              <div key={dim.title} style={{
+              <div key={dim.title} data-animate style={{
                 padding:"24px 24px 28px",
                 borderRight: (i+1) % 2 === 0
                   ? "none" : "1px solid var(--hair,#E5DFD8)",
@@ -174,7 +174,7 @@ export default async function WhyIndonesia() {
           </div>
 
           {/* Conclusion */}
-          <div style={{ marginTop:32, padding:"20px 24px",
+          <div data-animate style={{ marginTop:32, padding:"20px 24px",
             background:"rgba(122,13,32,0.05)",
             borderLeft:"3px solid #7A0D20", borderRadius:"0 6px 6px 0" }}>
             <p style={{ fontSize:15, lineHeight:1.75, margin:0,
@@ -259,8 +259,9 @@ export default async function WhyIndonesia() {
 
           {/* Table — responsive wrapper */}
           <div style={{ overflowX:"auto", borderRadius:8,
-            border:"1px solid var(--hair,#E5DFD8)" }}>
-            <table style={{ width:"100%", borderCollapse:"collapse",
+            border:"1px solid var(--hair,#E5DFD8)" }}
+          className="scorecard-wrap" data-animate>
+            <table className="scorecard" style={{ width:"100%", borderCollapse:"collapse",
               minWidth:640, fontFamily:"inherit" }}>
               <thead>
                 <tr style={{ background:"#17120F" }}>
@@ -343,10 +344,10 @@ export default async function WhyIndonesia() {
 
           {/* Balanced conclusion */}
           {d.scorecardConclusion && (
-            <div style={{ marginTop:16, padding:"16px 20px",
-              background:"rgba(122,13,32,0.05)",
-              borderLeft:"3px solid #7A0D20",
-              borderRadius:"0 6px 6px 0" }}>
+            <div data-animate className="card" style={{ marginTop:16, padding:"16px 20px",
+              background:"rgba(122,13,32,0.04)",
+              borderLeft:"4px solid #7A0D20",
+              borderRadius:"0 8px 8px 0" }}>
               <p style={{ margin:0, fontSize:14, lineHeight:1.7,
                 fontStyle:"italic", color:"#17120F" }}>
                 <strong style={{ fontStyle:"normal" }}>Balanced conclusion: </strong>
@@ -385,7 +386,7 @@ export default async function WhyIndonesia() {
           {/* Region rows */}
           <div style={{ borderTop:"1px solid var(--hair,#E5DFD8)" }}>
             {d.javaRegions?.map((r, i) => (
-              <div key={r.name} style={{ display:"grid",
+              <div key={r.name} data-animate style={{ display:"grid",
                 gridTemplateColumns:"clamp(160px,25%,220px) 1fr",
                 gap:24, padding:"18px 0",
                 borderBottom:"1px solid var(--hair,#E5DFD8)",
@@ -459,7 +460,7 @@ export default async function WhyIndonesia() {
               <ul style={{ margin:0, padding:0, listStyle:"none",
                 display:"flex", flexDirection:"column", gap:10 }}>
                 {d.susPoints?.map((pt, i) => (
-                  <li key={i} style={{ display:"flex", gap:10,
+                  <li key={i} data-animate style={{ display:"flex", gap:10,
                     alignItems:"start", fontSize:14, lineHeight:1.65,
                     color:"#17120F" }}>
                     <span style={{ color:"var(--green,#0D4F31)",
@@ -492,9 +493,9 @@ export default async function WhyIndonesia() {
           </div>
           <div style={{ display:"grid",
             gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))",
-            gap:1, background:"var(--hair,#E5DFD8)" }}>
+            gap:14 }}>
             {d.tradeAgreements?.map((a) => (
-              <div key={a.name} style={{ background:"#fff",
+              <div key={a.name} data-animate style={{ background:"#fff",
                 padding:"24px 24px 28px" }}>
                 <p style={{ fontSize:18, fontWeight:700,
                   color:"#17120F", margin:"0 0 10px" }}>
@@ -529,7 +530,7 @@ export default async function WhyIndonesia() {
             gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))",
             gap:16 }}>
             {d.fiberPoints?.map((pt, i) => (
-              <div key={pt.title} style={{ padding:"20px 20px 24px",
+              <div key={pt.title} data-animate style={{ padding:"20px 20px 24px",
                 background:"#fff", borderRadius:8,
                 border:"1px solid var(--hair,#E5DFD8)",
                 borderTop:`2px solid ${["#7A0D20","#22409E","#0D4F31"][i]}` }}>
@@ -565,7 +566,7 @@ export default async function WhyIndonesia() {
             gridTemplateColumns:"repeat(auto-fill,minmax(240px,1fr))",
             gap:12 }}>
             {d.conclusionBullets?.map((b, i) => (
-              <li key={i} style={{ display:"flex", gap:10,
+              <li key={i} data-animate style={{ display:"flex", gap:10,
                 alignItems:"start" }}>
                 <span style={{ color:"#7A0D20", flexShrink:0,
                   fontWeight:700, fontSize:16, marginTop:-1 }}>—</span>
@@ -583,7 +584,7 @@ export default async function WhyIndonesia() {
       <section className="sec warm"
         style={{ borderTop:"1px solid var(--hair,#E5DFD8)" }}>
         <div className="wrap rv" style={{ textAlign:"center",
-          padding:"clamp(48px,6vw,72px) 0" }}>
+          padding:"clamp(28px,4vw,44px) 0" }}>
           <Strip style={{ margin:"0 auto 28px" }} />
           <h2 style={{ fontSize:"clamp(1.6rem,3vw,2.4rem)",
             fontWeight:300, margin:"0 0 16px", color:"#17120F" }}>
@@ -611,7 +612,7 @@ export default async function WhyIndonesia() {
       {d.sources?.length > 0 && (
         <section style={{ background:"#FAF8F4",
           borderTop:"1px solid var(--hair,#E5DFD8)",
-          padding:"clamp(40px,5vw,64px) 0" }}>
+          padding:"clamp(28px,3.5vw,44px) 0" }}>
           <div className="wrap rv">
             <p style={{ fontSize:11, fontWeight:700, letterSpacing:"0.12em",
               textTransform:"uppercase", color:"#9A8A80",

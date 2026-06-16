@@ -132,3 +132,28 @@
     transform:none!important;filter:none!important;
   }
 }
+
+/* ── Scorecard table — rows slide in with stagger on scroll ── */
+.scorecard-wrap[data-animate] {
+  /* Override default fade+translateY — just fade the wrapper */
+  transform: none !important;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.scorecard-wrap[data-animate].in-view {
+  opacity: 1;
+}
+/* Rows start hidden and slide from left */
+.scorecard-wrap .scorecard tbody tr {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1),
+              transform 0.55s cubic-bezier(0.16,1,0.3,1);
+}
+.scorecard-wrap[data-animate].in-view .scorecard tbody tr { opacity: 1; transform: none; }
+.scorecard-wrap[data-animate].in-view .scorecard tbody tr:nth-child(1) { transition-delay: 0.05s }
+.scorecard-wrap[data-animate].in-view .scorecard tbody tr:nth-child(2) { transition-delay: 0.18s }
+.scorecard-wrap[data-animate].in-view .scorecard tbody tr:nth-child(3) { transition-delay: 0.31s }
+.scorecard-wrap[data-animate].in-view .scorecard tbody tr:nth-child(4) { transition-delay: 0.44s }
+.scorecard-wrap[data-animate].in-view .scorecard tbody tr:nth-child(5) { transition-delay: 0.57s }
+.scorecard-wrap[data-animate].in-view .scorecard tbody tr:nth-child(6) { transition-delay: 0.70s }
