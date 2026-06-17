@@ -1,5 +1,4 @@
 export const revalidate = 30;
-import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import Strip from "@/components/Strip";
 import CtaBand from "@/components/CtaBand";
@@ -60,6 +59,20 @@ const SCORE_LEGEND = [
 export default async function WhyIndonesia() {
   const d = await getWhyIndonesia();
 
+  // Currency values render their leading "$" smaller and baseline-aligned —
+  // at full size it reads oversized/heavy next to the bold numeral.
+  function StatValue({ value }) {
+    if (typeof value === "string" && value.startsWith("$")) {
+      return (
+        <>
+          <span style={{ fontSize:"0.6em", fontWeight:700, verticalAlign:"0.14em", marginRight:"0.02em" }}>$</span>
+          {value.slice(1)}
+        </>
+      );
+    }
+    return value;
+  }
+
   const sourcesGrouped = {};
   (d.sources || []).forEach((s) => {
     const cat = s.category || "Other";
@@ -71,35 +84,34 @@ export default async function WhyIndonesia() {
     <>
       <Reveal />
 
-      {/* ── HERO — real Indonesia map image ─────────────────── */}
+      {/* ── HERO — real Indonesia map image, tinted duotone on a light ground ── */}
       <section style={{
         position:"relative", overflow:"hidden",
-        background:"#080C12",
+        background:"var(--paper-warm,#FAF8F4)",
         paddingTop:"clamp(96px,13vw,152px)",
         paddingBottom:"clamp(80px,10vw,120px)"
       }}>
 
-        {/* Map image — right side, full height */}
+        {/* Map image — right side, full height, desaturated to a neutral base */}
         <div style={{
           position:"absolute", right:0, top:0, bottom:0,
-          width:"62%", zIndex:1,
+          width:"58%", zIndex:1,
           backgroundImage:"url('/Indonesia.png')",
           backgroundSize:"cover",
           backgroundPosition:"center center",
-          filter:"brightness(0.60) saturate(1.25) contrast(1.05)"
+          filter:"grayscale(1) brightness(1.18) contrast(1.04)",
+          opacity:0.92
+        }}/>
+        {/* Crimson duotone tint, multiplied over the desaturated map */}
+        <div style={{
+          position:"absolute", right:0, top:0, bottom:0, width:"58%", zIndex:2,
+          background:"var(--crimson,#7A0D20)", mixBlendMode:"multiply", opacity:0.78
         }}/>
 
-        {/* Gradient: dark left → transparent right */}
+        {/* Fade: solid cream where text sits → transparent into the map */}
         <div style={{
-          position:"absolute", inset:0, zIndex:2,
-          background:"linear-gradient(to right, #080C12 30%, rgba(8,12,18,0.88) 50%, rgba(8,12,18,0.35) 75%, rgba(8,12,18,0.1) 100%)"
-        }}/>
-
-        {/* Bottom fade to merge with stat cards */}
-        <div style={{
-          position:"absolute", bottom:0, left:0, right:0,
-          height:"45%", zIndex:2,
-          background:"linear-gradient(to top, #080C12 0%, transparent 100%)"
+          position:"absolute", inset:0, zIndex:3,
+          background:"linear-gradient(to right, var(--paper-warm,#FAF8F4) 30%, rgba(250,248,244,0.85) 46%, rgba(250,248,244,0.25) 66%, rgba(250,248,244,0) 82%)"
         }}/>
 
         {/* Indonesian flag — right edge accent */}
@@ -111,7 +123,7 @@ export default async function WhyIndonesia() {
         <div aria-hidden="true" style={{
           position:"absolute", right:10, top:"50%",
           width:"30%", height:"1px", zIndex:3,
-          background:"linear-gradient(to right,rgba(206,17,38,0.35),transparent)"
+          background:"linear-gradient(to right,rgba(122,13,32,0.18),transparent)"
         }}/>
 
         {/* Content */}
@@ -123,19 +135,19 @@ export default async function WhyIndonesia() {
             ))}
           </div>
 
-          <p style={{ fontSize:11, letterSpacing:"0.16em", textTransform:"uppercase",
-            color:"rgba(255,255,255,0.45)", margin:"0 0 18px" }}>
+          <p style={{ fontSize:11, fontWeight:700, letterSpacing:"0.16em", textTransform:"uppercase",
+            color:"var(--crimson,#7A0D20)", margin:"0 0 18px" }}>
             Indonesia Sourcing Intelligence Brief · 2025–2026
           </p>
 
           <h1 style={{ fontSize:"clamp(2.2rem,5vw,3.8rem)", fontWeight:300,
-            lineHeight:1.1, letterSpacing:"-0.02em", color:"#ffffff",
+            lineHeight:1.1, letterSpacing:"-0.02em", color:"var(--ink,#17120F)",
             margin:"0 0 18px", maxWidth:560 }}>
             {d.heroTitle}
           </h1>
 
           <p style={{ fontSize:15, lineHeight:1.65, margin:0,
-            color:"rgba(255,255,255,0.55)", maxWidth:460 }}>
+            color:"var(--ink-soft,#4A423D)", maxWidth:460 }}>
             {d.heroSubtitle}
           </p>
         </div>
@@ -156,8 +168,8 @@ export default async function WhyIndonesia() {
             }}>
               <div style={{ fontSize:"clamp(1.3rem,2.2vw,1.9rem)", fontWeight:700,
                 color:"#7A0D20", lineHeight:1, marginBottom:8,
-                fontVariantNumeric:"tabular-nums" }}>
-                {s.value}
+                letterSpacing:"-0.01em" }}>
+                <StatValue value={s.value} />
               </div>
               <div style={{ fontSize:10, color:"#9A8A80", letterSpacing:"0.1em",
                 textTransform:"uppercase", lineHeight:1.5 }}>
@@ -610,33 +622,7 @@ export default async function WhyIndonesia() {
         </div>
       </section>
 
-      {/* ── CTA ──────────────────────────────────────────── */}
-      <section className="sec warm"
-        style={{ borderTop:"1px solid var(--hair,#E5DFD8)" }}>
-        <div className="wrap rv" style={{ textAlign:"center",
-          padding:"clamp(28px,4vw,44px) 0" }}>
-          <Strip style={{ margin:"0 auto 28px" }} />
-          <h2 style={{ fontSize:"clamp(1.6rem,3vw,2.4rem)",
-            fontWeight:300, margin:"0 0 16px", color:"#17120F" }}>
-            {d.ctaHeadline}
-          </h2>
-          <p style={{ fontSize:15.5, lineHeight:1.7, maxWidth:480,
-            margin:"0 auto 32px", color:"#6B5F58" }}>
-            {d.ctaSubline}
-          </p>
-          <Link href={d.ctaBtnHref || "/contact"}
-            style={{ display:"inline-flex", alignItems:"center", gap:10,
-              background:"#7A0D20", color:"#fff", borderRadius:999,
-              padding:"14px 36px", fontSize:15, fontWeight:700,
-              textDecoration:"none" }}>
-            {d.ctaBtnLabel} →
-          </Link>
-          <p style={{ marginTop:20, fontSize:11, color:"#C5B9B0",
-            letterSpacing:"0.1em", textTransform:"uppercase" }}>
-            Sansico Group · Indonesia
-          </p>
-        </div>
-      </section>
+      <CtaBand />
 
       {/* ── SOURCES ──────────────────────────────────────── */}
       {d.sources?.length > 0 && (
