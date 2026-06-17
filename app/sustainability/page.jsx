@@ -35,10 +35,10 @@ export default async function Sustainability() {
                 <tr><th>Certification</th><th>Category</th><th>Scope</th><th>Entity</th><th>Certificate</th></tr>
               </thead>
               <tbody>
-                {s.certifications.map((c) => (
+                {s.certifications.map((c, i) => (
                   <tr key={c.name}>
                     <td className="nm" style={{ display:"flex", alignItems:"center", gap:16 }}>
-                      <CertLogo src={c.logoUrl} alt={c.name} />
+                      <CertLogo src={c.logoUrl} alt={c.name} index={i} />
                       {c.name}
                     </td>
                     <td><span className={`badge ${badgeColor[c.category]||""}`}>{c.category}</span></td>
