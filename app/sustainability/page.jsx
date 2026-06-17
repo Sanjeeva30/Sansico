@@ -22,10 +22,6 @@ export default async function Sustainability() {
   return (
     <>
       <Reveal />
-      {/* TEMP DEBUG — remove after diagnosis */}
-      <div dangerouslySetInnerHTML={{ __html:
-        `<!-- DEBUG_CERTS_START\n${JSON.stringify(s.certifications?.map(c => ({n:c.name, logo:c.logoUrl, cert:c.certificateUrl})), null, 2)}\nDEBUG_CERTS_END -->`
-      }} />
       <PageHero kicker="Sustainability & Impact" title={s.title} intro={s.intro} />
       <section className="sec warm" id="certifications">
         <div className="wrap rv">
