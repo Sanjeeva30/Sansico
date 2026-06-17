@@ -1,4 +1,4 @@
-export const revalidate = 30;
+export const dynamic = "force-dynamic";
 import PageHero from "@/components/PageHero";
 import Image from "next/image";
 import CtaBand from "@/components/CtaBand";
