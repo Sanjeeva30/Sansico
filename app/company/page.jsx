@@ -66,8 +66,7 @@ export default async function Company() {
             padding:"clamp(24px,3vw,36px)",
             marginBottom:"clamp(16px,2.5vw,24px)"
           })}>
-            <p style={{ fontSize:10, fontWeight:800, letterSpacing:"0.18em",
-              textTransform:"uppercase", color:"#7A0D20", margin:"0 0 10px" }}>
+            <p className="label-big" style={{ color:"#7A0D20", margin:"0 0 14px" }}>
               Vision
             </p>
             <p style={{ fontSize:"clamp(1.1rem,2.2vw,1.5rem)", fontWeight:300,
@@ -81,8 +80,7 @@ export default async function Company() {
             gap:"clamp(12px,2vw,20px)" }}>
 
             <div style={borderCard("#fff", { padding:"clamp(20px,3vw,28px)" })}>
-              <p style={{ fontSize:10, fontWeight:800, letterSpacing:"0.18em",
-                textTransform:"uppercase", color:"#22409E", margin:"0 0 10px" }}>
+              <p className="label-big" style={{ color:"#22409E", margin:"0 0 14px" }}>
                 Mission
               </p>
               <p style={{ fontSize:"clamp(0.95rem,1.5vw,1.05rem)", lineHeight:1.65,
@@ -92,8 +90,7 @@ export default async function Company() {
             </div>
 
             <div style={borderCard("#fff", { padding:"clamp(20px,3vw,28px)" })}>
-              <p style={{ fontSize:10, fontWeight:800, letterSpacing:"0.18em",
-                textTransform:"uppercase", color:"#0D4F31", margin:"0 0 10px" }}>
+              <p className="label-big" style={{ color:"#0D4F31", margin:"0 0 14px" }}>
                 Culture
               </p>
               <p style={{ fontSize:"clamp(0.95rem,1.5vw,1.05rem)", lineHeight:1.65,
@@ -109,8 +106,7 @@ export default async function Company() {
       {c.values?.length > 0 && (
         <section className="sec" style={{ padding:"clamp(28px,4vw,44px) 0" }}>
           <div className="wrap rv">
-            <p style={{ fontSize:10, fontWeight:800, letterSpacing:"0.18em",
-              textTransform:"uppercase", color:"#9A8A80", margin:"0 0 20px" }}>
+            <p className="label-big" style={{ color:"#9A8A80", margin:"0 0 28px" }}>
               Our Values
             </p>
             <div style={{ display:"flex", flexDirection:"column", gap:10 }}>

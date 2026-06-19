@@ -86,6 +86,23 @@ button{font:inherit}
 .sec-tight{padding:clamp(50px,7vw,80px) 0}
 .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:46px;flex-wrap:wrap}
 .kicker{font-size:13px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--crimson)}
+
+/* Big floating section label — Vision/Mission/Culture/Values style headers */
+.label-big{
+  font-size:clamp(28px,4.2vw,42px);
+  font-weight:800;
+  letter-spacing:-0.01em;
+  text-transform:uppercase;
+  display:inline-block;
+  line-height:1;
+}
+@media (prefers-reduced-motion: no-preference){
+  .label-big{ animation: labelFloat 4.2s ease-in-out infinite; }
+}
+@keyframes labelFloat{
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(-7px); }
+}
 .sec-head .lede{font-family:var(--font-serif),Georgia,serif;font-size:clamp(22px,2.6vw,30px);color:var(--ink)}
 .warm{background:var(--paper-warm);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
 
