@@ -6,6 +6,7 @@ import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 import Arrow from "@/components/Arrow";
 import { getProductCategories, getProductItem } from "@/lib/content";
+import { getStyled } from "@/lib/styledText";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
@@ -15,16 +16,22 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const p = await getProductItem(params.slug);
   if (!p) return {};
-  return { title:`${p.name} — Sansico Products`, description:p.description?.slice(0,155) };
+  const name = getStyled(p.name);
+  const desc = getStyled(p.description);
+  return { title:`${name.text} — Sansico Products`, description: desc.text?.slice(0,155) };
 }
 
 export default async function ProductPage({ params }) {
   const p = await getProductItem(params.slug);
   if (!p) notFound();
+  const name = getStyled(p.name);
+  const description = getStyled(p.description);
+  const moq = getStyled(p.moq);
+  const categoryName = getStyled(p.category?.name);
   return (
     <>
       <Reveal />
-      <PageHero kicker={`Products · ${p.category?.name || "Sansico Group"}`} title={p.name} />
+      <PageHero kicker={`Products · ${categoryName.text || "Sansico Group"}`} title={name.text} titleStyle={name.style} />
       <section className="sec">
         <div className="wrap split rv">
           <div>
@@ -35,7 +42,7 @@ export default async function ProductPage({ params }) {
                 {p.photos.map((ph, i) => (
                   <figure key={i} style={{ margin:0 }}>
                     <div style={{ position:"relative", width:"100%", aspectRatio:"4/3", overflow:"hidden", borderRadius:6 }}>
-  <Image src={ph.url ? `${ph.url}?w=800&h=600&fit=crop&auto=format` : ph.url} alt={ph.caption || p.name} fill sizes="(max-width:768px) 100vw, 50vw" style={{ objectFit:"cover" }} />
+  <Image src={ph.url ? `${ph.url}?w=800&h=600&fit=crop&auto=format` : ph.url} alt={ph.caption || name.text} fill sizes="(max-width:768px) 100vw, 50vw" style={{ objectFit:"cover" }} />
 </div>
                     {ph.caption && (
                       <figcaption style={{ fontSize:12.5, marginTop:4, opacity:0.65 }}>{ph.caption}</figcaption>
@@ -47,7 +54,7 @@ export default async function ProductPage({ params }) {
           </div>
 
           <div className="prose">
-            {p.description && <p style={{ fontSize:16.5, lineHeight:1.7 }}>{p.description}</p>}
+            {description.text && <p style={{ fontSize:16.5, lineHeight:1.7, ...description.style }}>{description.text}</p>}
 
             {/* Specs */}
             {p.specs?.length > 0 && (
@@ -55,21 +62,25 @@ export default async function ProductPage({ params }) {
                 <span className="kicker">Specifications</span>
                 <table style={{ width:"100%", marginTop:12, borderCollapse:"collapse" }}>
                   <tbody>
-                    {p.specs.map((s) => (
-                      <tr key={s.label} style={{ borderBottom:"1px solid var(--hair)" }}>
-                        <td style={{ padding:"8px 0", fontWeight:600, fontSize:13.5, width:"40%" }}>{s.label}</td>
-                        <td style={{ padding:"8px 0", fontSize:13.5 }}>{s.value}</td>
-                      </tr>
-                    ))}
+                    {p.specs.map((s, si) => {
+                      const sLabel = getStyled(s.label);
+                      const sValue = getStyled(s.value);
+                      return (
+                        <tr key={si} style={{ borderBottom:"1px solid var(--hair)" }}>
+                          <td style={{ padding:"8px 0", fontWeight:600, fontSize:13.5, width:"40%", ...sLabel.style }}>{sLabel.text}</td>
+                          <td style={{ padding:"8px 0", fontSize:13.5, ...sValue.style }}>{sValue.text}</td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
             )}
 
-            {p.moq && (
+            {moq.text && (
               <div className="card" style={{ marginTop:14 }}>
                 <span className="kicker">Minimum order</span>
-                <p style={{ margin:"8px 0 0", fontWeight:600 }}>{p.moq}</p>
+                <p style={{ margin:"8px 0 0", fontWeight:600, ...moq.style }}>{moq.text}</p>
               </div>
             )}
 
@@ -80,7 +91,7 @@ export default async function ProductPage({ params }) {
             </p>
             {p.category?.slug && (
               <p style={{ marginTop:14 }}>
-                <Link className="link-d" href={`/products#${p.category.slug}`}>← Back to {p.category.name}</Link>
+                <Link className="link-d" href={`/products#${p.category.slug}`}>← Back to {categoryName.text}</Link>
               </p>
             )}
           </div>

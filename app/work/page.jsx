@@ -5,6 +5,7 @@ import PageHero from "@/components/PageHero";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 import { getWork, getPageSettings, getPageSeo } from "@/lib/content";
+import { getStyled } from "@/lib/styledText";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata() {
@@ -26,19 +27,24 @@ export default async function Work() {
       <section className="sec">
         <div className="wrap rv">
           <div className="card-grid">
-            {w.items.map((it) => (
+            {w.items.map((it) => {
+              const kicker = getStyled(it.kicker);
+              const title = getStyled(it.title);
+              const quote = getStyled(it.quote);
+              return (
               <Link className="card" href={it.externalUrl || `/work/${it.slug}`}
                 key={it.slug} target={it.externalUrl ? "_blank" : undefined}
                 rel={it.externalUrl ? "noopener" : undefined}>
                 {it.clientLogoUrl && (
-                  <Image src={it.clientLogoUrl} alt={it.kicker} width={100} height={32} style={{ objectFit: "contain" }} />
+                  <Image src={it.clientLogoUrl} alt={kicker.text} width={100} height={32} style={{ objectFit: "contain" }} />
                 )}
-                <span className="kicker">{it.kicker}</span>
-                <h3>{it.title}</h3>
-                <p>{it.quote}</p>
+                <span className="kicker" style={kicker.style}>{kicker.text}</span>
+                <h3 style={title.style}>{title.text}</h3>
+                <p style={quote.style}>{quote.text}</p>
                 <span className="meta">{it.externalUrl ? "View →" : "Read the case study →"}</span>
               </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

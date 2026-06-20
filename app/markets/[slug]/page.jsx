@@ -124,35 +124,44 @@ export default async function MarketPage({ params }) {
       )}
 
       {/* ── FEATURED WORK ─────────────────────────────── */}
-      {m.featuredWork && (
+      {m.featuredWork && (() => {
+        const fwKicker = getStyled(m.featuredWork.kicker);
+        const fwTitle = getStyled(m.featuredWork.title);
+        const fwQuote = getStyled(m.featuredWork.quote);
+        return (
         <section className="sec">
           <div className="wrap rv">
             <h2 className="kicker">Featured work</h2>
             <Link className="card" href={`/work/${m.featuredWork.slug}`}
               style={{ display:"block", maxWidth:640 }}>
               {m.featuredWork.clientLogoUrl && (
-                <Image src={m.featuredWork.clientLogoUrl} alt={m.featuredWork.kicker}
+                <Image src={m.featuredWork.clientLogoUrl} alt={fwKicker.text}
                   width={100} height={32} style={{ objectFit:"contain", filter:"grayscale(1)",
                     opacity:0.6, marginBottom:14 }} />
               )}
-              <span className="kicker">{m.featuredWork.kicker}</span>
-              <h3>{m.featuredWork.title}</h3>
-              {m.featuredWork.quote && <p>{m.featuredWork.quote}</p>}
+              <span className="kicker" style={fwKicker.style}>{fwKicker.text}</span>
+              <h3 style={fwTitle.style}>{fwTitle.text}</h3>
+              {fwQuote.text && <p style={fwQuote.style}>{fwQuote.text}</p>}
               {m.featuredWork.stats?.length > 0 && (
                 <div style={{ display:"flex", gap:24, marginTop:16 }}>
-                  {m.featuredWork.stats.map((s) => (
-                    <div key={s.label}>
-                      <b style={{ display:"block", fontSize:22, color:accent }}>{s.value}</b>
-                      <span style={{ fontSize:12, opacity:0.65 }}>{s.label}</span>
-                    </div>
-                  ))}
+                  {m.featuredWork.stats.map((s, si) => {
+                    const sValue = getStyled(s.value);
+                    const sLabel = getStyled(s.label);
+                    return (
+                      <div key={si}>
+                        <b style={{ display:"block", fontSize:22, color:accent, ...sValue.style }}>{sValue.text}</b>
+                        <span style={{ fontSize:12, opacity:0.65, ...sLabel.style }}>{sLabel.text}</span>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
               <span className="meta" style={{ marginTop:16 }}>Read the case study <Arrow /></span>
             </Link>
           </div>
         </section>
-      )}
+        );
+      })()}
 
       {/* ── RELATED PRODUCTS ─────────────────────────── */}
       {m.relatedProducts?.length > 0 && (
@@ -163,22 +172,26 @@ export default async function MarketPage({ params }) {
               <Link href="/products" className="link-d" style={{ fontSize:13 }}>View full portfolio →</Link>
             </div>
             <div className="card-grid">
-              {m.relatedProducts.map((cat) => (
+              {m.relatedProducts.map((cat) => {
+                const catName = getStyled(cat.name);
+                const catDesc = getStyled(cat.description);
+                return (
                 <Link className="card" href={`/products#${cat.slug}`} key={cat.slug}>
                   {cat.coverUrl && (
                     <div style={{ position:"relative", width:"100%", aspectRatio:"16/9",
                       overflow:"hidden", borderRadius:6, marginBottom:14 }}>
                       <Image src={`${cat.coverUrl}?w=600&h=338&fit=crop&auto=format`}
-                        alt={cat.name} fill sizes="(max-width:768px) 100vw, 33vw"
+                        alt={catName.text} fill sizes="(max-width:768px) 100vw, 33vw"
                         style={{ objectFit:"cover" }} />
                     </div>
                   )}
-                  <h3 style={{ fontSize:16 }}>{cat.name}</h3>
-                  {cat.description && <p style={{ fontSize:14, opacity:0.75, margin:"6px 0 0" }}>
-                    {cat.description.slice(0,80)}…
+                  <h3 style={{ fontSize:16, ...catName.style }}>{catName.text}</h3>
+                  {catDesc.text && <p style={{ fontSize:14, opacity:0.75, margin:"6px 0 0", ...catDesc.style }}>
+                    {catDesc.text.slice(0,80)}…
                   </p>}
                 </Link>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>

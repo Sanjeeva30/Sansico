@@ -5,6 +5,7 @@ import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 import Arrow from "@/components/Arrow";
 import { getWork, getCase } from "@/lib/content";
+import { getStyled } from "@/lib/styledText";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
@@ -13,28 +14,38 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const c = await getCase(params.slug);
   if (!c) return {};
-  return { title:`${c.title} — Case Study`, description:c.quote };
+  const title = getStyled(c.title);
+  const quote = getStyled(c.quote);
+  return { title:`${title.text} — Case Study`, description: quote.text };
 }
 
 export default async function CasePage({ params }) {
   const c = await getCase(params.slug);
   if (!c) notFound();
+  const title = getStyled(c.title);
+  const kicker = getStyled(c.kicker);
+  const quote = getStyled(c.quote);
+  const body = getStyled(c.body);
   return (
     <>
       <Reveal />
-      <PageHero kicker={`Case study · ${c.kicker}`} title={c.title} />
+      <PageHero kicker={`Case study · ${kicker.text}`} title={title.text} titleStyle={title.style} />
       {c.clientLogoUrl && (
         <section className="sec" style={{ paddingBottom:0 }}>
           <div className="wrap rv">
-            <Image src={c.clientLogoUrl} alt={c.kicker} width={120} height={48} style={{ objectFit: "contain" }} />
+            <Image src={c.clientLogoUrl} alt={kicker.text} width={120} height={48} style={{ objectFit: "contain" }} />
           </div>
         </section>
       )}
       <section className="sec proof">
         <div className="wrap rv">
-          <blockquote>{c.quote}</blockquote>
+          <blockquote style={quote.style}>{quote.text}</blockquote>
           <div className="meta">
-            {c.stats.map((s) => <div key={s.label}><b>{s.value}</b><span>{s.label}</span></div>)}
+            {c.stats.map((s, si) => {
+              const sValue = getStyled(s.value);
+              const sLabel = getStyled(s.label);
+              return <div key={si}><b style={sValue.style}>{sValue.text}</b><span style={sLabel.style}>{sLabel.text}</span></div>;
+            })}
           </div>
           {c.externalUrl && (
             <p style={{ marginTop:24 }}>
@@ -48,7 +59,7 @@ export default async function CasePage({ params }) {
       <section className="sec">
         <div className="wrap rv prose" style={{ maxWidth:800 }}>
           <h2>The programme</h2>
-          <p>{c.body}</p>
+          <p style={body.style}>{body.text}</p>
         </div>
       </section>
       <CtaBand />
