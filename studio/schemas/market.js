@@ -7,15 +7,15 @@ export default {
   fields: [
     orderRankField({ type: "market" }),
     { name: "visible", title: "Visible on site", type: "boolean", initialValue: true },
-    { name: "title", type: "string", validation: R => R.required() },
-    { name: "slug",  type: "slug", options: { source: "title" }, validation: R => R.required() },
+    { name: "title", type: "styledString", validation: R => R.required() },
+    { name: "slug",  type: "slug", options: { source: (doc) => doc.title?.text || doc.title || "" }, validation: R => R.required() },
     { name: "color", title: "Accent colour", type: "string", components: { input: ColourPicker } },
-    { name: "tag",   title: "One-line tag (shown on index card)", type: "string" },
+    { name: "tag",   title: "One-line tag (shown on index card)", type: "styledString" },
 
     // ── Page content ──────────────────────────────────────
     { name: "image", title: "Hero image (full-width)", type: "image", options: { hotspot: true },
       description: "1920×1080px or wider, landscape. Full-width background image." },
-    { name: "body",  title: "Body (plain text, quick entry)", type: "text" },
+    { name: "body",  title: "Body (plain text, quick entry)", type: "styledText" },
     { name: "richBody", title: "Rich body (overrides plain when set)", type: "array",
       of: [{ type: "block",
         styles: [{ title:"Normal",value:"normal" },{ title:"Heading 2",value:"h2" },{ title:"Heading 3",value:"h3" },{ title:"Quote",value:"blockquote" }],
@@ -35,15 +35,15 @@ export default {
         }
       }]
     },
-    { name: "proof", title: "Proof / quote line", type: "text" },
+    { name: "proof", title: "Proof / quote line", type: "styledText" },
 
     // ── Market stats ──────────────────────────────────────
     { name: "marketStats", title: "Market stats", type: "array",
       description: "e.g. 40+ years serving this category",
       of: [{ type: "object", fields: [
-        { name: "value", title: "Value (e.g. 40+)", type: "string" },
-        { name: "label", title: "Label",            type: "string" }
-      ], preview: { select: { title: "value", subtitle: "label" } } }]
+        { name: "value", title: "Value (e.g. 40+)", type: "styledString" },
+        { name: "label", title: "Label",            type: "styledString" }
+      ], preview: { select: { title: "value.text", subtitle: "label.text" } } }]
     },
 
     // ── Linked content ────────────────────────────────────
@@ -59,7 +59,7 @@ export default {
     },
   ],
   preview: {
-    select: { title: "title", visible: "visible" },
+    select: { title: "title.text", visible: "visible" },
     prepare({ title, visible }) {
       return { title, subtitle: visible === false ? "🔴 Hidden" : "✅ Visible" };
     }

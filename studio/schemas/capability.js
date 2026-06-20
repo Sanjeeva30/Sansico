@@ -7,12 +7,12 @@ export default {
   fields: [
     orderRankField({ type: "capability" }),
     { name: "visible", title: "Visible on site", type: "boolean", initialValue: true },
-    { name: "title",   type: "string", validation: R => R.required() },
-    { name: "slug",    type: "slug", options: { source: "title", validation: R => R.required() } },
-    { name: "num",     title: "Eyebrow (DESIGN / MAKE / DELIVER)", type: "string", validation: R => R.required() },
-    { name: "summary", title: "One-line summary", type: "text", rows: 2 },
+    { name: "title",   type: "styledString", validation: R => R.required() },
+    { name: "slug",    type: "slug", options: { source: (doc) => doc.title?.text || doc.title || "", validation: R => R.required() } },
+    { name: "num",     title: "Eyebrow (DESIGN / MAKE / DELIVER)", type: "styledString", validation: R => R.required() },
+    { name: "summary", title: "One-line summary", type: "styledText" },
     { name: "colorTheme", title: "Colour theme", type: "string", components: { input: ColourPicker } },
-    { name: "body",    title: "Body (plain text)", type: "text" },
+    { name: "body",    title: "Body (plain text)", type: "styledText" },
     { name: "richBody", title: "Rich body (overrides plain)", type: "array",
       of: [{ type: "block",
         styles: [{ title:"Normal",value:"normal" },{ title:"Heading 2",value:"h2" },{ title:"Heading 3",value:"h3" },{ title:"Quote",value:"blockquote" }],
@@ -32,7 +32,7 @@ export default {
         }
       }]
     },
-    { name: "points",  title: "Bullet points", type: "array", of: [{ type: "string" }] },
+    { name: "points",  title: "Bullet points", type: "array", of: [{ type: "styledString" }] },
     { name: "image",   title: "Primary image", type: "image",
       description: "1600×1000px or wider, landscape recommended." },
     { name: "gallery", title: "Image gallery", type: "array",
@@ -42,25 +42,25 @@ export default {
     },
     { name: "subServices", title: "Sub-services", type: "array",
       of: [{ type: "object", fields: [
-        { name: "title", type: "string" }, { name: "description", type: "text", rows: 2 }
-      ], preview: { select: { title: "title" } } }]
+        { name: "title", type: "styledString" }, { name: "description", type: "styledText" }
+      ], preview: { select: { title: "title.text" } } }]
     },
     { name: "proofPoints", title: "Proof points / stats", type: "array",
       of: [{ type: "object", fields: [
-        { name: "value", title: "Stat (e.g. 40+)", type: "string" },
-        { name: "label", type: "string" }
-      ], preview: { select: { title: "value", subtitle: "label" } } }]
+        { name: "value", title: "Stat (e.g. 40+)", type: "styledString" },
+        { name: "label", type: "styledString" }
+      ], preview: { select: { title: "value.text", subtitle: "label.text" } } }]
     },
     { name: "customerLogos", title: "Customer logos", type: "array",
       of: [{ type: "object", fields: [
-        { name: "name", type: "string" },
+        { name: "name", type: "styledString" },
         { name: "logo", type: "image", description: "Wide transparent logo, roughly 400×160px works best.",
           options: { accept: "image/svg+xml,image/png,image/webp" } }
-      ], preview: { select: { title: "name", media: "logo" } } }]
+      ], preview: { select: { title: "name.text", media: "logo" } } }]
     },
   ],
   preview: {
-    select: { title: "title", num: "num", visible: "visible" },
+    select: { title: "title.text", num: "num.text", visible: "visible" },
     prepare({ title, num, visible }) {
       return { title, subtitle: `${num ? num + " · " : ""}${visible === false ? "🔴 Hidden" : "✅ Visible"}` };
     }

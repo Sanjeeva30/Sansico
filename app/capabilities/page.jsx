@@ -6,6 +6,8 @@ import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 import Strip from "@/components/Strip";
 import { getCapabilities, getPageSettings, getPageSeo } from "@/lib/content";
+import { getStyled } from "@/lib/styledText";
+import StyledText from "@/components/StyledText";
 import RichText from "@/components/RichText";
 import { notFound } from "next/navigation";
 
@@ -31,15 +33,19 @@ export default async function Capabilities() {
         heroType={settings.heroType} heroImageUrl={settings.heroImageUrl}
         heroVideoUrl={settings.heroVideoUrl} heroPosterUrl={settings.heroPosterUrl} />
 
-      {caps.groups.map((g, i) => (
+      {caps.groups.map((g, i) => {
+        const num = getStyled(g.num);
+        const title = getStyled(g.title);
+        const body = getStyled(g.body);
+        return (
         <section key={g.slug} id={g.slug} className={`sec ${i % 2 ? "warm" : ""}`}>
           <div className="wrap rv">
 
             {/* ── Strip + full-width heading ── */}
             <div style={{ marginBottom: 48 }} data-animate>
               <Strip style={{ marginBottom: 20 }} />
-              <p className="kicker" style={{ marginBottom: 8 }}>{g.num}</p>
-              <h2 style={{ margin: 0, fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)" }}>{g.title}</h2>
+              <p className="kicker" style={{ marginBottom: 8, ...num.style }}>{num.text}</p>
+              <h2 style={{ margin: 0, fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)", ...title.style }}>{title.text}</h2>
             </div>
 
             {/* ── Two-column: body LEFT, bullets RIGHT ── */}
@@ -49,15 +55,19 @@ export default async function Capabilities() {
               <div className="prose">
                 {g.richBody?.length
                   ? <RichText blocks={g.richBody} />
-                  : <p>{g.body}</p>
+                  : <p style={body.style}>{body.text}</p>
                 }
                 {g.proofPoints?.length > 0 && (
                   <div className="stats-row" style={{ marginTop: 32 }}>
-                    {g.proofPoints.map((pt) => (
-                      <div className="stat" key={pt.label}>
-                        <b>{pt.value}</b><span>{pt.label}</span>
-                      </div>
-                    ))}
+                    {g.proofPoints.map((pt, pi) => {
+                      const ptValue = getStyled(pt.value);
+                      const ptLabel = getStyled(pt.label);
+                      return (
+                        <div className="stat" key={ptLabel.text || pi}>
+                          <b style={ptValue.style}>{ptValue.text}</b><span style={ptLabel.style}>{ptLabel.text}</span>
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -66,30 +76,38 @@ export default async function Capabilities() {
               <div>
                 {g.points?.length > 0 && (
                   <ul className="points">
-                    {g.points.map((pt) => (
-                      <li key={pt} style={{ color: "var(--ink)" }}>{pt}</li>
-                    ))}
+                    {g.points.map((pt, pi) => {
+                      const point = getStyled(pt);
+                      return <li key={pi} style={{ color: "var(--ink)", ...point.style }}>{point.text}</li>;
+                    })}
                   </ul>
                 )}
                 {g.subServices?.length > 0 && (
                   <div style={{ marginTop: g.points?.length ? 32 : 0 }}>
                     <p className="kicker" style={{ marginBottom: 14 }}>Services</p>
-                    {g.subServices.map((s) => (
-                      <div key={s.title} style={{ marginBottom: 16 }}>
-                        <b style={{ display: "block", marginBottom: 4 }}>{s.title}</b>
-                        <p style={{ margin: 0, fontSize: 14.5, opacity: 0.8 }}>{s.description}</p>
-                      </div>
-                    ))}
+                    {g.subServices.map((s, si) => {
+                      const sTitle = getStyled(s.title);
+                      const sDesc = getStyled(s.description);
+                      return (
+                        <div key={si} style={{ marginBottom: 16 }}>
+                          <b style={{ display: "block", marginBottom: 4, ...sTitle.style }}>{sTitle.text}</b>
+                          <p style={{ margin: 0, fontSize: 14.5, opacity: 0.8, ...sDesc.style }}>{sDesc.text}</p>
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
                 {g.customerLogos?.length > 0 && (
                   <div style={{ marginTop: 32 }}>
                     <p className="kicker" style={{ marginBottom: 16 }}>Used by</p>
                     <div className="logo-wall">
-                      {g.customerLogos.map((cl) => cl.logoUrl && (
-                        <Image key={cl.name} src={cl.logoUrl} alt={cl.name}
-                          width={80} height={28} style={{ objectFit:"contain", filter:"grayscale(1)", opacity:0.6 }} />
-                      ))}
+                      {g.customerLogos.map((cl, cli) => {
+                        const clName = getStyled(cl.name);
+                        return cl.logoUrl && (
+                          <Image key={cli} src={cl.logoUrl} alt={clName.text}
+                            width={80} height={28} style={{ objectFit:"contain", filter:"grayscale(1)", opacity:0.6 }} />
+                        );
+                      })}
                     </div>
                   </div>
                 )}
@@ -102,7 +120,7 @@ export default async function Capabilities() {
                 {g.gallery.map((ph) => ph.url && (
                   <div key={ph.url} style={{ position:"relative", aspectRatio:"4/3", overflow:"hidden", borderRadius:6 }}>
                     <Image src={`${ph.url}?w=600&h=450&fit=crop&auto=format`}
-                      alt={ph.caption || g.title} fill sizes="(max-width:768px) 100vw, 33vw"
+                      alt={ph.caption || title.text} fill sizes="(max-width:768px) 100vw, 33vw"
                       style={{ objectFit:"cover" }} />
                   </div>
                 ))}
@@ -110,7 +128,8 @@ export default async function Capabilities() {
             )}
           </div>
         </section>
-      ))}
+        );
+      })}
 
       {/* ── Facilities ── */}
       {caps.facilities?.length > 0 && (
