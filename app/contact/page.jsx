@@ -3,6 +3,7 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import RfqForm from "@/components/RfqForm";
 import { getSite, getProductCategories, getPageSettings, getPageSeo } from "@/lib/content";
+import { getStyled } from "@/lib/styledText";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata() {
@@ -15,7 +16,7 @@ export async function generateMetadata() {
 export default async function Contact() {
   const [site, cats, settings] = await Promise.all([getSite(), getProductCategories(), getPageSettings("contact")]);
   if (!settings.visible) notFound();
-  const categoryNames = cats.map(c => c.name).filter(Boolean);
+  const categoryNames = cats.map(c => getStyled(c.name).text).filter(Boolean);
   return (
     <>
       <Reveal />

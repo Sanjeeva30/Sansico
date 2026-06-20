@@ -92,17 +92,22 @@ export default async function Home() {
             <p className="lede">Three capabilities, one accountable partner</p>
           </div>
           <div className="gate-grid">
-            {caps.groups.map((g, i) => (
+            {caps.groups.map((g, i) => {
+              const num = getStyled(g.num);
+              const title = getStyled(g.title);
+              const summary = getStyled(g.summary);
+              return (
               <Link className="gate rv border-loop" data-animate href={`/capabilities#${g.slug}`} key={g.slug}>
                 <div className={`art ${arts[i]}`} aria-hidden="true" />
                 <div className="inner">
-                  <span className="num">{g.num}</span>
-                  <h3>{g.title}</h3>
-                  <p>{g.summary}</p>
+                  <span className="num" style={num.style}>{num.text}</span>
+                  <h3 style={title.style}>{title.text}</h3>
+                  <p style={summary.style}>{summary.text}</p>
                   <span className="go">Explore <Arrow /></span>
                 </div>
               </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -114,32 +119,42 @@ export default async function Home() {
             <p className="lede">Land where your category lives</p>
           </div>
           <div className="market-grid">
-            {markets.items.map((m) => (
+            {markets.items.map((m) => {
+              const title = getStyled(m.title);
+              const tag = getStyled(m.tag);
+              return (
               <Link className="market border-loop" data-animate href={`/markets/${m.slug}`} key={m.slug}>
                 <span style={{ display:"block", width:10, height:10, borderRadius:"50%", background: m.colorHex || "var(--crimson)", marginBottom:16 }} aria-hidden="true" />
-                <h3>{m.title}</h3>
-                <p>{m.tag}</p>
+                <h3 style={title.style}>{title.text}</h3>
+                <p style={tag.style}>{tag.text}</p>
               </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {featured ? (
+      {featured ? (() => {
+        const fKicker = getStyled(featured.kicker);
+        const fQuote = getStyled(featured.quote);
+        return (
         <section className="sec proof">
           <div className="wrap rv">
-            <p className="kicker">Featured work — {featured.kicker}</p>
-            <blockquote>{featured.quote}</blockquote>
+            <p className="kicker">Featured work — {fKicker.text}</p>
+            <blockquote style={fQuote.style}>{fQuote.text}</blockquote>
             <div className="meta">
-              {featured.stats.map((s) => (
-                <div key={s.label}><b>{s.value}</b><span>{s.label}</span></div>
-              ))}
+              {featured.stats.map((s, si) => {
+                const sValue = getStyled(s.value);
+                const sLabel = getStyled(s.label);
+                return <div key={si}><b style={sValue.style}>{sValue.text}</b><span style={sLabel.style}>{sLabel.text}</span></div>;
+              })}
             </div>
             <br />
             <Link className="link-u" href={`/work/${featured.slug}`}>Read the case study <Arrow /></Link>
           </div>
         </section>
-      ) : null}
+        );
+      })() : null}
 
       <section className="sec">
         <div className="wrap sus-grid rv">
