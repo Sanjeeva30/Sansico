@@ -84,7 +84,7 @@ export default async function Company() {
                 Mission
               </p>
               <p style={{ fontSize:"clamp(0.95rem,1.5vw,1.05rem)", lineHeight:1.65,
-                margin:0, color:"#17120F", fontWeight:300, fontStyle:"italic" }}>
+                margin:0, color:"#17120F", fontWeight:300 }}>
                 {c.mission}
               </p>
             </div>
