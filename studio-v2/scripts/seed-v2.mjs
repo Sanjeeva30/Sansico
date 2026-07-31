@@ -522,12 +522,13 @@ page("home", "Home", [
     heading: s("We make things that matter, for brands that |care|."),
     body: t("For forty years, Sansico has been the manufacturing partner behind the seasonal aisle — gift bags, wraps, boxes, handicrafts and toys that reach 500 million homes each year. Every programme is built on certified materials, verified labour standards and a supply chain you can show your board."),
   }),
+  // Values and tile colours copied verbatim from the live homePage document.
   B("statsBlock", {
     stats: [
-      { _type: "object", _key: k(), value: s("40+"), label: s("Years in manufacturing") },
-      { _type: "object", _key: k(), value: s("10"), label: s("Certified facilities") },
-      { _type: "object", _key: k(), value: s("500M"), label: s("Homes reached each year") },
-      { _type: "object", _key: k(), value: s("95%"), label: s("Min. recycled content, gift bags") },
+      { _type: "object", _key: k(), value: s("40+"),  label: s("Years in manufacturing"),          bgColor: "#7A0D20", textColor: "#FFFFFF" },
+      { _type: "object", _key: k(), value: s("10"),   label: s("Certified facilities"),            bgColor: "#22409E", textColor: "#FFFFFF" },
+      { _type: "object", _key: k(), value: s("500M"), label: s("Homes reached each year"),         bgColor: "#0D4F31", textColor: "#FFFFFF" },
+      { _type: "object", _key: k(), value: s("95%"),  label: s("Min. recycled content, gift bags"), bgColor: "#BDDA5F", textColor: "#FFFFFF" },
     ],
   }),
   B("customerStoriesBlock", {
@@ -536,11 +537,12 @@ page("home", "Home", [
     link: link("Our story", "/company"),
   }, { theme: "warm" }),
   B("capabilityCardsBlock", {
-    head: head("Capabilities", "Three capabilities, one accountable partner"),
+    head: head("What we do \u2197", "Three capabilities, one accountable partner"),
+    cta: link("What we do", "/capabilities"),
     cards: [
-      { _type: "object", _key: k(), tag: s("Design"), title: s("Design & Creative Studio"), desc: t("Trend, artwork and product development that lives and breathes consumer brands."), cta: link("Explore", "/capabilities#design-creative"), image: rimg(A("Capabilities - 1600x1000px.png"), "Design studio work") },
-      { _type: "object", _key: k(), tag: s("Make"), title: s("Manufacturing Solutions"), desc: t("Printing, packaging, moulding, forming and sewing — with an ISO 17025 safety lab in-house."), cta: link("Explore", "/capabilities#manufacturing"), image: rimg(A("Sasnico.png"), "Manufacturing floor") },
-      { _type: "object", _key: k(), tag: s("Deliver"), title: s("Vendor Operations"), desc: t("Sourcing, EXIM, bonded-zone logistics, planning and trade compliance — door to door."), cta: link("Explore", "/capabilities#vendor-operations"), image: rimg(A("Foshan.jpg"), "Vendor operations") },
+      { _type: "object", _key: k(), tag: s("DESIGN"), title: s("Design & Creative Studio"), desc: t("Trend, artwork and product development that lives and breathes consumer brands."), cta: link("Explore", "/capabilities#design-creative"), image: rimg(A("Capabilities - 1600x1000px.png"), "Design studio work") },
+      { _type: "object", _key: k(), tag: s("MAKE"), title: s("Manufacturing Solutions"), desc: t("Printing, packaging, moulding, forming and sewing — with an ISO 17025 safety laboratory in-house."), cta: link("Explore", "/capabilities#manufacturing"), image: rimg(A("Sasnico.png"), "Manufacturing floor") },
+      { _type: "object", _key: k(), tag: s("DELIVER"), title: s("Vendor Operations"), desc: t("Sourcing, EXIM, bonded-zone logistics, planning and trade compliance — door to door."), cta: link("Explore", "/capabilities#vendor-operations"), image: rimg(A("Foshan.jpg"), "Vendor operations") },
     ],
   }),
   B("tileGridBlock", {

@@ -4,6 +4,7 @@ import Strip from "@/components/Strip";
 import Arrow from "@/components/Arrow";
 import Hero, { InkBands } from "@/components/Hero";
 import CustomerStories from "./CustomerStories";
+import CountStats from "@/components/CountStats";
 import { ContactForm } from "./Forms";
 import { getStyled } from "@/lib/styledText";
 import { sanityImgUrl } from "@/lib/content";
@@ -231,22 +232,23 @@ function WhyIndonesiaDetailBlock({ b }) {
   );
 }
 
+// Rendered through the live site's CountStats component so the rounded cards,
+// shadows and count-up animation are identical. CountStats expects a numeric
+// `value` plus a separate `suffix`, so the CMS string ("40+", "500M") is split
+// into those parts here.
 function StatsBlock({ b }) {
-  return (
-    <div className="wrap rv">
-      <div className="grid-tight" style={{ "--cols": Math.min(b.stats?.length || 4, 4) }}>
-        {(b.stats || []).map((s, i) => {
-          const value = S(s.value), label = S(s.label);
-          return (
-            <div className="v2-stat" key={i} style={{ background: s.bgColor || undefined, color: s.textColor || undefined }}>
-              <b style={value.style}>{value.text}</b>
-              <span style={label.style}>{label.text}</span>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
+  const stats = (b.stats || []).map((s) => {
+    const raw = S(s.value).text || "";
+    const m = raw.match(/^([\d.]+)(.*)$/);
+    return {
+      value: m ? m[1] : raw,
+      suffix: m ? m[2] : "",
+      label: s.label,
+      bgHex: s.bgColor || undefined,
+      textHex: s.textColor || undefined,
+    };
+  });
+  return <CountStats stats={stats} />;
 }
 
 function CustomerStoriesBlock({ b }) {
@@ -279,30 +281,40 @@ function LogoWallBlock({ b }) {
   );
 }
 
+// The live site's "What we do" gate cards: full-bleed generative art panels
+// (.art-design / .art-make / .art-deliver from globals.css) with the copy
+// sitting in a gradient scrim at the foot of each card.
+const GATE_ART = ["art-design", "art-make", "art-deliver"];
+
 function CapabilityCardsBlock({ b }) {
+  const head = b.head || {};
   return (
     <div className="wrap">
-      <SectionHead head={b.head} />
-      <div className="grid-n" style={{ "--cols": 3, gap: 2 }}>
+      <div className="sec-head rv">
+        {b.cta?.href
+          ? <Link href={b.cta.href} style={{ cursor: "pointer" }} data-animate>
+              <Txt value={head.kicker} as="h2" className="kicker" />
+            </Link>
+          : <Txt value={head.kicker} as="h2" className="kicker" />}
+        <Txt value={head.heading} as="p" className="lede" />
+      </div>
+      <div className="gate-grid">
         {(b.cards || []).map((c, i) => {
+          const tag = S(c.tag), title = S(c.title), desc = S(c.desc);
           const inner = (
             <>
-              {c.image?.url ? (
-                <div className="v2-card-media" aria-hidden="true">
-                  <img src={sanityImgUrl(c.image.url, { w: 700, h: 700 })} alt="" />
-                </div>
-              ) : null}
-              <Txt value={c.tag} as="div" className="t-kicker" />
-              <div>
-                <Txt value={c.title} as="h3" className="t-h3" style={{ fontSize: 21, marginBottom: 10 }} />
-                <Txt value={c.desc} as="p" className="t-body" style={{ marginBottom: 18 }} />
+              <div className={`art ${GATE_ART[i % GATE_ART.length]}`} aria-hidden="true" />
+              <div className="inner">
+                <span className="num" style={tag.style}>{tag.text}</span>
+                <h3 style={title.style}>{title.text}</h3>
+                <p style={desc.style}>{desc.text}</p>
                 <span className="go">Explore <Arrow /></span>
               </div>
             </>
           );
           return c.cta?.href
-            ? <Link className="v2-card-dark rv border-loop" data-animate href={c.cta.href} key={i}>{inner}</Link>
-            : <div className="v2-card-dark rv" key={i}>{inner}</div>;
+            ? <Link className="gate rv" data-animate href={c.cta.href} key={i}>{inner}</Link>
+            : <div className="gate rv" key={i}>{inner}</div>;
         })}
       </div>
     </div>
