@@ -292,6 +292,11 @@ export const timelineBlock = block({
   fields: [
     HEAD,
     { name: "milestones", title: "Milestones", type: "array", of: [{ type: "reference", to: [{ type: "milestone" }] }] },
+    { name: "autoScroll", title: "Auto-scroll the timeline", type: "boolean", initialValue: true,
+      description: "Drifts the milestones sideways on their own. Pauses on hover, on focus and while the reader scrolls." },
+    { name: "autoScrollSpeed", title: "Auto-scroll speed (px per second)", type: "number", initialValue: 28,
+      hidden: ({ parent }) => parent?.autoScroll === false,
+      validation: (R) => R.min(4).max(200) },
   ],
 });
 

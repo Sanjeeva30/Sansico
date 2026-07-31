@@ -4,6 +4,7 @@ import Strip from "@/components/Strip";
 import Arrow from "@/components/Arrow";
 import Hero, { InkBands } from "@/components/Hero";
 import CustomerStories from "./CustomerStories";
+import TimelineScroller from "./TimelineScroller";
 import CountStats from "@/components/CountStats";
 import { ContactForm } from "./Forms";
 import { getStyled } from "@/lib/styledText";
@@ -467,7 +468,11 @@ function TimelineBlock({ b }) {
       <div className="wrap rv">
         <SectionHead head={b.head} right={<div className="t-small">← Scroll to explore →</div>} />
       </div>
-      <div className="wrap v2-scroller">
+      <TimelineScroller
+        className="wrap v2-scroller"
+        enabled={b.autoScroll !== false}
+        speed={b.autoScrollSpeed || 28}
+      >
         <div className="v2-timeline">
           {(b.milestones || []).map((m, i) => (
             <div className="v2-timeline-item" key={i}>
@@ -478,7 +483,7 @@ function TimelineBlock({ b }) {
             </div>
           ))}
         </div>
-      </div>
+      </TimelineScroller>
     </>
   );
 }
