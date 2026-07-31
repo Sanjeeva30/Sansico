@@ -1,0 +1,119 @@
+"use client";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { getStyled } from "@/lib/styledText";
+
+const S = (v) => getStyled(v).text;
+
+export default function HeaderV2({ site }) {
+  const [open, setOpen] = useState(false);
+  const path = usePathname();
+
+  useEffect(() => { setOpen(false); }, [path]);
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  const active = (href) => (href === "/" ? path === "/" : path.startsWith(href));
+
+  const capabilities = site.capabilities || [];
+  const categories = site.categories || [];
+  const audiences = site.audiences || [];
+
+  const MAIN = [
+    { label: "Capabilities", href: "/capabilities", menu: capabilities.map((c) => ({ label: S(c.title), href: `/capabilities#${c.slug}` })) },
+    { label: "Products", href: "/products", menu: categories.map((c) => ({ label: S(c.name), href: `/products/${c.slug}` })) },
+    { label: "Company", href: "/company", menu: [{ label: "About Us", href: "/company" }, { label: "Facilities", href: "/company#facilities" }] },
+    { label: "Sustainability", href: "/sustainability" },
+    { label: "Why Indonesia", href: "/why-indonesia" },
+    { label: "Careers", href: "/careers" },
+    { label: "Blog", href: "/blog" },
+  ];
+
+  return (
+    <>
+      <header className="v2hd">
+        {/* utility strip — the wireframe's For Buyers / Factories / Creatives row */}
+        <div className="v2hd-utility">
+          <div className="wrap">
+            {audiences.map((a) => (
+              <Link key={a.slug} href={`/${a.slug}`} aria-current={active(`/${a.slug}`) ? "page" : undefined}>
+                {S(a.label)}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="v2hd-main">
+          <div className="wrap">
+            <Link className="v2hd-logo" href="/">
+              {site.logoUrl
+                ? <Image src={site.logoUrl} alt="Sansico Group" width={150} height={34} style={{ objectFit: "contain" }} />
+                : <>SANSICO <em>Group</em></>}
+            </Link>
+
+            <nav className="v2hd-nav" aria-label="Primary">
+              {MAIN.map((n) => (
+                <div key={n.href} className={n.menu?.length ? "v2hd-drop" : undefined}>
+                  <Link className="navlink" href={n.href} aria-current={active(n.href) ? "page" : undefined}>{n.label}</Link>
+                  {n.menu?.length ? (
+                    <div className="v2hd-menu">
+                      {n.menu.map((m) => <Link key={m.href} href={m.href}>{m.label}</Link>)}
+                    </div>
+                  ) : null}
+                </div>
+              ))}
+            </nav>
+
+            <Link className="v2hd-cta" href="/contact">{S(site.ctaLabel) || "Start Conversation"}</Link>
+
+            <button className="v2hd-burger" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
+              {open ? "Close" : "Menu"}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {open && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 9999, background: "var(--paper-warm)", display: "flex", flexDirection: "column", overflowY: "auto" }}>
+          <div style={{ display: "flex", height: 5, flexShrink: 0 }}>
+            {["#7A0D20", "#22409E", "#0D4F31", "#F3263E", "#BDDA5F"].map((c) => <div key={c} style={{ flex: 1, background: c }} />)}
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 6%", borderBottom: "1px solid var(--hair)" }}>
+            <Link href="/" className="v2hd-logo" onClick={() => setOpen(false)}>SANSICO <em>Group</em></Link>
+            <button className="v2hd-burger" style={{ display: "block" }} onClick={() => setOpen(false)}>Close ×</button>
+          </div>
+          <nav style={{ flex: 1, padding: "24px 6%" }}>
+            {MAIN.map((n) => (
+              <Link key={n.href} href={n.href} onClick={() => setOpen(false)}
+                style={{
+                  display: "flex", justifyContent: "space-between", alignItems: "center",
+                  fontFamily: "var(--font-serif), Georgia, serif",
+                  fontSize: "clamp(1.5rem, 6.5vw, 2.2rem)",
+                  color: active(n.href) ? "var(--crimson)" : "var(--ink)",
+                  padding: "clamp(10px,2.2vw,16px) 0", borderBottom: "1px solid var(--hair)",
+                }}>
+                {n.label}<span style={{ fontSize: "1rem", color: "var(--hair)" }}>→</span>
+              </Link>
+            ))}
+            <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginTop: 26 }}>
+              {audiences.map((a) => (
+                <Link key={a.slug} href={`/${a.slug}`} onClick={() => setOpen(false)} className="t-small" style={{ color: "var(--ink-soft)" }}>
+                  {S(a.label)}
+                </Link>
+              ))}
+            </div>
+            <div style={{ marginTop: 28 }}>
+              <Link className="btn btn-crimson" href="/contact" onClick={() => setOpen(false)}>
+                {S(site.ctaLabel) || "Start Conversation"} →
+              </Link>
+            </div>
+          </nav>
+        </div>
+      )}
+    </>
+  );
+}

@@ -1,10 +1,14 @@
 export const revalidate = 30;
 import "./globals.css";
+import "./animations.css";
+import "./v2.css";
 import localFont from "next/font/local";
 import ScrollObserver from "@/components/ScrollObserver";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import HeaderV2 from "@/components/v2/HeaderV2";
+import FooterV2 from "@/components/v2/FooterV2";
+import Reveal from "@/components/Reveal";
 import { getSite } from "@/lib/content";
+import { getV2Site } from "@/lib/v2";
 
 const sans = localFont({
   src: "./fonts/Archivo-Variable.ttf",
@@ -18,8 +22,13 @@ const serif = localFont({
   variable: "--font-serif", display: "swap"
 });
 
+// Belt-and-braces alongside app/robots.js: preview deployments also emit a
+// noindex meta tag, which crawlers honour even if robots.txt is missed.
+const isProduction = process.env.VERCEL_ENV === "production";
+
 export const metadata = {
   metadataBase: new URL("https://www.sansico.com"),
+  ...(isProduction ? {} : { robots: { index: false, follow: false } }),
   title: { default: "Sansico Group — Joy, sustainably packaged | Indonesia · China · USA", template: "%s | Sansico Group" },
   description: "Sansico Group designs and manufactures gifting, toy, handicraft and packaging programmes for the world's most loved brands — FSC, FSSC 22000 and ISO 17025 certified, from ten facilities in Indonesia and China.",
   openGraph: { siteName: "Sansico Group", type: "website" }
@@ -36,6 +45,7 @@ const orgJsonLd = {
 
 export default async function RootLayout({ children }) {
   const site = await getSite();
+  const v2site = await getV2Site();
   const headingSerif = site.headingFont === "serif";
   const bodySize = site.bodySize === "lg" ? "18px" : site.bodySize === "sm" ? "14px" : "16px";
   const themeVars = {
@@ -43,14 +53,18 @@ export default async function RootLayout({ children }) {
     "--body-size": bodySize,
   };
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable}${headingSerif ? " heading-serif" : ""}`}>
+    // suppressHydrationWarning: the inline script below adds a `js` class to
+    // <html> before React hydrates, which React would otherwise flag.
+    <html lang="en" suppressHydrationWarning
+      className={`${sans.variable} ${serif.variable}${headingSerif ? " heading-serif" : ""} v2`}>
       <body style={themeVars}>
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
         <ScrollObserver />
-      <Header site={site} />
+        <Reveal />
+        <HeaderV2 site={v2site} />
         <main>{children}</main>
-        <Footer site={site} />
+        <FooterV2 site={v2site} />
       </body>
     </html>
   );

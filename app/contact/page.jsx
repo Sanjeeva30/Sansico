@@ -1,64 +1,10 @@
 export const revalidate = 30;
-import PageHero from "@/components/PageHero";
-import Reveal from "@/components/Reveal";
-import RfqForm from "@/components/RfqForm";
-import { getSite, getProductCategories, getPageSettings, getPageSeo } from "@/lib/content";
-import { getStyled } from "@/lib/styledText";
-import { notFound } from "next/navigation";
+import V2Page, { v2Metadata } from "@/components/v2/V2Page";
 
 export async function generateMetadata() {
-  return getPageSeo("contact", {
-    title: "Contact — Request a Quotation",
-    description: "Start a conversation with Sansico Group: request a quotation, email sales@sansico.com, or call our Jakarta and Foshan marketing offices."
-  });
+  return v2Metadata("contact", { title: "Contact" });
 }
 
-export default async function Contact() {
-  const [site, cats, settings] = await Promise.all([getSite(), getProductCategories(), getPageSettings("contact")]);
-  if (!settings.visible) notFound();
-  const categoryNames = cats.map(c => getStyled(c.name).text).filter(Boolean);
-  return (
-    <>
-      <Reveal />
-      <PageHero kicker="Contact" title={getStyled(settings.pageTitle).text || "Tell us what you're making"}
-        intro={getStyled(settings.pageIntro).text || "Category, target market, estimated volumes and timeline — our marketing offices in Jakarta and Foshan respond within one business day."}
-        titleStyle={getStyled(settings.pageTitle).style} introStyle={getStyled(settings.pageIntro).style}
-        heroType={settings.heroType} heroImageUrl={settings.heroImageUrl}
-        heroVideoUrl={settings.heroVideoUrl} heroPosterUrl={settings.heroPosterUrl} />
-      <section className="sec">
-        <div className="wrap split rv">
-          <div>
-            <h2 className="kicker" style={{ marginBottom:24 }}>Request a quotation</h2>
-            <RfqForm categories={categoryNames} email={site.contact.email} />
-          </div>
-          <div>
-            <h2 className="kicker" style={{ marginBottom:24 }}>Reach us directly</h2>
-            <div className="card" style={{ marginBottom:16 }}>
-              <span className="kicker">Email</span>
-              <p style={{ fontSize:17, fontWeight:600, color:"var(--ink)" }}>
-                <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
-              </p>
-            </div>
-            {site.contact.phones.map((p) => (
-              <div className="card" style={{ marginBottom:16 }} key={p.tel}>
-                <span className="kicker">{p.label}</span>
-                <p style={{ fontSize:17, fontWeight:600, color:"var(--ink)" }}>
-                  <a href={`tel:${p.tel}`}>{p.display}</a>
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="sec warm">
-        <div className="wrap rv">
-          <div className="presence">
-            {site.contact.presence.map((p) => (
-              <div className="pres" key={p.country}><b>{p.country}</b><p>{p.detail}</p></div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
-  );
+export default function Page() {
+  return <V2Page pageId="contact" />;
 }

@@ -4,16 +4,16 @@ export const dynamic = "force-dynamic";
 
 export async function POST() {
   const paths = [
-    "/","/capabilities","/markets","/products","/work",
-    "/sustainability","/company","/company/facilities",
-    "/careers","/contact","/team","/news",
+    "/","/capabilities","/products","/sustainability","/company",
+    "/why-indonesia","/careers","/blog","/contact",
+    "/buyers","/factories","/creatives",
   ];
   try {
     for (const path of paths) revalidatePath(path);
-    revalidatePath("/markets/[slug]","page");
-    revalidatePath("/products/[slug]","page");
-    revalidatePath("/work/[slug]","page");
-    revalidatePath("/news/[slug]","page");
+    revalidatePath("/products/[category]","page");
+    revalidatePath("/products/[category]/[product]","page");
+    revalidatePath("/careers/[role]","page");
+    revalidatePath("/blog/[slug]","page");
     return NextResponse.json({ revalidated:true, at:new Date().toISOString() });
   } catch (err) {
     return NextResponse.json({ revalidated:false, error:err.message }, { status:500 });

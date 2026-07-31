@@ -1,0 +1,16 @@
+{
+  "name": "sansico-studio-v2",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "sanity dev --port 3333",
+    "build": "sanity build"
+  },
+  "dependencies": {
+    "@sanity/orderable-document-list": "^1.5.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "sanity": "^4.22.0",
+    "styled-components": "^6.1.15"
+  }
+}
