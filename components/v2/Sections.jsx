@@ -9,6 +9,7 @@ import CountStats from "@/components/CountStats";
 import { ContactForm } from "./Forms";
 import { getStyled } from "@/lib/styledText";
 import { sanityImgUrl } from "@/lib/image";
+import { editAttr, sectionPath, itemPath } from "@/lib/sanity/edit";
 
 /* ── small shared helpers ─────────────────────────────── */
 
@@ -263,16 +264,16 @@ function StatsBlock({ b }) {
   return <CountStats stats={stats} />;
 }
 
-function CustomerStoriesBlock({ b }) {
+function CustomerStoriesBlock({ b, ctx }) {
   return (
     <div className="wrap rv">
       <SectionHead head={b.head} />
-      <CustomerStories stories={b.stories || []} link={b.link} />
+      <CustomerStories stories={b.stories || []} link={b.link} editable={!!ctx?.enabled} />
     </div>
   );
 }
 
-function LogoWallBlock({ b }) {
+function LogoWallBlock({ b, ctx }) {
   return (
     <div className="wrap rv">
       <SectionHead head={b.head} />
@@ -280,7 +281,8 @@ function LogoWallBlock({ b }) {
         {(b.logos || []).map((l, i) => {
           const name = S(l.name);
           return (
-            <div role="listitem" key={i} title={name.text}>
+            <div role="listitem" key={l._key || i} title={name.text}
+              {...(ctx?.itemAttr("logos", l._key, "logo") || {})}>
               {l.logo?.url
                 ? <img src={sanityImgUrl(l.logo.url, { w: 200, h: 90, fit: "max" })} alt={l.logo.alt || name.text}
                     style={{ maxHeight: 42, objectFit: "contain", filter: "grayscale(1)", opacity: .72 }} />
@@ -298,7 +300,7 @@ function LogoWallBlock({ b }) {
 // sitting in a gradient scrim at the foot of each card.
 const GATE_ART = ["art-design", "art-make", "art-deliver"];
 
-function CapabilityCardsBlock({ b }) {
+function CapabilityCardsBlock({ b, ctx }) {
   const head = b.head || {};
   return (
     <div className="wrap">
@@ -326,16 +328,17 @@ function CapabilityCardsBlock({ b }) {
               </div>
             </>
           );
+          const cardEdit = ctx?.itemAttr("cards", c._key) || {};
           return c.cta?.href
-            ? <Link className="gate rv" data-animate style={cardStyle} href={c.cta.href} key={i}>{inner}</Link>
-            : <div className="gate rv" style={cardStyle} key={i}>{inner}</div>;
+            ? <Link className="gate rv" data-animate style={cardStyle} href={c.cta.href} key={c._key || i} {...cardEdit}>{inner}</Link>
+            : <div className="gate rv" style={cardStyle} key={c._key || i} {...cardEdit}>{inner}</div>;
         })}
       </div>
     </div>
   );
 }
 
-function TileGridBlock({ b }) {
+function TileGridBlock({ b, ctx }) {
   return (
     <div className="wrap rv">
       <SectionHead head={b.head} />
@@ -343,29 +346,31 @@ function TileGridBlock({ b }) {
         {(b.tiles || []).map((t, i) => {
           const inner = (
             <>
-              <Media value={t.image} ratio="4/3" showCaption={false} />
+              <Media value={t.image} ratio="4/3" showCaption={false} edit={ctx?.itemAttr("tiles", t._key, "image")} />
               <Txt value={t.label} as="div" className="v2-tag"
                 style={{ marginTop: 16, background: t.bgColor || undefined, color: t.textColor || undefined,
                   borderColor: t.bgColor || undefined }} />
             </>
           );
+          const tileEdit = ctx?.itemAttr("tiles", t._key) || {};
           return t.cta?.href
-            ? <Link href={t.cta.href} key={i} style={{ display: "block" }}>{inner}</Link>
-            : <div key={i}>{inner}</div>;
+            ? <Link href={t.cta.href} key={t._key || i} style={{ display: "block" }} {...tileEdit}>{inner}</Link>
+            : <div key={t._key || i} {...tileEdit}>{inner}</div>;
         })}
       </div>
     </div>
   );
 }
 
-function IconCardsBlock({ b }) {
+function IconCardsBlock({ b, ctx }) {
   const align = b.align || "center";
   return (
     <div className="wrap rv">
       <SectionHead head={b.head} />
       <div className="grid-n" style={{ "--cols": b.columns || 3 }}>
         {(b.cards || []).map((c, i) => (
-          <div className="v2-card" key={i} style={{ textAlign: align,
+          <div className="v2-card" key={c._key || i} {...(ctx?.itemAttr("cards", c._key) || {})}
+            style={{ textAlign: align,
             background: c.bgColor || undefined, color: c.textColor || undefined,
             borderColor: c.borderColor || undefined }}>
             {c.icon?.url ? (
@@ -387,13 +392,14 @@ function IconCardsBlock({ b }) {
   );
 }
 
-function JourneyBlock({ b }) {
+function JourneyBlock({ b, ctx }) {
   return (
     <div className="wrap rv">
       <SectionHead head={b.head} />
       <div className="grid-n" style={{ "--cols": Math.min(b.steps?.length || 5, 5) }}>
         {(b.steps || []).map((s, i) => (
-          <div className="v2-card" key={i} style={{ minHeight: 160, display: "flex", flexDirection: "column", justifyContent: "space-between",
+          <div className="v2-card" key={s._key || i} {...(ctx?.itemAttr("steps", s._key) || {})}
+            style={{ minHeight: 160, display: "flex", flexDirection: "column", justifyContent: "space-between",
             background: s.bgColor || undefined, color: s.textColor || undefined }}>
             <Txt value={s.n} as="div" className="t-small" fallback={<div className="t-small">{String(i + 1).padStart(2, "0")}</div>} />
             <div>
@@ -407,9 +413,9 @@ function JourneyBlock({ b }) {
   );
 }
 
-function SplitFeatureBlock({ b }) {
+function SplitFeatureBlock({ b, ctx }) {
   const imageFirst = (b.imageSide || "left") === "left";
-  const media = <div className="c-6"><Media value={b.image} ratio="4/3" /></div>;
+  const media = <div className="c-6"><Media value={b.image} ratio="4/3" edit={ctx?.attr("image")} /></div>;
   const text = (
     <div className="c-6">
       <Txt value={b.kicker} as="div" className="t-kicker" style={{ marginBottom: 14 }} />
@@ -428,8 +434,8 @@ function SplitFeatureBlock({ b }) {
   );
 }
 
-function ImageBlock({ b }) {
-  return <div className="wrap rv"><Media value={b.image} ratio={b.ratio || "16/9"} w={1800} h={1000} /></div>;
+function ImageBlock({ b, ctx }) {
+  return <div className="wrap rv"><Media value={b.image} ratio={b.ratio || "16/9"} w={1800} h={1000} edit={ctx?.attr("image")} /></div>;
 }
 
 function FaqBlock({ b }) {
@@ -446,13 +452,14 @@ function FaqBlock({ b }) {
   );
 }
 
-function MissionCardsBlock({ b }) {
+function MissionCardsBlock({ b, ctx }) {
   return (
     <div className="wrap rv">
       <SectionHead head={b.head} />
       <div className="grid-n" style={{ "--cols": Math.min(b.items?.length || 2, 3) }}>
         {(b.items || []).map((m, i) => (
-          <div className="v2-card" key={i} style={{ background: m.bgColor || undefined, color: m.textColor || undefined }}>
+          <div className="v2-card" key={m._key || i} {...(ctx?.itemAttr("items", m._key) || {})}
+            style={{ background: m.bgColor || undefined, color: m.textColor || undefined }}>
             <Headline value={m.title} style={{ marginBottom: 14 }} />
             <Txt value={m.desc} as="p" className="t-body-lg" />
           </div>
@@ -462,12 +469,12 @@ function MissionCardsBlock({ b }) {
   );
 }
 
-function PresenceMapBlock({ b }) {
+function PresenceMapBlock({ b, ctx }) {
   return (
     <div className="wrap rv">
       <SectionHead head={b.head} />
       <div style={{ position: "relative" }}>
-        <Media value={b.map} ratio="16/7" w={1800} h={790} />
+        <Media value={b.map} ratio="16/7" w={1800} h={790} edit={ctx?.attr("map")} />
         {(b.pins || []).map((p, i) => (
           <span key={i} title={S(p.label).text} style={{
             position: "absolute", left: `${p.x}%`, top: `${p.y}%`,
@@ -480,7 +487,7 @@ function PresenceMapBlock({ b }) {
   );
 }
 
-function TimelineBlock({ b }) {
+function TimelineBlock({ b, ctx }) {
   return (
     <>
       <div className="wrap rv">
@@ -493,9 +500,13 @@ function TimelineBlock({ b }) {
       >
         <div className="v2-timeline">
           {(b.milestones || []).map((m, i) => (
-            <div className="v2-timeline-item" key={i}>
+            <div className="v2-timeline-item" key={m._id || i}
+              {...(ctx?.docAttr(m._id, m._type, "year") || {})}>
               <div className="year">{S(m.year).text}</div>
-              <div style={{ marginBottom: 16 }}><Media value={m.image} ratio="4/3" showCaption={false} w={560} h={420} /></div>
+              <div style={{ marginBottom: 16 }}>
+                <Media value={m.image} ratio="4/3" showCaption={false} w={560} h={420}
+                  edit={ctx?.docAttr(m._id, m._type, "image")} />
+              </div>
               <Txt value={m.title} as="div" className="t-h3" style={{ marginBottom: 8, fontSize: 16 }} />
               <Txt value={m.copy} as="p" className="t-body" />
             </div>
@@ -506,7 +517,7 @@ function TimelineBlock({ b }) {
   );
 }
 
-function FacilitiesBlock({ b }) {
+function FacilitiesBlock({ b, ctx }) {
   return (
     <div className="wrap rv">
       <SectionHead head={b.head} right={b.link?.href ? <Link className="t-small" href={b.link.href} style={{ color: "var(--crimson)", borderBottom: "1px solid var(--crimson)" }}>{S(b.link.label).text} →</Link> : null} />
@@ -515,8 +526,9 @@ function FacilitiesBlock({ b }) {
           <Txt value={g.label} as="div" className="t-kicker" style={{ marginBottom: 26 }} />
           <div className="grid-n" style={{ "--cols": 3 }}>
             {(g.facilities || []).map((f, i) => (
-              <div key={i}>
-                <Media value={{ url: f.photoUrl, alt: S(f.name).text }} ratio="4/3" showCaption={false} />
+              <div key={f._id || i} {...(ctx?.docAttr(f._id, f._type, "name") || {})}>
+                <Media value={{ url: f.photoUrl, alt: S(f.name).text }} ratio="4/3" showCaption={false}
+                  edit={ctx?.docAttr(f._id, f._type, "photo")} />
                 <div className="t-h3" style={{ marginTop: 16, fontSize: 16 }}>{S(f.name).text}</div>
                 <div className="t-small" style={{ marginTop: 6 }}>{S(f.city).text}</div>
                 {S(f.focus).text ? <div className="t-body" style={{ marginTop: 8 }}>{S(f.focus).text}</div> : null}
@@ -529,15 +541,15 @@ function FacilitiesBlock({ b }) {
   );
 }
 
-function OfficesBlock({ b }) {
+function OfficesBlock({ b, ctx }) {
   return (
     <div className="wrap rv">
       <SectionHead head={b.head} />
       <div className="grid12" style={{ alignItems: "start" }}>
-        <div className="c-6"><Media value={b.map} ratio="4/3" /></div>
+        <div className="c-6"><Media value={b.map} ratio="4/3" edit={ctx?.attr("map")} /></div>
         <div className="c-6" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           {(b.offices || []).map((o, i) => (
-            <div className="v2-card" key={i}>
+            <div className="v2-card" key={o._key || i} {...(ctx?.itemAttr("offices", o._key) || {})}>
               <Txt value={o.label} as="div" className="t-small" style={{ marginBottom: 12 }} />
               <Txt value={o.name} as="div" className="t-h3" style={{ marginBottom: 12 }} />
               <Txt value={o.address} as="p" className="t-body" style={{ marginBottom: 14 }} />
@@ -785,21 +797,45 @@ const REGISTRY = {
 // the standard padded section shell.
 const BARE = new Set(["siteHeroBlock", "heroVideoBlock", "pageHeroBlock"]);
 
-export default function Sections({ sections = [] }) {
+export default function Sections({ sections = [], doc, isDraft = false }) {
+  // `doc` is the page that owns these sections. Every element below builds its
+  // data-sanity attribute from it, so clicking anything in Presentation opens
+  // the exact field rather than just the document.
+  const owner = { id: doc?._id, type: doc?._type };
+  // Public HTML must stay free of document ids and field paths.
+  const edit = (args) => (isDraft ? editAttr(args) : undefined);
+
   return (
     <>
       {sections.map((b) => {
         const Block = REGISTRY[b._type];
         if (!Block || b.visible === false) return null;
-        if (BARE.has(b._type)) return <Block b={b} key={b._key} />;
+
+        // Path helpers scoped to this section, handed to the block so it can
+        // address its own sub-fields (cards[_key].image, stats[_key], …).
+        const ctx = {
+          ...owner,
+          path: sectionPath(b._key),
+          enabled: isDraft,
+          attr: (field) => edit({ ...owner, path: `${sectionPath(b._key)}${field ? "." + field : ""}` }),
+          itemAttr: (field, itemKey, sub) =>
+            edit({
+              ...owner,
+              path: `${itemPath(b._key, field, itemKey)}${sub ? "." + sub : ""}`,
+            }),
+          docAttr: (id, type, path) => edit({ id, type, path }),
+        };
+
+        if (BARE.has(b._type)) return <Block b={b} ctx={ctx} key={b._key} />;
         return (
           <section
             key={b._key}
             id={b.anchorId || undefined}
             className={`v2-section theme-${b.theme || "paper"}`}
             style={{ background: b.bgColor || undefined, color: b.textColor || undefined }}
+            {...(ctx.attr() || {})}
           >
-            <Block b={b} />
+            <Block b={b} ctx={ctx} />
           </section>
         );
       })}

@@ -3,10 +3,11 @@ import { useState } from "react";
 import Link from "next/link";
 import Media from "./Media";
 import { getStyled } from "@/lib/styledText";
+import { editAttr } from "@/lib/sanity/edit";
 
 // The homepage "Long-Term Partnerships" band: a row of customer names that
 // swaps the quote and photo beneath it.
-export default function CustomerStories({ stories = [], link }) {
+export default function CustomerStories({ stories = [], link, editable = false }) {
   const [i, setI] = useState(0);
   if (!stories.length) return null;
   const s = stories[Math.min(i, stories.length - 1)];
@@ -43,7 +44,10 @@ export default function CustomerStories({ stories = [], link }) {
 
       <div className="grid12" style={{ alignItems: "center" }}>
         <div className="c-6">
-          <Media value={s.image} ratio="4/3" />
+          {/* The photo belongs to the customerStory document, so it points at
+              that document's own image field rather than the page. */}
+          <Media value={s.image} ratio="4/3"
+            edit={editable ? editAttr({ id: s._id, type: s._type, path: "image" }) : undefined} />
         </div>
         <div className="c-6">
           <blockquote className="t-quote" style={{ margin: "0 0 24px", ...quote.style }}>{quote.text}</blockquote>
