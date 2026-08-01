@@ -3,3 +3,4 @@ node_modules
 .env*
 studio/dist/
 .vercel
+studio-v2/dist/

@@ -15,10 +15,19 @@ const SECTIONS = {
   description: "Drag to reorder. Each section can be hidden without deleting it.",
 };
 
+const DOC_GROUPS = [
+  { name: "content", title: "Content", default: true },
+  { name: "seo", title: "SEO & sharing" },
+];
+
 const SEO = [
-  { name: "seoTitle", title: "SEO title", type: "string" },
-  { name: "seoDescription", title: "SEO description", type: "text", rows: 3 },
-  { name: "seoImage", title: "Social share image", type: "image",
+  { name: "seoTitle", title: "SEO title", type: "string", group: "seo",
+    description: "Shown as the clickable headline in Google. Aim for under 60 characters.",
+    validation: (R) => R.max(70).warning("Titles over ~60 characters get truncated in search results.") },
+  { name: "seoDescription", title: "SEO description", type: "text", rows: 3, group: "seo",
+    description: "The grey summary under the title in Google. Aim for under 155 characters.",
+    validation: (R) => R.max(170).warning("Descriptions over ~155 characters get truncated in search results.") },
+  { name: "seoImage", title: "Social share image", type: "image", group: "seo",
     description: "1200×630px recommended — shown when this page is shared on social media (Facebook, LinkedIn, X)." },
 ];
 
@@ -27,6 +36,7 @@ export const v2Page = {
   name: "v2Page",
   title: "Page",
   type: "document",
+  groups: DOC_GROUPS,
   fields: [
     { name: "title", title: "Page name (internal)", type: "string", validation: (R) => R.required() },
     {
@@ -57,8 +67,9 @@ export const audiencePage = {
   name: "audiencePage",
   title: "Audience page",
   type: "document",
+  groups: DOC_GROUPS,
   fields: [
-    S("label", "Label (e.g. For Buyers)"),
+    S("label", "Label (e.g. For Buyers)", { validation: (R) => R.required() }),
     {
       name: "slug", title: "Slug", type: "slug",
       options: { source: "label.text" }, validation: (R) => R.required(),
@@ -77,7 +88,7 @@ export const customerStory = {
   title: "Customer story",
   type: "document",
   fields: [
-    S("name", "Customer name"),
+    S("name", "Customer name", { validation: (R) => R.required() }),
     S("location", "Location"),
     T("quote", "Quote"),
     { name: "image", title: "Photo", type: "richImage",
@@ -97,8 +108,8 @@ export const milestone = {
   title: "Milestone",
   type: "document",
   fields: [
-    S("year", "Year"),
-    S("title", "Title"),
+    S("year", "Year", { validation: (R) => R.required() }),
+    S("title", "Title", { validation: (R) => R.required() }),
     T("copy", "Description"),
     { name: "image", title: "Image", type: "richImage",
       description: "Shown at a 4:3 ratio in the horizontal timeline. 800×600px or larger." },
@@ -114,7 +125,7 @@ export const certificationGroup = {
   title: "Certification group",
   type: "document",
   fields: [
-    S("title", "Group title"),
+    S("title", "Group title", { validation: (R) => R.required() }),
     S("sub", "Sub-label", { description: 'e.g. "(Customer Certifications)"' }),
     colourField("accentColor", "Group accent colour"),
     { name: "column", title: "Column", type: "number", initialValue: 1, options: { list: [1, 2] } },
@@ -182,8 +193,9 @@ export const jobRole = {
   name: "jobRole",
   title: "Job role",
   type: "document",
+  groups: DOC_GROUPS,
   fields: [
-    S("role", "Role title"),
+    S("role", "Role title", { validation: (R) => R.required() }),
     { name: "slug", title: "Slug", type: "slug", options: { source: "role.text" }, validation: (R) => R.required() },
     S("dept", "Department"), S("location", "Location"), S("type", "Employment type"),
     T("summary", "The role"),
@@ -206,8 +218,9 @@ export const blogPost = {
   name: "blogPost",
   title: "Blog post",
   type: "document",
+  groups: DOC_GROUPS,
   fields: [
-    S("title", "Title"),
+    S("title", "Title", { validation: (R) => R.required() }),
     { name: "slug", title: "Slug", type: "slug", options: { source: "title.text" }, validation: (R) => R.required() },
     S("tag", "Tag"), S("date", "Date label"), S("readTime", "Read time"),
     { name: "publishedAt", title: "Published at", type: "datetime" },

@@ -8,7 +8,7 @@ import TimelineScroller from "./TimelineScroller";
 import CountStats from "@/components/CountStats";
 import { ContactForm } from "./Forms";
 import { getStyled } from "@/lib/styledText";
-import { sanityImgUrl } from "@/lib/content";
+import { sanityImgUrl } from "@/lib/image";
 
 /* ── small shared helpers ─────────────────────────────── */
 

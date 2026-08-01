@@ -1,4 +1,4 @@
-import { sanityImgUrl } from "@/lib/content";
+import { sanityImgUrl } from "@/lib/image";
 import { getStyled } from "@/lib/styledText";
 
 /**

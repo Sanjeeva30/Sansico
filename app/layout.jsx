@@ -7,6 +7,9 @@ import ScrollObserver from "@/components/ScrollObserver";
 import HeaderV2 from "@/components/v2/HeaderV2";
 import FooterV2 from "@/components/v2/FooterV2";
 import Reveal from "@/components/Reveal";
+import VisualEditingBridge from "@/components/v2/VisualEditingBridge";
+import PreviewBar from "@/components/v2/PreviewBar";
+import { draftMode } from "next/headers";
 import { getSite } from "@/lib/content";
 import { getV2Site } from "@/lib/v2";
 
@@ -46,6 +49,7 @@ const orgJsonLd = {
 export default async function RootLayout({ children }) {
   const site = await getSite();
   const v2site = await getV2Site();
+  const isDraft = (await draftMode()).isEnabled;
   const headingSerif = site.headingFont === "serif";
   const bodySize = site.bodySize === "lg" ? "18px" : site.bodySize === "sm" ? "14px" : "16px";
   const themeVars = {
@@ -65,6 +69,7 @@ export default async function RootLayout({ children }) {
         <HeaderV2 site={v2site} />
         <main>{children}</main>
         <FooterV2 site={v2site} />
+        {isDraft ? <><PreviewBar /><VisualEditingBridge /></> : null}
       </body>
     </html>
   );

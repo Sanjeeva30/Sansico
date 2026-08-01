@@ -23,7 +23,15 @@ export const richImage = {
     { name: "image", title: "Image", type: "image", options: { hotspot: true } },
     {
       name: "alt", title: "Alt text", type: "string",
-      description: "Describes the image for screen readers and search engines. Required if the image carries meaning.",
+      description: "Describes the image for screen readers and search engines. Required once an image is set.",
+      // Only enforced when an image actually exists, so empty slots stay valid
+      // while no uploaded image can ship without a description.
+      validation: (R) =>
+        R.custom((alt, ctx) =>
+          ctx.parent?.image?.asset && !alt?.trim()
+            ? "Add alt text describing this image — screen readers and search engines rely on it."
+            : true
+        ),
     },
     { name: "caption", title: "Caption", type: "styledString", description: "Optional caption shown under or over the image." },
   ],
@@ -90,17 +98,54 @@ export const blockCommonFields = [
   colourField("textColor", "Section text colour", "Sets the default text colour for everything in this section."),
 ];
 
+/**
+ * Every block form is split into three tabs so writing copy and styling a
+ * section are separate jobs. Without this the longest blocks are a 22-field
+ * scroll with colour pickers wedged between paragraphs.
+ */
+export const blockGroups = [
+  { name: "content", title: "Content", default: true },
+  { name: "design", title: "Design" },
+  { name: "advanced", title: "Advanced" },
+];
+
+// Fields are sorted into tabs by name, so a new block gets grouped correctly
+// without anyone having to remember to tag its fields.
+const DESIGN_FIELD = /(Color|Colour)$|^theme$|^align$|^columns$|^ratio$|^showStrip$|^imageSide$|^heroType$/;
+const ADVANCED_FIELD = /^anchorId$|^limit$|^autoScroll|^showSources$/;
+
+export const groupForField = (fieldName) => {
+  if (ADVANCED_FIELD.test(fieldName)) return "advanced";
+  if (DESIGN_FIELD.test(fieldName)) return "design";
+  return "content";
+};
+
+const withGroups = (fields) =>
+  fields.map((f) => (f.group ? f : { ...f, group: groupForField(f.name) }));
+
 // Little helper so each block file stays readable.
 export const block = ({ name, title, icon, fields, preview }) => ({
   name,
   title,
   type: "object",
-  fields: [...blockCommonFields, ...fields],
+  groups: blockGroups,
+  fields: withGroups([...blockCommonFields, ...fields]),
+  // Section lists are how editors navigate a 12-section page, so each row shows
+  // the real heading and a thumbnail rather than a generic type name.
   preview: preview || {
-    select: { headText: "head.heading.text", ownHeading: "heading.text", visible: "visible" },
-    prepare: ({ headText, ownHeading, visible }) => ({
+    select: {
+      headText: "head.heading.text",
+      ownHeading: "heading.text",
+      visible: "visible",
+      media: "image.image",
+      altMedia: "background.image",
+      posterMedia: "poster.image",
+      mapMedia: "map.image",
+    },
+    prepare: ({ headText, ownHeading, visible, media, altMedia, posterMedia, mapMedia }) => ({
       title: `${visible === false ? "🔴 " : ""}${title}`,
-      subtitle: headText || ownHeading || (visible === false ? "Hidden" : ""),
+      subtitle: headText || ownHeading || (visible === false ? "Hidden" : "—"),
+      media: media || altMedia || posterMedia || mapMedia,
     }),
   },
 });
