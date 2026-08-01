@@ -19,13 +19,18 @@ export default async function CtaBandV2() {
   const parts = headline.split("|");
 
   return (
-    <section className="v2-cta">
+    <section className="v2-cta" style={{ background: cta.bgColor || undefined, color: cta.textColor || undefined }}>
       <div className="wrap">
-        <h2 className="t-h2" style={headlineStyled.style}>
-          {parts.map((p, i) => (i % 2 ? <em key={i}>{p}</em> : p))}
+        <h2 className="t-h2" style={{ ...headlineStyled.style, color: cta.textColor || undefined }}>
+          {parts.map((p, i) => (i % 2
+            ? <em key={i} style={{ color: cta.accentColor || undefined }}>{p}</em>
+            : p))}
         </h2>
-        <p className="t-body">{subline}</p>
-        <Link className="btn btn-light" href={btnHref}>{btnLabel} <Arrow /></Link>
+        <p className="t-body" style={{ color: cta.textColor || undefined }}>{subline}</p>
+        <Link className="btn btn-light" href={btnHref}
+          style={{ background: cta.btnBgColor || undefined, color: cta.btnTextColor || undefined }}>
+          {btnLabel} <Arrow />
+        </Link>
       </div>
     </section>
   );

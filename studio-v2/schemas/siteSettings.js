@@ -34,6 +34,12 @@ export default {
         { name: "btn1Href", title: "Button 1 URL",   type: "string" },
         { name: "btn2Label",title: "Button 2 label", type: "styledString" },
         { name: "btn2Href", title: "Button 2 URL",   type: "string" },
+        { name: "bgColor",     title: "Band background",  type: "string", components: { input: ColourPicker } },
+        { name: "textColor",   title: "Band text colour", type: "string", components: { input: ColourPicker } },
+        { name: "accentColor", title: "Accent colour",    type: "string", components: { input: ColourPicker },
+          description: "Colours the italic word inside |pipes| in the headline." },
+        { name: "btnBgColor",   title: "Button background",  type: "string", components: { input: ColourPicker } },
+        { name: "btnTextColor", title: "Button text colour", type: "string", components: { input: ColourPicker } },
       ]
     },
 
@@ -54,15 +60,7 @@ export default {
           of: [{ type: "object", fields: [
             { name: "label",      title: "Segment label",        type: "styledString" },
             { name: "percentage", title: "Percentage (0–100)",   type: "number" },
-            { name: "color",      title: "Colour (CSS variable)", type: "string",
-              options: { list: [
-                { title: "Green (#0D4F31)",  value: "var(--green,#0D4F31)" },
-                { title: "Citrus (#BDDA5F)", value: "var(--citrus,#BDDA5F)" },
-                { title: "Cream/Beige",      value: "var(--hair,#E5DFD8)" },
-                { title: "Crimson (#7A0D20)",value: "var(--crimson,#7A0D20)" },
-                { title: "Navy (#22409E)",   value: "var(--navy,#22409E)" },
-              ]}
-            },
+            { name: "color", title: "Colour", type: "string", components: { input: ColourPicker } },
           ],
           preview: { select: { title: "label.text", subtitle: "percentage" },
             prepare({ title, subtitle }) { return { title: `${title} — ${subtitle}%` }; }

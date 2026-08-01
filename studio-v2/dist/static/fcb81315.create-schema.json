@@ -499,6 +499,12 @@
         "title": "Sub-label"
       },
       {
+        "description": "Leave blank to use this element's normal design colour.",
+        "name": "accentColor",
+        "type": "string",
+        "title": "Group accent colour"
+      },
+      {
         "initialValue": 1,
         "options": {
           "list": [
@@ -609,6 +615,12 @@
                 "name": "starred",
                 "type": "boolean",
                 "title": "Highlight this row"
+              },
+              {
+                "description": "Leave blank to use this element's normal design colour.",
+                "name": "highlightColor",
+                "type": "string",
+                "title": "Highlight colour"
               },
               {
                 "of": [
@@ -1064,6 +1076,18 @@
         "title": "Anchor ID"
       },
       {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
+      },
+      {
         "name": "eyebrow",
         "type": "styledString"
       },
@@ -1155,6 +1179,12 @@
         "name": "secondaryCta",
         "type": "linkField",
         "title": "Secondary button"
+      },
+      {
+        "description": "Darkens the background so the headline stays readable.",
+        "name": "scrimColor",
+        "type": "string",
+        "title": "Overlay tint"
       }
     ],
     "name": "siteHeroBlock",
@@ -1201,6 +1231,18 @@
         "name": "anchorId",
         "type": "string",
         "title": "Anchor ID"
+      },
+      {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
       },
       {
         "validation": [
@@ -1303,6 +1345,18 @@
         "title": "Anchor ID"
       },
       {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
+      },
+      {
         "initialValue": true,
         "name": "showSources",
         "type": "boolean",
@@ -1355,6 +1409,18 @@
         "title": "Anchor ID"
       },
       {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
+      },
+      {
         "name": "kicker",
         "type": "styledString"
       },
@@ -1379,6 +1445,12 @@
         "name": "cta",
         "type": "linkField",
         "title": "Button"
+      },
+      {
+        "description": "Leave blank to use this element's normal design colour.",
+        "name": "scrimColor",
+        "type": "string",
+        "title": "Overlay tint"
       }
     ],
     "name": "pageHeroBlock",
@@ -1425,6 +1497,18 @@
         "name": "anchorId",
         "type": "string",
         "title": "Anchor ID"
+      },
+      {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
       },
       {
         "initialValue": true,
@@ -1516,6 +1600,18 @@
         "title": "Anchor ID"
       },
       {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
+      },
+      {
         "of": [
           {
             "fields": [
@@ -1528,11 +1624,13 @@
                 "type": "styledString"
               },
               {
+                "description": "Leave blank to use this element's normal design colour.",
                 "name": "bgColor",
                 "type": "string",
                 "title": "Tile background"
               },
               {
+                "description": "Leave blank to use this element's normal design colour.",
                 "name": "textColor",
                 "type": "string",
                 "title": "Tile text colour"
@@ -1589,6 +1687,18 @@
         "name": "anchorId",
         "type": "string",
         "title": "Anchor ID"
+      },
+      {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
       },
       {
         "options": {
@@ -1665,6 +1775,18 @@
         "name": "anchorId",
         "type": "string",
         "title": "Anchor ID"
+      },
+      {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
       },
       {
         "options": {
@@ -1745,6 +1867,18 @@
         "title": "Anchor ID"
       },
       {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
+      },
+      {
         "options": {
           "collapsible": true,
           "collapsed": false
@@ -1783,6 +1917,18 @@
                 "name": "image",
                 "type": "richImage",
                 "title": "Card image"
+              },
+              {
+                "description": "Replaces the generative art panel with a flat colour.",
+                "name": "bgColor",
+                "type": "string",
+                "title": "Card background"
+              },
+              {
+                "description": "Leave blank to use this element's normal design colour.",
+                "name": "textColor",
+                "type": "string",
+                "title": "Card text colour"
               }
             ],
             "type": "object"
@@ -1838,6 +1984,18 @@
         "title": "Anchor ID"
       },
       {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
+      },
+      {
         "options": {
           "collapsible": true,
           "collapsed": false
@@ -1879,6 +2037,18 @@
                 "name": "cta",
                 "type": "linkField",
                 "title": "Button"
+              },
+              {
+                "description": "Leave blank to use this element's normal design colour.",
+                "name": "bgColor",
+                "type": "string",
+                "title": "Label background"
+              },
+              {
+                "description": "Leave blank to use this element's normal design colour.",
+                "name": "textColor",
+                "type": "string",
+                "title": "Label text colour"
               }
             ],
             "type": "object"
@@ -1932,6 +2102,18 @@
         "name": "anchorId",
         "type": "string",
         "title": "Anchor ID"
+      },
+      {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
       },
       {
         "options": {
@@ -1992,6 +2174,24 @@
                 "name": "meta",
                 "type": "styledString",
                 "title": "Meta line"
+              },
+              {
+                "description": "Leave blank to use this element's normal design colour.",
+                "name": "bgColor",
+                "type": "string",
+                "title": "Card background"
+              },
+              {
+                "description": "Leave blank to use this element's normal design colour.",
+                "name": "textColor",
+                "type": "string",
+                "title": "Card text colour"
+              },
+              {
+                "description": "Leave blank to use this element's normal design colour.",
+                "name": "borderColor",
+                "type": "string",
+                "title": "Card border colour"
               }
             ],
             "type": "object"
@@ -2047,6 +2247,18 @@
         "title": "Anchor ID"
       },
       {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
+      },
+      {
         "options": {
           "collapsible": true,
           "collapsed": false
@@ -2072,6 +2284,18 @@
                 "name": "time",
                 "type": "styledString",
                 "title": "Duration"
+              },
+              {
+                "description": "Leave blank to use this element's normal design colour.",
+                "name": "bgColor",
+                "type": "string",
+                "title": "Step background"
+              },
+              {
+                "description": "Leave blank to use this element's normal design colour.",
+                "name": "textColor",
+                "type": "string",
+                "title": "Step text colour"
               }
             ],
             "type": "object"
@@ -2125,6 +2349,18 @@
         "name": "anchorId",
         "type": "string",
         "title": "Anchor ID"
+      },
+      {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
       },
       {
         "initialValue": "left",
@@ -2213,6 +2449,18 @@
         "name": "anchorId",
         "type": "string",
         "title": "Anchor ID"
+      },
+      {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
       },
       {
         "options": {
@@ -2391,6 +2639,18 @@
         "title": "Anchor ID"
       },
       {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
+      },
+      {
         "options": {
           "collapsible": true,
           "collapsed": false
@@ -2459,6 +2719,18 @@
         "title": "Anchor ID"
       },
       {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
+      },
+      {
         "name": "heading",
         "type": "styledString"
       },
@@ -2470,6 +2742,12 @@
         "name": "cta",
         "type": "linkField",
         "title": "Button"
+      },
+      {
+        "description": "Colours the italic word inside |pipes| in the heading.",
+        "name": "accentColor",
+        "type": "string",
+        "title": "Accent colour"
       }
     ],
     "name": "ctaBannerBlock",
@@ -2516,6 +2794,18 @@
         "name": "anchorId",
         "type": "string",
         "title": "Anchor ID"
+      },
+      {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
       },
       {
         "options": {
@@ -2595,6 +2885,18 @@
         "title": "Anchor ID"
       },
       {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
+      },
+      {
         "options": {
           "collapsible": true,
           "collapsed": false
@@ -2615,6 +2917,18 @@
                 "name": "desc",
                 "type": "styledText",
                 "title": "Body"
+              },
+              {
+                "description": "Leave blank to use this element's normal design colour.",
+                "name": "bgColor",
+                "type": "string",
+                "title": "Card background"
+              },
+              {
+                "description": "Leave blank to use this element's normal design colour.",
+                "name": "textColor",
+                "type": "string",
+                "title": "Card text colour"
               }
             ],
             "type": "object"
@@ -2669,6 +2983,18 @@
         "name": "anchorId",
         "type": "string",
         "title": "Anchor ID"
+      },
+      {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
       },
       {
         "options": {
@@ -2760,6 +3086,18 @@
         "title": "Anchor ID"
       },
       {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
+      },
+      {
         "options": {
           "collapsible": true,
           "collapsed": false
@@ -2782,6 +3120,35 @@
         ],
         "name": "milestones",
         "type": "array"
+      },
+      {
+        "initialValue": true,
+        "description": "Drifts the milestones sideways on their own. Pauses on hover, on focus and while the reader scrolls.",
+        "name": "autoScroll",
+        "type": "boolean",
+        "title": "Auto-scroll the timeline"
+      },
+      {
+        "initialValue": 28,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 4
+              },
+              {
+                "flag": "max",
+                "constraint": 200
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "autoScrollSpeed",
+        "type": "number",
+        "title": "Auto-scroll speed (px per second)"
       }
     ],
     "name": "timelineBlock",
@@ -2828,6 +3195,18 @@
         "name": "anchorId",
         "type": "string",
         "title": "Anchor ID"
+      },
+      {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
       },
       {
         "options": {
@@ -2918,6 +3297,18 @@
         "name": "anchorId",
         "type": "string",
         "title": "Anchor ID"
+      },
+      {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
       },
       {
         "options": {
@@ -3012,6 +3403,18 @@
         "title": "Anchor ID"
       },
       {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
+      },
+      {
         "options": {
           "collapsible": true,
           "collapsed": false
@@ -3083,6 +3486,18 @@
         "title": "Anchor ID"
       },
       {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
+      },
+      {
         "options": {
           "collapsible": true,
           "collapsed": false
@@ -3150,6 +3565,18 @@
         "name": "anchorId",
         "type": "string",
         "title": "Anchor ID"
+      },
+      {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
       },
       {
         "options": {
@@ -3223,6 +3650,18 @@
         "title": "Anchor ID"
       },
       {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
+      },
+      {
         "options": {
           "collapsible": true,
           "collapsed": false
@@ -3292,6 +3731,18 @@
         "name": "anchorId",
         "type": "string",
         "title": "Anchor ID"
+      },
+      {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
       },
       {
         "options": {
@@ -3369,6 +3820,18 @@
         "name": "anchorId",
         "type": "string",
         "title": "Anchor ID"
+      },
+      {
+        "description": "Overrides the Background choice above.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Section background colour"
+      },
+      {
+        "description": "Sets the default text colour for everything in this section.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Section text colour"
       },
       {
         "name": "heading",
@@ -3522,6 +3985,18 @@
         "name": "newTab",
         "type": "boolean",
         "title": "Open in new tab"
+      },
+      {
+        "description": "Leave blank to use this element's normal design colour.",
+        "name": "bgColor",
+        "type": "string",
+        "title": "Button background"
+      },
+      {
+        "description": "Leave blank to use this element's normal design colour.",
+        "name": "textColor",
+        "type": "string",
+        "title": "Button text colour"
       }
     ],
     "name": "linkField",
@@ -3667,6 +4142,32 @@
             "name": "btn2Href",
             "type": "string",
             "title": "Button 2 URL"
+          },
+          {
+            "name": "bgColor",
+            "type": "string",
+            "title": "Band background"
+          },
+          {
+            "name": "textColor",
+            "type": "string",
+            "title": "Band text colour"
+          },
+          {
+            "description": "Colours the italic word inside |pipes| in the headline.",
+            "name": "accentColor",
+            "type": "string",
+            "title": "Accent colour"
+          },
+          {
+            "name": "btnBgColor",
+            "type": "string",
+            "title": "Button background"
+          },
+          {
+            "name": "btnTextColor",
+            "type": "string",
+            "title": "Button text colour"
           }
         ],
         "name": "ctaBand",
@@ -3723,33 +4224,9 @@
                     "title": "Percentage (0–100)"
                   },
                   {
-                    "options": {
-                      "list": [
-                        {
-                          "title": "Green (#0D4F31)",
-                          "value": "var(--green,#0D4F31)"
-                        },
-                        {
-                          "title": "Citrus (#BDDA5F)",
-                          "value": "var(--citrus,#BDDA5F)"
-                        },
-                        {
-                          "title": "Cream/Beige",
-                          "value": "var(--hair,#E5DFD8)"
-                        },
-                        {
-                          "title": "Crimson (#7A0D20)",
-                          "value": "var(--crimson,#7A0D20)"
-                        },
-                        {
-                          "title": "Navy (#22409E)",
-                          "value": "var(--navy,#22409E)"
-                        }
-                      ]
-                    },
                     "name": "color",
                     "type": "string",
-                    "title": "Colour (CSS variable)"
+                    "title": "Colour"
                   }
                 ],
                 "type": "object"

@@ -1,6 +1,8 @@
 // The v2 section-block library. Every page is an ordered array of these, so an
 // editor can reorder, hide or duplicate any band of any page from Studio.
-import { block } from "./primitives";
+import { block, colourField } from "./primitives";
+
+const C = colourField;
 
 const S = (name, title, opts = {}) => ({ name, title, type: "styledString", ...opts });
 const T = (name, title, opts = {}) => ({ name, title, type: "styledText", ...opts });
@@ -33,6 +35,7 @@ export const siteHeroBlock = block({
     IMG("poster", "Video poster"),
     LINK("cta", "Primary button"),
     LINK("secondaryCta", "Secondary button"),
+    C("scrimColor", "Overlay tint", "Darkens the background so the headline stays readable."),
   ],
 });
 
@@ -54,7 +57,8 @@ export const heroVideoBlock = block({
 export const pageHeroBlock = block({
   name: "pageHeroBlock",
   title: "Page hero (dark)",
-  fields: [S("kicker", "Kicker"), S("heading", "Heading"), T("intro", "Intro"), IMG("background", "Background image"), LINK()],
+  fields: [S("kicker", "Kicker"), S("heading", "Heading"), T("intro", "Intro"), IMG("background", "Background image"), LINK(),
+    C("scrimColor", "Overlay tint")],
 });
 
 export const statementBlock = block({
@@ -95,8 +99,8 @@ export const statsBlock = block({
         type: "object",
         fields: [
           S("value", "Value"), S("label", "Label"),
-          { name: "bgColor", title: "Tile background", type: "string" },
-          { name: "textColor", title: "Tile text colour", type: "string" },
+          C("bgColor", "Tile background"),
+          C("textColor", "Tile text colour"),
         ],
         preview: { select: { title: "value.text", subtitle: "label.text" } },
       }],
@@ -147,6 +151,8 @@ export const capabilityCardsBlock = block({
         fields: [
           S("tag", "Tag"), S("title", "Title"), T("desc", "Description"),
           LINK(), IMG("image", "Card image"),
+          C("bgColor", "Card background", "Replaces the generative art panel with a flat colour."),
+          C("textColor", "Card text colour"),
         ],
         preview: { select: { title: "title.text", subtitle: "tag.text" } },
       }],
@@ -164,7 +170,8 @@ export const tileGridBlock = block({
       name: "tiles", title: "Tiles", type: "array",
       of: [{
         type: "object",
-        fields: [S("label", "Label"), IMG(), LINK()],
+        fields: [S("label", "Label"), IMG(), LINK(),
+          C("bgColor", "Label background"), C("textColor", "Label text colour")],
         preview: { select: { title: "label.text", media: "image.image" } },
       }],
     },
@@ -182,7 +189,8 @@ export const iconCardsBlock = block({
       name: "cards", title: "Cards", type: "array",
       of: [{
         type: "object",
-        fields: [S("title", "Title"), T("desc", "Description"), IMG("icon", "Icon or image"), S("meta", "Meta line")],
+        fields: [S("title", "Title"), T("desc", "Description"), IMG("icon", "Icon or image"), S("meta", "Meta line"),
+          C("bgColor", "Card background"), C("textColor", "Card text colour"), C("borderColor", "Card border colour")],
         preview: { select: { title: "title.text", subtitle: "desc.text", media: "icon.image" } },
       }],
     },
@@ -198,7 +206,8 @@ export const journeyBlock = block({
       name: "steps", title: "Steps", type: "array",
       of: [{
         type: "object",
-        fields: [S("n", "Step number"), S("title", "Title"), S("time", "Duration")],
+        fields: [S("n", "Step number"), S("title", "Title"), S("time", "Duration"),
+          C("bgColor", "Step background"), C("textColor", "Step text colour")],
         preview: { select: { title: "title.text", subtitle: "time.text" } },
       }],
     },
@@ -232,7 +241,8 @@ export const imageBlock = block({
 export const ctaBannerBlock = block({
   name: "ctaBannerBlock",
   title: "CTA banner",
-  fields: [S("heading", "Heading"), T("body", "Body"), LINK()],
+  fields: [S("heading", "Heading"), T("body", "Body"), LINK(),
+    C("accentColor", "Accent colour", "Colours the italic word inside |pipes| in the heading.")],
 });
 
 export const faqBlock = block({
@@ -262,7 +272,8 @@ export const missionCardsBlock = block({
       name: "items", title: "Cards", type: "array",
       of: [{
         type: "object",
-        fields: [S("title", "Title"), T("desc", "Body")],
+        fields: [S("title", "Title"), T("desc", "Body"),
+          C("bgColor", "Card background"), C("textColor", "Card text colour")],
         preview: { select: { title: "title.text", subtitle: "desc.text" } },
       }],
     },

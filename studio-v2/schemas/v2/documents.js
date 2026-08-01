@@ -1,6 +1,7 @@
 // New v2 document types. Existing types (facility, productCategory, capability,
 // certification…) are extended in place in their own files.
 import { allBlockTypes } from "./blocks";
+import { colourField } from "./primitives";
 
 const S = (name, title, opts = {}) => ({ name, title, type: "styledString", ...opts });
 const T = (name, title, opts = {}) => ({ name, title, type: "styledText", ...opts });
@@ -111,6 +112,7 @@ export const certificationGroup = {
   fields: [
     S("title", "Group title"),
     S("sub", "Sub-label", { description: 'e.g. "(Customer Certifications)"' }),
+    colourField("accentColor", "Group accent colour"),
     { name: "column", title: "Column", type: "number", initialValue: 1, options: { list: [1, 2] } },
     {
       name: "items", title: "Certifications", type: "array",
@@ -157,6 +159,7 @@ export const sourcingScorecard = {
         fields: [
           S("country", "Country"),
           { name: "starred", title: "Highlight this row", type: "boolean", initialValue: false },
+          colourField("highlightColor", "Highlight colour"),
           { name: "scores", title: "Scores", type: "array", of: [{ type: "number" }] },
           { name: "total", title: "Total", type: "number" },
         ],

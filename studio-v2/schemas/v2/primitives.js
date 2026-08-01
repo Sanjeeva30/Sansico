@@ -1,4 +1,16 @@
 // Shared building blocks used by every v2 section block.
+import { ColourPicker } from "../../components/ColourPicker";
+
+// Every single-colour field in the Studio goes through this, so the brand
+// swatches + custom hex picker are identical everywhere. Leaving a colour blank
+// always means "use the design default for this element".
+export const colourField = (name, title, description) => ({
+  name,
+  title,
+  type: "string",
+  components: { input: ColourPicker },
+  description: description || "Leave blank to use this element's normal design colour.",
+});
 
 // Image with alt text, caption and focal-point cropping — the wireframe's grey
 // placeholders all become one of these.
@@ -30,6 +42,8 @@ export const linkField = {
     { name: "label", title: "Label", type: "styledString" },
     { name: "href", title: "URL or path", type: "string", description: "e.g. /contact or https://example.com" },
     { name: "newTab", title: "Open in new tab", type: "boolean", initialValue: false },
+    colourField("bgColor", "Button background"),
+    colourField("textColor", "Button text colour"),
   ],
   preview: {
     select: { title: "label.text", subtitle: "href" },
@@ -72,6 +86,8 @@ export const blockCommonFields = [
     name: "anchorId", title: "Anchor ID", type: "string",
     description: "Optional. Lets other pages link straight to this section, e.g. #certifications.",
   },
+  colourField("bgColor", "Section background colour", "Overrides the Background choice above."),
+  colourField("textColor", "Section text colour", "Sets the default text colour for everything in this section."),
 ];
 
 // Little helper so each block file stays readable.

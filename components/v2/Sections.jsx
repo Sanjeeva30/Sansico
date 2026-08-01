@@ -21,13 +21,15 @@ function Txt({ value, as: Tag = "span", className, style, fallback = null }) {
 }
 
 // Headline supporting the site's "|word|" italic-accent convention.
-function Headline({ value, as: Tag = "h2", className = "t-h2", style }) {
+function Headline({ value, as: Tag = "h2", className = "t-h2", style, accent }) {
   const s = S(value);
   if (!s.text) return null;
   const parts = s.text.split("|");
   return (
     <Tag className={className} style={{ ...style, ...s.style }}>
-      {parts.map((p, i) => (i % 2 ? <em key={i} style={{ fontStyle: "italic", color: "var(--crimson)" }}>{p}</em> : p))}
+      {parts.map((p, i) => (i % 2
+        ? <em key={i} style={{ fontStyle: "italic", color: accent || "var(--crimson)" }}>{p}</em>
+        : p))}
     </Tag>
   );
 }
@@ -53,10 +55,16 @@ function Cta({ link, className = "btn btn-crimson" }) {
   if (!link?.href || !label.text) return null;
   const external = /^https?:\/\//.test(link.href);
   const inner = <>{label.text} <Arrow /></>;
+  // Studio colours win over the button's design default.
+  const style = {
+    background: link.bgColor || undefined,
+    color: link.textColor || undefined,
+    borderColor: link.bgColor || undefined,
+  };
   return external ? (
-    <a className={className} href={link.href} target={link.newTab ? "_blank" : undefined} rel={link.newTab ? "noopener noreferrer" : undefined}>{inner}</a>
+    <a className={className} style={style} href={link.href} target={link.newTab ? "_blank" : undefined} rel={link.newTab ? "noopener noreferrer" : undefined}>{inner}</a>
   ) : (
-    <Link className={className} href={link.href}>{inner}</Link>
+    <Link className={className} style={style} href={link.href}>{inner}</Link>
   );
 }
 
@@ -105,7 +113,10 @@ function HeroVideoBlock({ b }) {
 
 function PageHeroBlock({ b }) {
   return (
-    <div className="v2-phero">
+    <div className="v2-phero" style={{ background: b.bgColor || undefined }}>
+      {b.scrimColor ? (
+        <span aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 1, background: b.scrimColor }} />
+      ) : null}
       {b.background?.url ? <img className="bg" src={sanityImgUrl(b.background.url, { w: 1920, h: 900 })} alt={b.background.alt || ""} /> : <InkBands />}
       <div className="wrap">
         <Txt value={b.kicker} as="div" className="t-kicker" />
@@ -302,9 +313,11 @@ function CapabilityCardsBlock({ b }) {
       <div className="gate-grid">
         {(b.cards || []).map((c, i) => {
           const tag = S(c.tag), title = S(c.title), desc = S(c.desc);
+          const flat = c.bgColor;
+          const cardStyle = { background: flat || undefined, color: c.textColor || undefined };
           const inner = (
             <>
-              <div className={`art ${GATE_ART[i % GATE_ART.length]}`} aria-hidden="true" />
+              {flat ? null : <div className={`art ${GATE_ART[i % GATE_ART.length]}`} aria-hidden="true" />}
               <div className="inner">
                 <span className="num" style={tag.style}>{tag.text}</span>
                 <h3 style={title.style}>{title.text}</h3>
@@ -314,8 +327,8 @@ function CapabilityCardsBlock({ b }) {
             </>
           );
           return c.cta?.href
-            ? <Link className="gate rv" data-animate href={c.cta.href} key={i}>{inner}</Link>
-            : <div className="gate rv" key={i}>{inner}</div>;
+            ? <Link className="gate rv" data-animate style={cardStyle} href={c.cta.href} key={i}>{inner}</Link>
+            : <div className="gate rv" style={cardStyle} key={i}>{inner}</div>;
         })}
       </div>
     </div>
@@ -331,7 +344,9 @@ function TileGridBlock({ b }) {
           const inner = (
             <>
               <Media value={t.image} ratio="4/3" showCaption={false} />
-              <Txt value={t.label} as="div" className="v2-tag" style={{ marginTop: 16 }} />
+              <Txt value={t.label} as="div" className="v2-tag"
+                style={{ marginTop: 16, background: t.bgColor || undefined, color: t.textColor || undefined,
+                  borderColor: t.bgColor || undefined }} />
             </>
           );
           return t.cta?.href
@@ -350,7 +365,9 @@ function IconCardsBlock({ b }) {
       <SectionHead head={b.head} />
       <div className="grid-n" style={{ "--cols": b.columns || 3 }}>
         {(b.cards || []).map((c, i) => (
-          <div className="v2-card" key={i} style={{ textAlign: align }}>
+          <div className="v2-card" key={i} style={{ textAlign: align,
+            background: c.bgColor || undefined, color: c.textColor || undefined,
+            borderColor: c.borderColor || undefined }}>
             {c.icon?.url ? (
               <div className="v2-icon" style={align === "center" ? { margin: "0 auto 16px" } : undefined}>
                 <img src={sanityImgUrl(c.icon.url, { w: 200, h: 200 })} alt={c.icon.alt || ""} />
@@ -376,7 +393,8 @@ function JourneyBlock({ b }) {
       <SectionHead head={b.head} />
       <div className="grid-n" style={{ "--cols": Math.min(b.steps?.length || 5, 5) }}>
         {(b.steps || []).map((s, i) => (
-          <div className="v2-card" key={i} style={{ minHeight: 160, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+          <div className="v2-card" key={i} style={{ minHeight: 160, display: "flex", flexDirection: "column", justifyContent: "space-between",
+            background: s.bgColor || undefined, color: s.textColor || undefined }}>
             <Txt value={s.n} as="div" className="t-small" fallback={<div className="t-small">{String(i + 1).padStart(2, "0")}</div>} />
             <div>
               <Txt value={s.title} as="div" className="t-h3" style={{ marginBottom: 6, fontSize: 16 }} />
@@ -434,7 +452,7 @@ function MissionCardsBlock({ b }) {
       <SectionHead head={b.head} />
       <div className="grid-n" style={{ "--cols": Math.min(b.items?.length || 2, 3) }}>
         {(b.items || []).map((m, i) => (
-          <div className="v2-card" key={i}>
+          <div className="v2-card" key={i} style={{ background: m.bgColor || undefined, color: m.textColor || undefined }}>
             <Headline value={m.title} style={{ marginBottom: 14 }} />
             <Txt value={m.desc} as="p" className="t-body-lg" />
           </div>
@@ -596,7 +614,8 @@ function ScorecardBlock({ b }) {
         </div>
         {(sc.rows || []).map((r, i) => (
           <div className="v2-table-row" style={grid} key={i}>
-            <div style={{ fontWeight: r.starred ? 700 : 500, color: r.starred ? "var(--crimson)" : undefined }}>
+            <div style={{ fontWeight: r.starred ? 700 : 500,
+              color: r.starred ? (r.highlightColor || "var(--crimson)") : undefined }}>
               {S(r.country).text}{r.starred ? " ★" : ""}
             </div>
             {(r.scores || []).map((s, k) => <div key={k} style={{ textAlign: "center" }}><span className="v2-score">{s}</span></div>)}
@@ -723,7 +742,7 @@ function ContactFormBlock({ b }) {
 function CtaBannerBlock({ b }) {
   return (
     <div className="wrap">
-      <Headline value={b.heading} />
+      <Headline value={b.heading} accent={b.accentColor} />
       <Txt value={b.body} as="p" className="t-body" />
       <Cta link={b.cta} className="btn btn-light" />
     </div>
@@ -778,6 +797,7 @@ export default function Sections({ sections = [] }) {
             key={b._key}
             id={b.anchorId || undefined}
             className={`v2-section theme-${b.theme || "paper"}`}
+            style={{ background: b.bgColor || undefined, color: b.textColor || undefined }}
           >
             <Block b={b} />
           </section>
