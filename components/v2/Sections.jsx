@@ -137,7 +137,7 @@ function StatementBlock({ b }) {
         <Strip style={centred ? { marginBottom: 30, marginLeft: "auto", marginRight: "auto" } : { marginBottom: 30 }} />
       ) : null}
       <Txt value={b.kicker} as="div" className="t-kicker" style={{ marginBottom: 16 }} />
-      <Headline value={b.heading} as="h1" className="t-h1"
+      <Headline value={b.heading} as={b.headingLevel === "h1" ? "h1" : "h2"} className="t-h1"
         style={{ maxWidth: centred ? undefined : 900, marginBottom: 22 }} />
       <Txt value={b.body} as="p" className="t-body-lg"
         style={{ maxWidth: centred ? 640 : 660, ...(centred ? { marginLeft: "auto", marginRight: "auto" } : {}) }} />

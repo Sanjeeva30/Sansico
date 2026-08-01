@@ -69,6 +69,15 @@ export const statementBlock = block({
     { name: "showStrip", title: "Show colour strip", type: "boolean", initialValue: true },
     { name: "align", title: "Alignment", type: "string", initialValue: "left",
       options: { list: ["left", "center"], layout: "radio" } },
+    // A page must have exactly one H1. This block is used both as a page's main
+    // heading (the audience pages) and as a sub-heading under a hero (home,
+    // capabilities), so the level is explicit and defaults to the safe H2.
+    { name: "headingLevel", title: "Heading level", type: "string", initialValue: "h2",
+      description: "Use H1 only when this is the page's main heading and there is no hero above it.",
+      options: { list: [
+        { title: "H1 — the page's main heading", value: "h1" },
+        { title: "H2 — a section heading", value: "h2" },
+      ], layout: "radio" } },
     S("kicker", "Kicker"),
     S("heading", "Headline"),
     T("body", "Lede paragraph"),
@@ -145,6 +154,10 @@ export const capabilityCardsBlock = block({
   title: "Capability cards (3 dark cards)",
   fields: [
     HEAD,
+    // Turns the section's kicker into a link (the homepage's "What we do ↗").
+    // The renderer already honoured this; it was missing from the schema, so
+    // the value existed in the data but was invisible and uneditable in Studio.
+    LINK("cta", "Make the kicker a link"),
     {
       name: "cards", title: "Cards", type: "array",
       of: [{
