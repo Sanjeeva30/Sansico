@@ -10,6 +10,37 @@ import { editAttr } from "@/lib/sanity/edit";
 export default function CustomerStories({ stories = [], link, editable = false }) {
   const [i, setI] = useState(0);
   if (!stories.length) return null;
+
+  // Inside Presentation, clicks select elements for editing rather than
+  // reaching the page, so the tabs cannot be used to browse and four of the
+  // five stories would be unreachable. Show them all stacked there instead —
+  // every photo and quote is then visible and directly clickable. Visitors
+  // still get the tabbed design.
+  if (editable) {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: 56 }}>
+        {stories.map((c, idx) => {
+          const q = getStyled(c.quote), nm = getStyled(c.name), loc = getStyled(c.location);
+          return (
+            <div className="grid12" key={c._id || idx} style={{ alignItems: "center" }}>
+              <div className="c-6">
+                <Media value={c.image} ratio="4/3"
+                  edit={editAttr({ id: c._id, type: c._type, path: "image" })} />
+              </div>
+              <div className="c-6">
+                <blockquote className="t-quote" style={{ margin: "0 0 24px", ...q.style }}>{q.text}</blockquote>
+                <div className="t-body">
+                  <b style={nm.style}>{nm.text}</b>
+                  {loc.text ? <span style={loc.style}> — {loc.text}</span> : null}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
   const s = stories[Math.min(i, stories.length - 1)];
   const quote = getStyled(s.quote);
   const name = getStyled(s.name);

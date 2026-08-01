@@ -9,7 +9,7 @@ import CountStats from "@/components/CountStats";
 import { ContactForm } from "./Forms";
 import { getStyled } from "@/lib/styledText";
 import { sanityImgUrl } from "@/lib/image";
-import { editAttr, sectionPath, itemPath } from "@/lib/sanity/edit";
+import { editAttr, sectionPath, itemPath, clean } from "@/lib/sanity/edit";
 
 /* ── small shared helpers ─────────────────────────────── */
 
@@ -80,7 +80,7 @@ function SiteHeroBlock({ b }) {
   return (
     <Hero
       hero={{
-        type: b.heroType || "ink",
+        type: clean(b.heroType) || "ink",
         eyebrow: b.eyebrow,
         title: heading.text,
         sub: b.sub,
@@ -96,7 +96,7 @@ function SiteHeroBlock({ b }) {
 
 function HeroVideoBlock({ b }) {
   return (
-    <div className="v2-hero-band" style={{ aspectRatio: b.ratio || "21/9" }}>
+    <div className="v2-hero-band" style={{ aspectRatio: clean(b.ratio) || "21/9" }}>
       {b.videoUrl ? (
         <video autoPlay muted loop playsInline poster={b.poster?.url ? sanityImgUrl(b.poster.url, { w: 1920, h: 820 }) : undefined}>
           <source src={b.videoUrl} type="video/mp4" />
@@ -130,7 +130,7 @@ function PageHeroBlock({ b }) {
 }
 
 function StatementBlock({ b }) {
-  const centred = b.align === "center";
+  const centred = clean(b.align) === "center";
   const box = centred ? { maxWidth: 860, margin: "0 auto", textAlign: "center" } : undefined;
   return (
     <div className="wrap rv" style={box}>
@@ -138,7 +138,7 @@ function StatementBlock({ b }) {
         <Strip style={centred ? { marginBottom: 30, marginLeft: "auto", marginRight: "auto" } : { marginBottom: 30 }} />
       ) : null}
       <Txt value={b.kicker} as="div" className="t-kicker" style={{ marginBottom: 16 }} />
-      <Headline value={b.heading} as={b.headingLevel === "h1" ? "h1" : "h2"} className="t-h1"
+      <Headline value={b.heading} as={clean(b.headingLevel) === "h1" ? "h1" : "h2"} className="t-h1"
         style={{ maxWidth: centred ? undefined : 900, marginBottom: 22 }} />
       <Txt value={b.body} as="p" className="t-body-lg"
         style={{ maxWidth: centred ? 640 : 660, ...(centred ? { marginLeft: "auto", marginRight: "auto" } : {}) }} />
@@ -363,7 +363,7 @@ function TileGridBlock({ b, ctx }) {
 }
 
 function IconCardsBlock({ b, ctx }) {
-  const align = b.align || "center";
+  const align = clean(b.align) || "center";
   return (
     <div className="wrap rv">
       <SectionHead head={b.head} />
@@ -414,7 +414,7 @@ function JourneyBlock({ b, ctx }) {
 }
 
 function SplitFeatureBlock({ b, ctx }) {
-  const imageFirst = (b.imageSide || "left") === "left";
+  const imageFirst = (clean(b.imageSide) || "left") === "left";
   const media = <div className="c-6"><Media value={b.image} ratio="4/3" edit={ctx?.attr("image")} /></div>;
   const text = (
     <div className="c-6">
@@ -435,7 +435,7 @@ function SplitFeatureBlock({ b, ctx }) {
 }
 
 function ImageBlock({ b, ctx }) {
-  return <div className="wrap rv"><Media value={b.image} ratio={b.ratio || "16/9"} w={1800} h={1000} edit={ctx?.attr("image")} /></div>;
+  return <div className="wrap rv"><Media value={b.image} ratio={clean(b.ratio) || "16/9"} w={1800} h={1000} edit={ctx?.attr("image")} /></div>;
 }
 
 function FaqBlock({ b }) {
@@ -837,9 +837,9 @@ export default function Sections({ sections = [], doc, isDraft = false }) {
         return (
           <section
             key={b._key}
-            id={b.anchorId || undefined}
-            className={`v2-section theme-${b.theme || "paper"}`}
-            style={{ background: b.bgColor || undefined, color: b.textColor || undefined }}
+            id={clean(b.anchorId) || undefined}
+            className={`v2-section theme-${clean(b.theme) || "paper"}`}
+            style={{ background: clean(b.bgColor) || undefined, color: clean(b.textColor) || undefined }}
             {...(ctx.attr() || {})}
           >
             <Block b={b} ctx={ctx} />

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { getStyled } from "@/lib/styledText";
+import { clean } from "@/lib/sanity/edit";
 
 // NOTE: front-end only for now, by design. Validation and the success state are
 // real; nothing is transmitted. Wire `deliver()` to a provider when you're ready
@@ -13,23 +14,27 @@ async function deliver(formName, payload) {
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function Field({ f }) {
+  // name/type/options drive the DOM and form data, so they must be free of
+  // the stega characters draft mode weaves into every Sanity string.
+  const name = clean(f.name);
+  const type = clean(f.type);
   const label = getStyled(f.label);
   const placeholder = getStyled(f.placeholder).text;
-  const common = { id: f.name, name: f.name, placeholder: placeholder || undefined };
+  const common = { id: name, name, placeholder: placeholder || undefined };
   return (
     <div className="v2-field">
-      <label className="t-small" htmlFor={f.name} style={label.style}>
+      <label className="t-small" htmlFor={name} style={label.style}>
         {label.text}{f.required ? " *" : ""}
       </label>
-      {f.type === "textarea" ? (
+      {type === "textarea" ? (
         <textarea {...common} />
-      ) : f.type === "select" ? (
+      ) : type === "select" ? (
         <select {...common} defaultValue="">
           <option value="">Select one</option>
-          {(f.options || []).map((o) => <option key={o} value={o}>{o}</option>)}
+          {(f.options || []).map((o) => { const v = clean(o); return <option key={v} value={v}>{v}</option>; })}
         </select>
       ) : (
-        <input type={f.type === "email" ? "email" : "text"} {...common} />
+        <input type={type === "email" ? "email" : "text"} {...common} />
       )}
     </div>
   );
@@ -44,12 +49,12 @@ function useSubmit(fields, formName) {
     const data = Object.fromEntries(new FormData(e.currentTarget).entries());
 
     for (const f of fields) {
-      const v = (data[f.name] || "").toString().trim();
+      const v = (data[clean(f.name)] || "").toString().trim();
       if (f.required && !v) {
         setError(`Please complete ${getStyled(f.label).text || "this field"}.`);
         return;
       }
-      if (f.type === "email" && v && !EMAIL.test(v)) {
+      if (clean(f.type) === "email" && v && !EMAIL.test(v)) {
         setError("Please enter a valid email address.");
         return;
       }
@@ -80,7 +85,7 @@ export function ContactForm({ block }) {
 
   return (
     <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: 24, maxWidth: 520 }} noValidate>
-      {fields.map((f) => <Field key={f.name} f={f} />)}
+      {fields.map((f) => <Field key={clean(f.name)} f={f} />)}
       {error ? <div className="v2-error" role="alert">{error}</div> : null}
       <button type="submit" className="btn btn-crimson" style={{ width: "fit-content" }}>{submitLabel} →</button>
     </form>
