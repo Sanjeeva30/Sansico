@@ -210,6 +210,7 @@
         "title": "SEO description"
       },
       {
+        "description": "1200×630px recommended — shown when this page is shared on social media (Facebook, LinkedIn, X).",
         "name": "seoImage",
         "type": "image",
         "title": "Social share image"
@@ -390,6 +391,7 @@
         "title": "SEO description"
       },
       {
+        "description": "1200×630px recommended — shown when this page is shared on social media (Facebook, LinkedIn, X).",
         "name": "seoImage",
         "type": "image",
         "title": "Social share image"
@@ -419,11 +421,13 @@
           "collapsible": true,
           "collapsed": false
         },
+        "description": "Customer or product photo shown beside their quote. 1200×900px (4:3) landscape works best.",
         "name": "image",
         "type": "richImage",
         "title": "Photo"
       },
       {
+        "description": "Transparent PNG/SVG, roughly 300×120px — shown small and grayscale in the customer tab list.",
         "name": "logo",
         "type": "image"
       },
@@ -467,6 +471,7 @@
           "collapsible": true,
           "collapsed": false
         },
+        "description": "Shown at a 4:3 ratio in the horizontal timeline. 800×600px or larger.",
         "name": "image",
         "type": "richImage"
       },
@@ -524,6 +529,7 @@
                 "type": "styledString"
               },
               {
+                "description": "Transparent PNG/SVG on a white or neutral background, roughly 300×150px — shown at a fixed small size in the certification grid.",
                 "name": "logo",
                 "type": "image"
               },
@@ -759,6 +765,7 @@
           "collapsible": true,
           "collapsed": false
         },
+        "description": "Shown at the top of this role's detail page. 1600×1000px (16:10) or wider, landscape.",
         "name": "image",
         "type": "richImage"
       },
@@ -785,6 +792,7 @@
         "title": "SEO description"
       },
       {
+        "description": "1200×630px recommended — shown when this page is shared on social media (Facebook, LinkedIn, X).",
         "name": "seoImage",
         "type": "image",
         "title": "Social share image"
@@ -845,6 +853,7 @@
           "collapsible": true,
           "collapsed": false
         },
+        "description": "Featured image shown on the blog index and at the top of the article. 1600×900px (16:9) recommended.",
         "name": "cover",
         "type": "richImage",
         "title": "Cover image"
@@ -975,6 +984,7 @@
               "collapsible": true,
               "collapsed": false
             },
+            "description": "Shown full-width inside the article body. 1400×790px (16:9) recommended.",
             "type": "richImage",
             "title": "Image"
           },
@@ -1025,6 +1035,7 @@
         "title": "SEO description"
       },
       {
+        "description": "1200×630px recommended — shown when this page is shared on social media (Facebook, LinkedIn, X).",
         "name": "seoImage",
         "type": "image",
         "title": "Social share image"
@@ -1131,6 +1142,7 @@
           "collapsible": true,
           "collapsed": false
         },
+        "description": "Full-screen background when Background is set to Image. 1920×1080px or wider, landscape.",
         "name": "image",
         "type": "richImage",
         "title": "Background image"
@@ -1166,6 +1178,7 @@
           "collapsible": true,
           "collapsed": false
         },
+        "description": "Shown before the video starts playing, and if it fails to load. Same size as the video, 1920×1080px or wider.",
         "name": "poster",
         "type": "richImage",
         "title": "Video poster"
@@ -1276,6 +1289,7 @@
           "collapsible": true,
           "collapsed": false
         },
+        "description": "Shown while no video is set, or before it loads. 2400×1000px (21:9) or wider, to match the band's aspect ratio.",
         "name": "poster",
         "type": "richImage",
         "title": "Poster / fallback image"
@@ -1437,6 +1451,7 @@
           "collapsible": true,
           "collapsed": false
         },
+        "description": "Full-bleed behind the dark page hero. 1920×1080px or wider, landscape — a dark overlay is applied automatically so the heading stays readable.",
         "name": "background",
         "type": "richImage",
         "title": "Background image"
@@ -1810,6 +1825,7 @@
                   "collapsible": true,
                   "collapsed": false
                 },
+                "description": "Transparent PNG/SVG, roughly 400×140px — shown small and grayscale in the logo wall.",
                 "name": "logo",
                 "type": "richImage"
               }
@@ -1914,6 +1930,7 @@
                   "collapsible": true,
                   "collapsed": false
                 },
+                "description": "Sits behind the card at low opacity as a textured backdrop. 1000×1000px square works best; will be cropped to fill the card.",
                 "name": "image",
                 "type": "richImage",
                 "title": "Card image"
@@ -2030,6 +2047,7 @@
                   "collapsible": true,
                   "collapsed": false
                 },
+                "description": "Shown at a 4:3 ratio. 1200×900px recommended.",
                 "name": "image",
                 "type": "richImage"
               },
@@ -2166,6 +2184,7 @@
                   "collapsible": true,
                   "collapsed": false
                 },
+                "description": "Square icon or small photo. 400×400px recommended.",
                 "name": "icon",
                 "type": "richImage",
                 "title": "Icon or image"
@@ -2379,6 +2398,7 @@
           "collapsible": true,
           "collapsed": false
         },
+        "description": "Shown at a 4:3 ratio next to the text. 1200×900px recommended.",
         "name": "image",
         "type": "richImage"
       },
@@ -2655,6 +2675,7 @@
           "collapsible": true,
           "collapsed": false
         },
+        "description": "Full-width image — upload at least 1800px wide and match the aspect ratio chosen below (21:9, 16:9, 16:7 or 4:3) so it isn't awkwardly cropped.",
         "name": "image",
         "type": "richImage"
       },
@@ -3010,6 +3031,7 @@
           "collapsible": true,
           "collapsed": false
         },
+        "description": "Wide map graphic or illustration, shown at a 16:7 ratio. 1800×790px recommended.",
         "name": "map",
         "type": "richImage",
         "title": "Map image"
@@ -3324,6 +3346,7 @@
           "collapsible": true,
           "collapsed": false
         },
+        "description": "Shown at a 4:3 ratio next to the office address cards. 1200×900px recommended.",
         "name": "map",
         "type": "richImage",
         "title": "Map image"

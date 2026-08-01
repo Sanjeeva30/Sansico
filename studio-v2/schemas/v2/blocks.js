@@ -6,7 +6,7 @@ const C = colourField;
 
 const S = (name, title, opts = {}) => ({ name, title, type: "styledString", ...opts });
 const T = (name, title, opts = {}) => ({ name, title, type: "styledText", ...opts });
-const IMG = (name = "image", title = "Image") => ({ name, title, type: "richImage" });
+const IMG = (name = "image", title = "Image", description) => ({ name, title, type: "richImage", description });
 const LINK = (name = "cta", title = "Button") => ({ name, title, type: "linkField" });
 const HEAD = { name: "head", title: "Section heading", type: "sectionHead" };
 
@@ -30,9 +30,9 @@ export const siteHeroBlock = block({
       ], layout: "radio" },
       description: "Ink is the signature rotating colour-band background.",
     },
-    IMG("image", "Background image"),
+    IMG("image", "Background image", "Full-screen background when Background is set to Image. 1920×1080px or wider, landscape."),
     { name: "videoUrl", title: "Background video URL (.mp4)", type: "url" },
-    IMG("poster", "Video poster"),
+    IMG("poster", "Video poster", "Shown before the video starts playing, and if it fails to load. Same size as the video, 1920×1080px or wider."),
     LINK("cta", "Primary button"),
     LINK("secondaryCta", "Secondary button"),
     C("scrimColor", "Overlay tint", "Darkens the background so the headline stays readable."),
@@ -47,7 +47,7 @@ export const heroVideoBlock = block({
       name: "videoUrl", title: "Video URL (.mp4)", type: "url",
       description: "Direct .mp4 link. Leave blank to fall back to the animated press bands.",
     },
-    IMG("poster", "Poster / fallback image"),
+    IMG("poster", "Poster / fallback image", "Shown while no video is set, or before it loads. 2400×1000px (21:9) or wider, to match the band's aspect ratio."),
     S("caption", "Caption overlay"),
     { name: "ratio", title: "Aspect ratio", type: "string", initialValue: "21/9",
       options: { list: ["21/9", "16/9", "3/1"] } },
@@ -57,7 +57,8 @@ export const heroVideoBlock = block({
 export const pageHeroBlock = block({
   name: "pageHeroBlock",
   title: "Page hero (dark)",
-  fields: [S("kicker", "Kicker"), S("heading", "Heading"), T("intro", "Intro"), IMG("background", "Background image"), LINK(),
+  fields: [S("kicker", "Kicker"), S("heading", "Heading"), T("intro", "Intro"),
+    IMG("background", "Background image", "Full-bleed behind the dark page hero. 1920×1080px or wider, landscape — a dark overlay is applied automatically so the heading stays readable."), LINK(),
     C("scrimColor", "Overlay tint")],
 });
 
@@ -130,7 +131,7 @@ export const logoWallBlock = block({
       name: "logos", title: "Logos", type: "array",
       of: [{
         type: "object",
-        fields: [S("name", "Name"), IMG("logo", "Logo")],
+        fields: [S("name", "Name"), IMG("logo", "Logo", "Transparent PNG/SVG, roughly 400×140px — shown small and grayscale in the logo wall.")],
         preview: { select: { title: "name.text", media: "logo.image" } },
       }],
     },
@@ -150,7 +151,7 @@ export const capabilityCardsBlock = block({
         type: "object",
         fields: [
           S("tag", "Tag"), S("title", "Title"), T("desc", "Description"),
-          LINK(), IMG("image", "Card image"),
+          LINK(), IMG("image", "Card image", "Sits behind the card at low opacity as a textured backdrop. 1000×1000px square works best; will be cropped to fill the card."),
           C("bgColor", "Card background", "Replaces the generative art panel with a flat colour."),
           C("textColor", "Card text colour"),
         ],
@@ -170,7 +171,7 @@ export const tileGridBlock = block({
       name: "tiles", title: "Tiles", type: "array",
       of: [{
         type: "object",
-        fields: [S("label", "Label"), IMG(), LINK(),
+        fields: [S("label", "Label"), IMG("image", "Image", "Shown at a 4:3 ratio. 1200×900px recommended."), LINK(),
           C("bgColor", "Label background"), C("textColor", "Label text colour")],
         preview: { select: { title: "label.text", media: "image.image" } },
       }],
@@ -189,7 +190,8 @@ export const iconCardsBlock = block({
       name: "cards", title: "Cards", type: "array",
       of: [{
         type: "object",
-        fields: [S("title", "Title"), T("desc", "Description"), IMG("icon", "Icon or image"), S("meta", "Meta line"),
+        fields: [S("title", "Title"), T("desc", "Description"),
+          IMG("icon", "Icon or image", "Square icon or small photo. 400×400px recommended."), S("meta", "Meta line"),
           C("bgColor", "Card background"), C("textColor", "Card text colour"), C("borderColor", "Card border colour")],
         preview: { select: { title: "title.text", subtitle: "desc.text", media: "icon.image" } },
       }],
@@ -221,7 +223,7 @@ export const splitFeatureBlock = block({
   title: "Split feature (image + text)",
   fields: [
     { name: "imageSide", title: "Image side", type: "string", initialValue: "left", options: { list: ["left", "right"] } },
-    IMG(),
+    IMG("image", "Image", "Shown at a 4:3 ratio next to the text. 1200×900px recommended."),
     S("kicker", "Kicker"), S("heading", "Heading"), T("body", "Body"), S("meta", "Meta line"), LINK(),
   ],
 });
@@ -235,7 +237,10 @@ export const richTextBlock = block({
 export const imageBlock = block({
   name: "imageBlock",
   title: "Full-width image",
-  fields: [IMG(), { name: "ratio", title: "Aspect ratio", type: "string", initialValue: "16/9", options: { list: ["21/9", "16/9", "16/7", "4/3"] } }],
+  fields: [
+    IMG("image", "Image", "Full-width image — upload at least 1800px wide and match the aspect ratio chosen below (21:9, 16:9, 16:7 or 4:3) so it isn't awkwardly cropped."),
+    { name: "ratio", title: "Aspect ratio", type: "string", initialValue: "16/9", options: { list: ["21/9", "16/9", "16/7", "4/3"] } },
+  ],
 });
 
 export const ctaBannerBlock = block({
@@ -284,7 +289,7 @@ export const presenceMapBlock = block({
   name: "presenceMapBlock",
   title: "Presence map",
   fields: [
-    HEAD, IMG("map", "Map image"),
+    HEAD, IMG("map", "Map image", "Wide map graphic or illustration, shown at a 16:7 ratio. 1800×790px recommended."),
     {
       name: "pins", title: "Pins", type: "array",
       of: [{
@@ -335,7 +340,7 @@ export const officesBlock = block({
   name: "officesBlock",
   title: "Offices (map + address cards)",
   fields: [
-    HEAD, IMG("map", "Map image"),
+    HEAD, IMG("map", "Map image", "Shown at a 4:3 ratio next to the office address cards. 1200×900px recommended."),
     {
       name: "offices", title: "Offices", type: "array",
       of: [{

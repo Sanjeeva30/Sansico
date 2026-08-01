@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "createdAt": "2026-08-01T04:56:24.598Z",
+  "createdAt": "2026-08-01T06:32:21.936Z",
   "workspaces": [
     {
       "name": "sansico-v2",
@@ -12,7 +12,7 @@
       "mediaLibrary": {
         "enabled": false
       },
-      "schema": "fcb81315.create-schema.json",
+      "schema": "bf196aec.create-schema.json",
       "tools": "d57bf8ec.create-tools.json"
     }
   ],

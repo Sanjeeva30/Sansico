@@ -18,7 +18,8 @@ const SECTIONS = {
 const SEO = [
   { name: "seoTitle", title: "SEO title", type: "string" },
   { name: "seoDescription", title: "SEO description", type: "text", rows: 3 },
-  { name: "seoImage", title: "Social share image", type: "image" },
+  { name: "seoImage", title: "Social share image", type: "image",
+    description: "1200×630px recommended — shown when this page is shared on social media (Facebook, LinkedIn, X)." },
 ];
 
 /* ── One flexible page document powers every v2 page ── */
@@ -79,8 +80,10 @@ export const customerStory = {
     S("name", "Customer name"),
     S("location", "Location"),
     T("quote", "Quote"),
-    { name: "image", title: "Photo", type: "richImage" },
-    { name: "logo", title: "Logo", type: "image" },
+    { name: "image", title: "Photo", type: "richImage",
+      description: "Customer or product photo shown beside their quote. 1200×900px (4:3) landscape works best." },
+    { name: "logo", title: "Logo", type: "image",
+      description: "Transparent PNG/SVG, roughly 300×120px — shown small and grayscale in the customer tab list." },
     { name: "link", title: "Link", type: "linkField" },
     { name: "visible", title: "Visible", type: "boolean", initialValue: true },
     ORDER,
@@ -97,7 +100,8 @@ export const milestone = {
     S("year", "Year"),
     S("title", "Title"),
     T("copy", "Description"),
-    { name: "image", title: "Image", type: "richImage" },
+    { name: "image", title: "Image", type: "richImage",
+      description: "Shown at a 4:3 ratio in the horizontal timeline. 800×600px or larger." },
     { name: "visible", title: "Visible", type: "boolean", initialValue: true },
     ORDER,
   ],
@@ -120,7 +124,8 @@ export const certificationGroup = {
         type: "object",
         fields: [
           S("name", "Name"),
-          { name: "logo", title: "Logo", type: "image" },
+          { name: "logo", title: "Logo", type: "image",
+            description: "Transparent PNG/SVG on a white or neutral background, roughly 300×150px — shown at a fixed small size in the certification grid." },
           { name: "certificate", title: "Certificate document", type: "file" },
           S("scope", "Scope"), S("entity", "Holding entity"),
         ],
@@ -187,7 +192,8 @@ export const jobRole = {
     { name: "youHave", title: "You have", type: "array", of: [{ type: "styledString" }] },
     T("compensation", "Compensation"),
     T("aboutCompany", "About Sansico Group"),
-    { name: "image", title: "Image", type: "richImage" },
+    { name: "image", title: "Image", type: "richImage",
+      description: "Shown at the top of this role's detail page. 1600×1000px (16:10) or wider, landscape." },
     { name: "visible", title: "Visible", type: "boolean", initialValue: true },
     ORDER,
     ...SEO,
@@ -205,13 +211,15 @@ export const blogPost = {
     { name: "slug", title: "Slug", type: "slug", options: { source: "title.text" }, validation: (R) => R.required() },
     S("tag", "Tag"), S("date", "Date label"), S("readTime", "Read time"),
     { name: "publishedAt", title: "Published at", type: "datetime" },
-    { name: "cover", title: "Cover image", type: "richImage" },
+    { name: "cover", title: "Cover image", type: "richImage",
+      description: "Featured image shown on the blog index and at the top of the article. 1600×900px (16:9) recommended." },
     T("excerpt", "Excerpt"),
     {
       name: "body", title: "Body", type: "array",
       of: [
         { type: "block" },
-        { type: "richImage", title: "Image" },
+        { type: "richImage", title: "Image",
+          description: "Shown full-width inside the article body. 1400×790px (16:9) recommended." },
         {
           type: "object", name: "pullQuote", title: "Pull quote",
           fields: [T("quote", "Quote")],

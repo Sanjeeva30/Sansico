@@ -316,7 +316,8 @@ push({
     { c: "Thailand", sc: [2, 3, 3, 5, 4, 4], tot: 21 },
     { c: "Malaysia", sc: [2, 3, 4, 5, 4, 4], tot: 22 },
     { c: "Philippines", sc: [3, 2, 2, 3, 3, 4], tot: 17 },
-  ].map((r) => ({ _type: "object", _key: k(), country: s(r.c), starred: !!r.star, scores: r.sc, total: r.tot })),
+  ].map((r) => ({ _type: "object", _key: k(), country: s(r.c), starred: !!r.star, scores: r.sc, total: r.tot,
+    highlightColor: r.star ? "#7A0D20" : undefined })),
   footnoteTitle: s("Vietnam NME risk"),
   footnote: t("USTR has not revoked Vietnam's NME status. US CBP anti-circumvention investigations targeting Vietnam-origin goods with Chinese inputs remain active. Retailers with >40% Vietnam concentration face material tariff exposure in a stress scenario."),
   conclusionTitle: s("Balanced conclusion:"),
@@ -670,10 +671,10 @@ page("why-indonesia", "Why Indonesia", [
   B("pageHeroBlock", { heading: s("Strategic geography. Skilled hands. Verified compliance."), background: rimg(A("HAMPANGEN.png"), "Indonesian production geography") }),
   B("statsBlock", {
     stats: [
-      { _type: "object", _key: k(), value: s("270M+"), label: s("Population, skilled labour pool") },
-      { _type: "object", _key: k(), value: s("10"), label: s("Certified facilities") },
-      { _type: "object", _key: k(), value: s("500M"), label: s("Homes reached each year") },
-      { _type: "object", _key: k(), value: s("2"), label: s("Strategic hubs — Jakarta & Foshan") },
+      { _type: "object", _key: k(), value: s("270M+"), label: s("Population, skilled labour pool"), bgColor: "#7A0D20", textColor: "#FFFFFF" },
+      { _type: "object", _key: k(), value: s("10"), label: s("Certified facilities"), bgColor: "#22409E", textColor: "#FFFFFF" },
+      { _type: "object", _key: k(), value: s("500M"), label: s("Homes reached each year"), bgColor: "#0D4F31", textColor: "#FFFFFF" },
+      { _type: "object", _key: k(), value: s("2"), label: s("Strategic hubs — Jakarta & Foshan"), bgColor: "#5A0915", textColor: "#FFFFFF" },
     ],
   }),
   B("imageBlock", { image: rimg(A("Gemini_Generated_Image_4tidd34tidd34tid.png") || A("HAMPANGEN.png"), "Indonesia and China facilities with export lanes", "Facilities and export lanes to US / EU / Asia"), ratio: "16/9" }),
@@ -743,12 +744,31 @@ page("contact", "Contact", [
   }),
 ]);
 
+/* ═══════════════════ 12. Site-wide CTA band ═══════════════════ */
+// siteSettings is a singleton shared across every page (not part of `docs`
+// below, since it's patched rather than replaced — production's nav/logo/etc.
+// on it must survive). Bring its CTA band copy and colours in line with the
+// wireframe and the live .v2-cta CSS defaults, so Studio shows the true
+// current values instead of leaving them blank.
+const ctaBandPatch = {
+  headline: s("Looking for your |partner| in Indonesia?"),
+  subline: t("Tell us your category, target market and volumes — our marketing offices in Jakarta and Foshan respond within one business day."),
+  btn1Label: s("Start Conversation"),
+  btn1Href: "/contact",
+  bgColor: "#17120F",
+  textColor: "#FFFFFF",
+  accentColor: "#BDDA5F",
+  btnBgColor: "#FFFFFF",
+  btnTextColor: "#7A0D20",
+};
+
 /* ═══════════════════ commit ═══════════════════ */
 const strip = (o) => JSON.parse(JSON.stringify(o, (_, v) => (v === undefined ? undefined : v)));
 
 let tx = client.transaction();
 for (const d of docs) tx = tx.createOrReplace(strip(d));
 for (const p of facilityPatches) tx = tx.patch(p.patch.id, { set: p.patch.set });
+tx = tx.patch("siteSettings", { set: { ctaBand: strip(ctaBandPatch) } });
 await tx.commit();
 
 const counts = docs.reduce((m, d) => ({ ...m, [d._type]: (m[d._type] || 0) + 1 }), {});
