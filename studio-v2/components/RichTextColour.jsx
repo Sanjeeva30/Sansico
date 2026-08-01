@@ -1,3 +1,4 @@
+"use client";
 // Custom colour annotation for Portable Text — adds brand colour picker to toolbar
 import { definePlugin } from "sanity";
 

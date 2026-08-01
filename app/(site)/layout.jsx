@@ -1,7 +1,7 @@
 export const revalidate = 30;
-import "./globals.css";
-import "./animations.css";
-import "./v2.css";
+import "../globals.css";
+import "../animations.css";
+import "../v2.css";
 import localFont from "next/font/local";
 import ScrollObserver from "@/components/ScrollObserver";
 import HeaderV2 from "@/components/v2/HeaderV2";
@@ -14,13 +14,13 @@ import { getSite } from "@/lib/content";
 import { getV2Site } from "@/lib/v2";
 
 const sans = localFont({
-  src: "./fonts/Archivo-Variable.ttf",
+  src: "../fonts/Archivo-Variable.ttf",
   variable: "--font-sans", weight: "100 900", display: "swap"
 });
 const serif = localFont({
   src: [
-    { path: "./fonts/InstrumentSerif-Regular.ttf", weight: "400", style: "normal" },
-    { path: "./fonts/InstrumentSerif-Italic.ttf",  weight: "400", style: "italic" }
+    { path: "../fonts/InstrumentSerif-Regular.ttf", weight: "400", style: "normal" },
+    { path: "../fonts/InstrumentSerif-Italic.ttf",  weight: "400", style: "italic" }
   ],
   variable: "--font-serif", display: "swap"
 });

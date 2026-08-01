@@ -1,8 +1,24 @@
+/**
+ * Studio config for the Studio embedded at /studio inside the Next.js app.
+ *
+ * Why embedded: Presentation puts the site in an iframe and turns on Next's
+ * draft mode with a cookie. When the Studio lives on a different origin
+ * (sansico-v2.sanity.studio) that cookie is third-party, and browsers block it
+ * — draft mode never switches on inside the frame, so the preview renders
+ * blank and click-to-edit never connects. Serving the Studio from the same
+ * origin as the site makes the cookie first-party and the whole problem
+ * disappears.
+ *
+ * Schemas and the Presentation resolver are shared with studio-v2 rather than
+ * duplicated, so there is still exactly one definition of each.
+ */
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
-import { visionTool } from "@sanity/vision";
+import { presentationTool } from "sanity/presentation";
 import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
-import { schemaTypes } from "./schemas";
+
+import { schemaTypes } from "./studio-v2/schemas";
+import { locations, mainDocuments } from "./studio-v2/lib/resolve";
 
 const PAGES = [
   ["🏠", "Home", "home"],
@@ -59,25 +75,28 @@ const structure = (S, context) =>
     ]);
 
 export default defineConfig({
-  name: "sansico-v2",
+  name: "sansico-v2-embedded",
   title: "Sansico Group — v2",
-  projectId: "rvghw4zu",
-  dataset: "v2",
-  plugins: [
-    // No Presentation here on purpose. This Studio is served from
-    // sansico-v2.sanity.studio, a different origin from the site, so the
-    // draft-mode cookie Presentation needs is third-party and browsers block
-    // it — the preview pane just renders blank. Visual editing lives in the
-    // Studio embedded at /studio on the site itself, which is same-origin.
-    structureTool({ structure }),
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "rvghw4zu",
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "v2",
 
-    // Vision is a developer query console — editors never use it, and it drags
-    // in CodeMirror plus refractor's syntax highlighting for ~290 languages,
-    // which was a large share of the deployed bundle and of build time. Load it
-    // only when running `sanity dev` locally.
-    ...(process.env.NODE_ENV === "development"
-      ? [visionTool({ defaultApiVersion: "2024-01-01", defaultDataset: "v2" })]
-      : []),
+  // Served from within the site itself.
+  basePath: "/studio",
+
+  plugins: [
+    presentationTool({
+      title: "Edit site",
+      // Same origin as the Studio, so the draft-mode cookie is first-party.
+      previewUrl: {
+        previewMode: {
+          enable: "/api/draft-mode/enable",
+          disable: "/api/draft-mode/disable",
+        },
+      },
+      resolve: { locations, mainDocuments },
+    }),
+    structureTool({ structure }),
   ],
+
   schema: { types: schemaTypes },
 });

@@ -1,3 +1,4 @@
+"use client";
 import { set, unset } from "sanity";
 import { useState } from "react";
 
