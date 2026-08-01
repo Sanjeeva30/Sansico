@@ -66,9 +66,9 @@ export default async function RootLayout({ children }) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
         <ScrollObserver />
         <Reveal />
-        <HeaderV2 site={v2site} />
+        <HeaderV2 site={v2site} isDraft={isDraft} />
         <main>{children}</main>
-        <FooterV2 site={v2site} />
+        <FooterV2 site={v2site} isDraft={isDraft} />
         {isDraft ? <><PreviewBar /><VisualEditingBridge /></> : null}
       </body>
     </html>

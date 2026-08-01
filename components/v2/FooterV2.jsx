@@ -1,10 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getStyled } from "@/lib/styledText";
+import { editAttr } from "@/lib/sanity/edit";
 
 const S = (v) => getStyled(v).text;
 
-export default function FooterV2({ site }) {
+export default function FooterV2({ site, isDraft = false }) {
+  // site chrome lives on siteSettings, so it points there rather than at a page
+  const chrome = (path) => (isDraft ? editAttr({ id: "siteSettings", type: "siteSettings", path }) : undefined);
   const audiences = site.audiences || [];
   const capabilities = site.capabilities || [];
 
@@ -62,7 +65,7 @@ export default function FooterV2({ site }) {
               <li><span className="t-body">Foshan Office, China</span></li>
               {site.email ? <li><a href={`mailto:${site.email}`}>{site.email}</a></li> : null}
               <li style={{ marginTop: 10 }}>
-                <Link className="btn btn-outline" style={{ padding: "9px 20px", fontSize: 13 }} href="/contact">
+                <Link className="btn btn-outline" style={{ padding: "9px 20px", fontSize: 13 }} href="/contact" {...(chrome("ctaLabel") || {})}>
                   {S(site.ctaLabel) || "Start Conversation"}
                 </Link>
               </li>

@@ -2,11 +2,15 @@ import Link from "next/link";
 import Arrow from "@/components/Arrow";
 import { getV2Site } from "@/lib/v2";
 import { getStyled } from "@/lib/styledText";
+import { draftMode } from "next/headers";
+import { editAttr } from "@/lib/sanity/edit";
 
 // The wireframe's black banner. Shown at the foot of every page except Careers
 // — controlled per page by `showCtaBanner` in Studio.
 export default async function CtaBandV2() {
   const site = await getV2Site();
+  const isDraft = (await draftMode()).isEnabled;
+  const chrome = (path) => (isDraft ? editAttr({ id: "siteSettings", type: "siteSettings", path }) : undefined);
   const cta = site.ctaBand || {};
 
   const headlineStyled = getStyled(cta.headline);
@@ -28,6 +32,7 @@ export default async function CtaBandV2() {
         </h2>
         <p className="t-body" style={{ color: cta.textColor || undefined }}>{subline}</p>
         <Link className="btn btn-light" href={btnHref}
+          {...(chrome("ctaBand.btn1Label") || {})}
           style={{ background: cta.btnBgColor || undefined, color: cta.btnTextColor || undefined }}>
           {btnLabel} <Arrow />
         </Link>

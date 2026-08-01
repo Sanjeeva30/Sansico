@@ -4,10 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { getStyled } from "@/lib/styledText";
+import { editAttr } from "@/lib/sanity/edit";
 
 const S = (v) => getStyled(v).text;
 
-export default function HeaderV2({ site }) {
+export default function HeaderV2({ site, isDraft = false }) {
+  const chrome = (path) => (isDraft ? editAttr({ id: "siteSettings", type: "siteSettings", path }) : undefined);
   const [open, setOpen] = useState(false);
   const path = usePathname();
 
@@ -68,7 +70,7 @@ export default function HeaderV2({ site }) {
               ))}
             </nav>
 
-            <Link className="v2hd-cta" href="/contact">{S(site.ctaLabel) || "Start Conversation"}</Link>
+            <Link className="v2hd-cta" href="/contact" {...(chrome("ctaLabel") || {})}>{S(site.ctaLabel) || "Start Conversation"}</Link>
 
             <button className="v2hd-burger" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
               {open ? "Close" : "Menu"}
