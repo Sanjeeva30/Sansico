@@ -567,11 +567,12 @@ function OfficesBlock({ b, ctx }) {
   );
 }
 
-function CertificationMatrixBlock({ b }) {
+function CertificationMatrixBlock({ b, ctx }) {
   const groups = b.certGroups || [];
   const col = (n) => groups.filter((g) => (g.column || 1) === n);
   const renderGroup = (g, i) => (
-    <div className="v2-certgroup" key={i}>
+    <div className="v2-certgroup" key={g._id || i}
+      {...(ctx?.docAttr(g._id, g._type, "title") || {})}>
       <div>
         <Txt value={g.title} as="div" className="t-h3" style={{ fontSize: 16 }} />
         <Txt value={g.sub} as="div" className="t-small" style={{ marginTop: 4, textTransform: "none", letterSpacing: ".04em" }} />
@@ -580,7 +581,9 @@ function CertificationMatrixBlock({ b }) {
         {(g.items || []).map((it, k) => {
           const name = S(it.name).text;
           return (
-            <div className="v2-certlogo" key={k} title={[name, S(it.scope).text, S(it.entity).text].filter(Boolean).join(" — ")}>
+            <div className="v2-certlogo" key={it._key || k}
+              title={[name, S(it.scope).text, S(it.entity).text].filter(Boolean).join(" — ")}
+              {...(ctx?.docAttr(g._id, g._type, `items[_key=="${it._key}"]`) || {})}>
               {it.logoUrl
                 ? <img src={sanityImgUrl(it.logoUrl, { w: 260, h: 130, fit: "max" })} alt={name} />
                 : <span className="t-small" style={{ letterSpacing: ".06em" }}>{name}</span>}
@@ -652,12 +655,12 @@ function ScorecardBlock({ b }) {
   );
 }
 
-function ProductShowcaseBlock({ b }) {
+function ProductShowcaseBlock({ b, ctx }) {
   return (
     <div className="wrap">
       <SectionHead head={b.head} />
       {(b.categories || []).map((cat, i) => (
-        <div className="grid12 rv" key={i} style={{ marginBottom: 72 }}>
+        <div className="grid12 rv" key={cat._id || i} style={{ marginBottom: 72 }}>
           <div className="c-3">
             <Link href={`/products/${cat.slug}`}>
               <Txt value={cat.name} as="h3" className="t-h2" style={{ marginBottom: 14 }} />
@@ -666,12 +669,15 @@ function ProductShowcaseBlock({ b }) {
           </div>
           <div className="c-9">
             <Link href={`/products/${cat.slug}`} style={{ display: "block", marginBottom: 24 }}>
-              <Media value={{ url: cat.coverUrl, alt: S(cat.name).text }} ratio="16/9" w={1600} h={900} showCaption={false} />
+              <Media value={{ url: cat.coverUrl, alt: S(cat.name).text }} ratio="16/9" w={1600} h={900} showCaption={false}
+                edit={ctx?.docAttr(cat._id, cat._type, "coverImage")} />
             </Link>
             <div className="grid-n" style={{ "--cols": 3 }}>
               {(cat.products || []).slice(0, 3).map((p, k) => (
-                <Link href={`/products/${cat.slug}/${p.slug}`} key={k}>
-                  <Media value={{ url: p.thumbUrl, alt: S(p.name).text }} ratio="4/3" showCaption={false} />
+                <Link href={`/products/${cat.slug}/${p.slug}`} key={p._id || k}
+                  {...(ctx?.docAttr(p._id, p._type, "name") || {})}>
+                  <Media value={{ url: p.thumbUrl, alt: S(p.name).text }} ratio="4/3" showCaption={false}
+                    edit={ctx?.docAttr(p._id, p._type, "photos")} />
                   <div className="v2-tag" style={{ marginTop: 14 }}>{S(p.name).text}</div>
                 </Link>
               ))}
@@ -687,7 +693,7 @@ function ProductShowcaseBlock({ b }) {
   );
 }
 
-function OpenRolesBlock({ b }) {
+function OpenRolesBlock({ b, ctx }) {
   return (
     <div className="wrap rv">
       <SectionHead head={b.head} />
@@ -696,7 +702,7 @@ function OpenRolesBlock({ b }) {
           <div>Role</div><div>Department</div><div>Location</div><div />
         </div>
         {(b.roles || []).map((r, i) => (
-          <div className="v2-role-row" key={i}>
+          <div className="v2-role-row" key={r._id || i} {...(ctx?.docAttr(r._id, r._type, "role") || {})}>
             <div className="t-h3" style={{ fontSize: 16 }}>{S(r.role).text}</div>
             <div className="t-body">{S(r.dept).text}</div>
             <div className="t-body">{S(r.location).text}</div>
@@ -708,14 +714,15 @@ function OpenRolesBlock({ b }) {
   );
 }
 
-function BlogGridBlock({ b }) {
+function BlogGridBlock({ b, ctx }) {
   return (
     <div className="wrap rv">
       <SectionHead head={b.head} />
       <div className="grid-n" style={{ "--cols": 3 }}>
         {(b.posts || []).map((p, i) => (
-          <Link href={`/blog/${p.slug}`} key={i}>
-            <Media value={p.cover} ratio="4/3" showCaption={false} />
+          <Link href={`/blog/${p.slug}`} key={p._id || i} {...(ctx?.docAttr(p._id, p._type, "title") || {})}>
+            <Media value={p.cover} ratio="4/3" showCaption={false}
+              edit={ctx?.docAttr(p._id, p._type, "cover")} />
             <Txt value={p.tag} as="div" className="v2-tag" style={{ margin: "16px 0 12px" }} />
             <Txt value={p.title} as="div" className="t-h3" style={{ fontSize: 17, marginBottom: 8 }} />
             <Txt value={p.date} as="div" className="t-small" />
