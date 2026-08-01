@@ -51,6 +51,7 @@ export default function CountStats({ stats }) {
             const labelColor = label.style.color || s.textHex || undefined;
             return (
               <div className="stat" key={label.text || i}
+                {...(s.edit || {})}
                 style={{ background: s.bgHex || undefined }}>
                 <b data-count={s.value} data-suffix={s.suffix || ""}
                   style={{ color: s.textHex || undefined }}>0</b>

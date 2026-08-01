@@ -31,8 +31,8 @@ export default function Hero({ hero }) {
         <StyledText as="p" className="eyebrow" value={hero.eyebrow} />
         <h1 style={title.style}>{a}<em>{b}</em>{c}</h1>
         <StyledText as="p" className="sub" value={hero.sub} />
-        <Link className="btn btn-light" href={hero.primary.href}>{hero.primary.label} <Arrow /></Link>
-        <Link className="btn btn-ghost" href={hero.secondary.href}>{hero.secondary.label}</Link>
+        <Link className="btn btn-light" href={hero.primary.href} {...(hero.primary.edit || {})}>{hero.primary.label} <Arrow /></Link>
+        <Link className="btn btn-ghost" href={hero.secondary.href} {...(hero.secondary.edit || {})}>{hero.secondary.label}</Link>
       </div>
       <div className="scroll-cue" aria-hidden="true">Scroll</div>
     </section>

@@ -51,21 +51,22 @@ function SectionHead({ head, right }) {
   );
 }
 
-function Cta({ link, className = "btn btn-crimson" }) {
+function Cta({ link, className = "btn btn-crimson", edit }) {
   const label = S(link?.label);
   if (!link?.href || !label.text) return null;
   const external = /^https?:\/\//.test(link.href);
   const inner = <>{label.text} <Arrow /></>;
   // Studio colours win over the button's design default.
   const style = {
-    background: link.bgColor || undefined,
-    color: link.textColor || undefined,
-    borderColor: link.bgColor || undefined,
+    background: clean(link.bgColor) || undefined,
+    color: clean(link.textColor) || undefined,
+    borderColor: clean(link.bgColor) || undefined,
   };
+  const attrs = edit || {};
   return external ? (
-    <a className={className} style={style} href={link.href} target={link.newTab ? "_blank" : undefined} rel={link.newTab ? "noopener noreferrer" : undefined}>{inner}</a>
+    <a className={className} style={style} {...attrs} href={link.href} target={link.newTab ? "_blank" : undefined} rel={link.newTab ? "noopener noreferrer" : undefined}>{inner}</a>
   ) : (
-    <Link className={className} style={style} href={link.href}>{inner}</Link>
+    <Link className={className} style={style} {...attrs} href={link.href}>{inner}</Link>
   );
 }
 
@@ -73,7 +74,7 @@ function Cta({ link, className = "btn btn-crimson" }) {
 
 // The live site's full-screen hero, rendered through the existing Hero
 // component so the animated press bands, type scale and buttons are identical.
-function SiteHeroBlock({ b }) {
+function SiteHeroBlock({ b, ctx }) {
   const heading = S(b.heading);
   const primary = b.cta || {};
   const secondary = b.secondaryCta || {};
@@ -87,8 +88,10 @@ function SiteHeroBlock({ b }) {
         videoUrl: b.videoUrl || null,
         imageUrl: b.image?.url || null,
         posterUrl: b.poster?.url || null,
-        primary: { label: S(primary.label).text || "Start a conversation", href: primary.href || "/contact" },
-        secondary: { label: S(secondary.label).text || "Explore capabilities", href: secondary.href || "/capabilities" },
+        primary: { label: S(primary.label).text || "Start a conversation", href: primary.href || "/contact",
+          edit: ctx?.attr("cta") },
+        secondary: { label: S(secondary.label).text || "Explore capabilities", href: secondary.href || "/capabilities",
+          edit: ctx?.attr("secondaryCta") },
       }}
     />
   );
@@ -112,7 +115,7 @@ function HeroVideoBlock({ b }) {
   );
 }
 
-function PageHeroBlock({ b }) {
+function PageHeroBlock({ b, ctx }) {
   return (
     <div className="v2-phero" style={{ background: b.bgColor || undefined }}>
       {b.scrimColor ? (
@@ -123,13 +126,13 @@ function PageHeroBlock({ b }) {
         <Txt value={b.kicker} as="div" className="t-kicker" />
         <Headline value={b.heading} as="h1" className="t-h1" style={{ marginTop: 14 }} />
         <Txt value={b.intro} as="p" className="t-body-lg" />
-        <div style={{ marginTop: 28 }}><Cta link={b.cta} className="btn btn-light" /></div>
+        <div style={{ marginTop: 28 }}><Cta link={b.cta} className="btn btn-light" edit={ctx?.attr("cta")} /></div>
       </div>
     </div>
   );
 }
 
-function StatementBlock({ b }) {
+function StatementBlock({ b, ctx }) {
   const centred = clean(b.align) === "center";
   const box = centred ? { maxWidth: 860, margin: "0 auto", textAlign: "center" } : undefined;
   return (
@@ -142,7 +145,7 @@ function StatementBlock({ b }) {
         style={{ maxWidth: centred ? undefined : 900, marginBottom: 22 }} />
       <Txt value={b.body} as="p" className="t-body-lg"
         style={{ maxWidth: centred ? 640 : 660, ...(centred ? { marginLeft: "auto", marginRight: "auto" } : {}) }} />
-      <div style={{ marginTop: 30 }}><Cta link={b.cta} /></div>
+      <div style={{ marginTop: 30 }}><Cta link={b.cta} edit={ctx?.attr("cta")} /></div>
       <Txt value={b.note} as="div" className="t-small" style={{ marginTop: 18 }} />
     </div>
   );
@@ -249,7 +252,7 @@ function WhyIndonesiaDetailBlock({ b }) {
 // shadows and count-up animation are identical. CountStats expects a numeric
 // `value` plus a separate `suffix`, so the CMS string ("40+", "500M") is split
 // into those parts here.
-function StatsBlock({ b }) {
+function StatsBlock({ b, ctx }) {
   const stats = (b.stats || []).map((s) => {
     const raw = S(s.value).text || "";
     const m = raw.match(/^([\d.]+)(.*)$/);
@@ -257,8 +260,10 @@ function StatsBlock({ b }) {
       value: m ? m[1] : raw,
       suffix: m ? m[2] : "",
       label: s.label,
-      bgHex: s.bgColor || undefined,
-      textHex: s.textColor || undefined,
+      bgHex: clean(s.bgColor) || undefined,
+      textHex: clean(s.textColor) || undefined,
+      // lets the tile itself be clicked in Presentation
+      edit: ctx?.itemAttr("stats", s._key),
     };
   });
   return <CountStats stats={stats} />;
@@ -422,7 +427,7 @@ function SplitFeatureBlock({ b, ctx }) {
       <Headline value={b.heading} style={{ marginBottom: 18 }} />
       <Txt value={b.body} as="p" className="t-body-lg" style={{ maxWidth: 520, marginBottom: 20 }} />
       <Txt value={b.meta} as="div" className="t-small" style={{ marginBottom: 24 }} />
-      <Cta link={b.cta} className="btn btn-outline" />
+      <Cta link={b.cta} className="btn btn-outline" edit={ctx?.attr("cta")} />
     </div>
   );
   return (
@@ -758,12 +763,12 @@ function ContactFormBlock({ b }) {
   );
 }
 
-function CtaBannerBlock({ b }) {
+function CtaBannerBlock({ b, ctx }) {
   return (
     <div className="wrap">
       <Headline value={b.heading} accent={b.accentColor} />
       <Txt value={b.body} as="p" className="t-body" />
-      <Cta link={b.cta} className="btn btn-light" />
+      <Cta link={b.cta} className="btn btn-light" edit={ctx?.attr("cta")} />
     </div>
   );
 }
