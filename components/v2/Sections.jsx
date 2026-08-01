@@ -153,9 +153,11 @@ function StatementBlock({ b, ctx }) {
 
 // The full Why Indonesia research piece, rendered from the whyIndonesia
 // document so nothing from the original page is lost.
-function WhyIndonesiaDetailBlock({ b }) {
+function WhyIndonesiaDetailBlock({ b, ctx }) {
   const r = b.research;
   if (!r) return null;
+  // these cards render the whyIndonesia research document, not the page
+  const research = (path) => ctx?.docAttr(r._id, r._type, path);
 
   const Section = ({ title, intro, children, conclusion }) => (
     <div className="rv" style={{ marginBottom: 72 }}>
@@ -170,10 +172,11 @@ function WhyIndonesiaDetailBlock({ b }) {
     </div>
   );
 
-  const Cards = ({ items, titleKey = "title", bodyKey = "body", cols = 3 }) => (
+  const Cards = ({ items, titleKey = "title", bodyKey = "body", cols = 3, field }) => (
     <div className="grid-n" style={{ "--cols": cols }}>
       {(items || []).map((it, i) => (
-        <div className="v2-card" key={i}>
+        <div className="v2-card" key={it._key || i}
+          {...((field && it._key ? research(`${field}[_key=="${it._key}"]`) : undefined) || {})}>
           <div className="t-h3" style={{ marginBottom: 10 }}>{it[titleKey]}</div>
           <p className="t-body">{it[bodyKey]}</p>
         </div>
@@ -195,13 +198,13 @@ function WhyIndonesiaDetailBlock({ b }) {
   return (
     <div className="wrap">
       <Section title={r.executiveTitle} intro={r.executiveIntro} conclusion={r.executiveConclusion}>
-        <Cards items={r.dimensions} />
+        <Cards items={r.dimensions} field="dimensions" />
       </Section>
 
       <Section title={r.aseanTitle} intro={r.aseanBody} conclusion={r.aseanConclusion} />
 
       <Section title={r.javaTitle} intro={r.javaIntro} conclusion={r.javaPlatformNote}>
-        <Cards items={r.javaRegions} titleKey="name" bodyKey="description" />
+        <Cards items={r.javaRegions} titleKey="name" bodyKey="description" field="javaRegions" />
       </Section>
 
       <Section title={r.sectorsTitle} intro={r.sectorsBody} conclusion={r.sectorsConclusion} />
@@ -211,11 +214,11 @@ function WhyIndonesiaDetailBlock({ b }) {
       </Section>
 
       <Section title={r.tradeTitle} intro={r.tradeBody}>
-        <Cards items={r.tradeAgreements} titleKey="name" bodyKey="description" cols={2} />
+        <Cards items={r.tradeAgreements} titleKey="name" bodyKey="description" cols={2} field="tradeAgreements" />
       </Section>
 
       <Section title={r.fiberTitle} intro={r.fiberBody}>
-        <Cards items={r.fiberPoints} />
+        <Cards items={r.fiberPoints} field="fiberPoints" />
       </Section>
 
       {r.conclusionStatement ? (
@@ -609,9 +612,10 @@ function CertificationMatrixBlock({ b, ctx }) {
   );
 }
 
-function ScorecardBlock({ b }) {
+function ScorecardBlock({ b, ctx }) {
   const sc = b.scorecard;
   if (!sc) return null;
+  const card = (path) => ctx?.docAttr(sc._id, sc._type, path);
   const cols = sc.columns || [];
   const grid = { gridTemplateColumns: `2fr repeat(${cols.length}, 1fr) 1fr` };
   return (
@@ -620,7 +624,8 @@ function ScorecardBlock({ b }) {
       <Txt value={b.subtitle} as="div" className="t-body-lg" style={{ fontStyle: "italic", marginTop: -26, marginBottom: 28 }} />
       <div style={{ display: "flex", gap: 28, flexWrap: "wrap", marginBottom: 26 }}>
         {(sc.legend || []).map((l, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div key={l._key || i} style={{ display: "flex", alignItems: "center", gap: 10 }}
+            {...((l._key ? card(`legend[_key=="${l._key}"]`) : undefined) || {})}>
             <span className="v2-score">{S(l.n).text}</span>
             <span className="t-body">{S(l.label).text}</span>
           </div>
@@ -633,7 +638,8 @@ function ScorecardBlock({ b }) {
           <div style={{ textAlign: "center" }}>Total</div>
         </div>
         {(sc.rows || []).map((r, i) => (
-          <div className="v2-table-row" style={grid} key={i}>
+          <div className="v2-table-row" style={grid} key={r._key || i}
+            {...((r._key ? card(`rows[_key=="${r._key}"]`) : undefined) || {})}>
             <div style={{ fontWeight: r.starred ? 700 : 500,
               color: r.starred ? (r.highlightColor || "var(--crimson)") : undefined }}>
               {S(r.country).text}{r.starred ? " ★" : ""}
