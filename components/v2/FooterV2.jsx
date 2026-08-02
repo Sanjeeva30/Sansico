@@ -69,7 +69,7 @@ export default function FooterV2({ site, isDraft = false }) {
               {site.email ? <li><a href={`mailto:${site.email}`}>{site.email}</a></li> : null}
               <li style={{ marginTop: 10 }}>
                 <Link className="btn btn-outline" style={{ padding: "9px 20px", fontSize: 13 }} href="/contact" {...(chrome("ctaLabel") || {})}>
-                  {S(site.ctaLabel) || "Start Conversation"}
+                  {NAV(site.ctaLabel) || "Start Conversation"}
                 </Link>
               </li>
             </ul>

@@ -55,7 +55,11 @@ function Cta({ link, className = "btn btn-crimson", edit }) {
   const label = S(link?.label);
   if (!link?.href || !label.text) return null;
   const external = /^https?:\/\//.test(link.href);
-  const inner = <>{label.text} <Arrow /></>;
+  // Stega in a link's own text makes the visual-editing overlay treat the text
+  // as the click target, so the click never reaches the link and the preview
+  // doesn't navigate. The button stays editable through the `edit` attribute
+  // below, which addresses the whole cta field rather than the label string.
+  const inner = <>{clean(label.text)} <Arrow /></>;
   // Studio colours win over the button's design default.
   const style = {
     background: clean(link.bgColor) || undefined,
@@ -88,24 +92,26 @@ function SiteHeroBlock({ b, ctx }) {
         videoUrl: b.videoUrl || null,
         imageUrl: b.image?.url || null,
         posterUrl: b.poster?.url || null,
-        primary: { label: S(primary.label).text || "Start a conversation", href: primary.href || "/contact",
+        primary: { label: clean(S(primary.label).text) || "Start a conversation", href: primary.href || "/contact",
           edit: ctx?.attr("cta") },
-        secondary: { label: S(secondary.label).text || "Explore capabilities", href: secondary.href || "/capabilities",
+        secondary: { label: clean(S(secondary.label).text) || "Explore capabilities", href: secondary.href || "/capabilities",
           edit: ctx?.attr("secondaryCta") },
       }}
     />
   );
 }
 
-function HeroVideoBlock({ b }) {
+function HeroVideoBlock({ b, ctx }) {
   return (
     <div className="v2-hero-band" style={{ aspectRatio: clean(b.ratio) || "21/9" }}>
       {b.videoUrl ? (
-        <video autoPlay muted loop playsInline poster={b.poster?.url ? sanityImgUrl(b.poster.url, { w: 1920, h: 820 }) : undefined}>
+        <video autoPlay muted loop playsInline poster={b.poster?.url ? sanityImgUrl(b.poster.url, { w: 1920, h: 820 }) : undefined}
+          {...(ctx?.attr("videoUrl") || {})}>
           <source src={b.videoUrl} type="video/mp4" />
         </video>
       ) : b.poster?.url ? (
-        <img src={sanityImgUrl(b.poster.url, { w: 1920, h: 820 })} alt={b.poster.alt || ""} />
+        <img src={sanityImgUrl(b.poster.url, { w: 1920, h: 820 })} alt={b.poster.alt || ""}
+          {...(ctx?.attr("poster") || {})} />
       ) : (
         // No video and no still: the signature animated press bands, never a hole.
         <InkBands />
@@ -121,7 +127,10 @@ function PageHeroBlock({ b, ctx }) {
       {b.scrimColor ? (
         <span aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 1, background: b.scrimColor }} />
       ) : null}
-      {b.background?.url ? <img className="bg" src={sanityImgUrl(b.background.url, { w: 1920, h: 900 })} alt={b.background.alt || ""} /> : <InkBands />}
+      {b.background?.url
+        ? <img className="bg" src={sanityImgUrl(b.background.url, { w: 1920, h: 900 })} alt={b.background.alt || ""}
+            {...(ctx?.attr("background") || {})} />
+        : <InkBands />}
       <div className="wrap">
         <Txt value={b.kicker} as="div" className="t-kicker" />
         <Headline value={b.heading} as="h1" className="t-h1" style={{ marginTop: 14 }} />
@@ -528,7 +537,7 @@ function TimelineBlock({ b, ctx }) {
 function FacilitiesBlock({ b, ctx }) {
   return (
     <div className="wrap rv">
-      <SectionHead head={b.head} right={b.link?.href ? <Link className="t-small" href={b.link.href} style={{ color: "var(--crimson)", borderBottom: "1px solid var(--crimson)" }}>{S(b.link.label).text} →</Link> : null} />
+      <SectionHead head={b.head} right={b.link?.href ? <Link className="t-small" href={b.link.href} style={{ color: "var(--crimson)", borderBottom: "1px solid var(--crimson)" }}>{clean(S(b.link.label).text)} →</Link> : null} />
       {(b.groups || []).map((g, gi) => (
         <div key={gi} style={{ marginBottom: 56 }}>
           <Txt value={g.label} as="div" className="t-kicker" style={{ marginBottom: 26 }} />
@@ -564,7 +573,7 @@ function OfficesBlock({ b, ctx }) {
               {o.mapLink?.href ? (
                 <a className="t-small" href={o.mapLink.href} target="_blank" rel="noopener noreferrer"
                    style={{ color: "var(--crimson)", borderBottom: "1px solid var(--crimson)" }}>
-                  {S(o.mapLink.label).text || "View on Google Maps"} →
+                  {clean(S(o.mapLink.label).text) || "View on Google Maps"} →
                 </a>
               ) : null}
             </div>
@@ -689,13 +698,15 @@ function ProductShowcaseBlock({ b, ctx }) {
                   {...(ctx?.docAttr(p._id, p._type, "name") || {})}>
                   <Media value={{ url: p.thumbUrl, alt: S(p.name).text }} ratio="4/3" showCaption={false}
                     edit={ctx?.docAttr(p._id, p._type, "photos")} />
-                  <div className="v2-tag" style={{ marginTop: 14 }}>{S(p.name).text}</div>
+                  {/* The name is edited via the link's own attribute above; keeping
+                      the text clean leaves the card free to navigate. */}
+                  <div className="v2-tag" style={{ marginTop: 14 }}>{clean(S(p.name).text)}</div>
                 </Link>
               ))}
             </div>
             <Link href={`/products/${cat.slug}`} className="t-small"
               style={{ display: "inline-block", marginTop: 22, color: "var(--crimson)", borderBottom: "1px solid var(--crimson)" }}>
-              See all {S(cat.name).text} →
+              See all {clean(S(cat.name).text)} →
             </Link>
           </div>
         </div>

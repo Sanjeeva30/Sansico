@@ -76,7 +76,7 @@ export default function HeaderV2({ site, isDraft = false }) {
               ))}
             </nav>
 
-            <Link className="v2hd-cta" href="/contact" {...(chrome("ctaLabel") || {})}>{S(site.ctaLabel) || "Start Conversation"}</Link>
+            <Link className="v2hd-cta" href="/contact" {...(chrome("ctaLabel") || {})}>{NAV(site.ctaLabel) || "Start Conversation"}</Link>
 
             <button className="v2hd-burger" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
               {open ? "Close" : "Menu"}
@@ -116,7 +116,7 @@ export default function HeaderV2({ site, isDraft = false }) {
             </div>
             <div style={{ marginTop: 28 }}>
               <Link className="btn btn-crimson" href="/contact" onClick={() => setOpen(false)}>
-                {S(site.ctaLabel) || "Start Conversation"} →
+                {NAV(site.ctaLabel) || "Start Conversation"} →
               </Link>
             </div>
           </nav>

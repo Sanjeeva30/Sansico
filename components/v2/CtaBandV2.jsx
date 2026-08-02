@@ -3,7 +3,7 @@ import Arrow from "@/components/Arrow";
 import { getV2Site } from "@/lib/v2";
 import { getStyled } from "@/lib/styledText";
 import { draftMode } from "next/headers";
-import { editAttr } from "@/lib/sanity/edit";
+import { editAttr, clean } from "@/lib/sanity/edit";
 
 // The wireframe's black banner. Shown at the foot of every page except Careers
 // — controlled per page by `showCtaBanner` in Studio.
@@ -17,7 +17,9 @@ export default async function CtaBandV2() {
   const headline = headlineStyled.text || "Looking for your |partner| in Indonesia?";
   const subline = getStyled(cta.subline).text
     || "Tell us your category, target market and volumes — our marketing offices in Jakarta and Foshan respond within one business day.";
-  const btnLabel = getStyled(cta.btn1Label).text || getStyled(site.ctaLabel).text || "Start Conversation";
+  // Clean: stega in the button's own text stops the click reaching the link.
+  // The label stays editable through the chrome() attribute on the <Link>.
+  const btnLabel = clean(getStyled(cta.btn1Label).text || getStyled(site.ctaLabel).text) || "Start Conversation";
   const btnHref = cta.btn1Href || "/contact";
 
   const parts = headline.split("|");
