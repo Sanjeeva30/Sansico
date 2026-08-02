@@ -14,12 +14,22 @@ export default function FooterV2({ site, isDraft = false }) {
   const audiences = site.audiences || [];
   const capabilities = site.capabilities || [];
 
-  const Col = ({ title, links }) => (
+  // navigation.footerColumns is the editable source once seeded. "For" and
+  // "Capabilities" stay generated from Audience pages and Capabilities
+  // documents no matter what — matched by title so an editor customising
+  // "Company" or "Resources" can't accidentally shadow those.
+  const navDoc = site.nav;
+  const navEdit = (path) => (isDraft && navDoc?._id ? editAttr({ id: navDoc._id, type: navDoc._type || "navigation", path }) : undefined);
+  const findCol = (title) => (navDoc?.footerColumns || []).find((c) => c.title?.toLowerCase() === title);
+  const companyCol = findCol("company");
+  const resourcesCol = findCol("resources");
+
+  const Col = ({ title, links, edit }) => (
     <div>
-      <h6>{title}</h6>
+      <h6 {...(edit || {})}>{title}</h6>
       <ul>
-        {links.map(([label, href]) => (
-          <li key={href + label}><Link href={href}>{label}</Link></li>
+        {links.map(([label, href, linkEdit]) => (
+          <li key={href + label}><Link href={href} {...(linkEdit || {})}>{label}</Link></li>
         ))}
       </ul>
     </div>
@@ -40,12 +50,17 @@ export default function FooterV2({ site, isDraft = false }) {
             </p>
           </div>
 
-          <Col title="Company" links={[
-            ["About Us", "/company"],
-            ["Facilities", "/company#facilities"],
-            ["Careers", "/careers"],
-            ["Blog", "/blog"],
-          ]} />
+          {companyCol ? (
+            <Col title={companyCol.title} edit={navEdit(`footerColumns[_key=="${companyCol._key}"].title`)}
+              links={(companyCol.links || []).map((l) => [l.label, l.href, navEdit(`footerColumns[_key=="${companyCol._key}"].links[_key=="${l._key}"].label`)])} />
+          ) : (
+            <Col title="Company" links={[
+              ["About Us", "/company"],
+              ["Facilities", "/company#facilities"],
+              ["Careers", "/careers"],
+              ["Blog", "/blog"],
+            ]} />
+          )}
 
           <Col title="For" links={audiences.map((a) => [NAV(a.label).replace(/^For\s+/i, ""), `/${a.slug}`])} />
 
@@ -55,11 +70,16 @@ export default function FooterV2({ site, isDraft = false }) {
               : [["Capabilities", "/capabilities"]]
           } />
 
-          <Col title="Resources" links={[
-            ["Products", "/products"],
-            ["Sustainability", "/sustainability"],
-            ["Why Indonesia", "/why-indonesia"],
-          ]} />
+          {resourcesCol ? (
+            <Col title={resourcesCol.title} edit={navEdit(`footerColumns[_key=="${resourcesCol._key}"].title`)}
+              links={(resourcesCol.links || []).map((l) => [l.label, l.href, navEdit(`footerColumns[_key=="${resourcesCol._key}"].links[_key=="${l._key}"].label`)])} />
+          ) : (
+            <Col title="Resources" links={[
+              ["Products", "/products"],
+              ["Sustainability", "/sustainability"],
+              ["Why Indonesia", "/why-indonesia"],
+            ]} />
+          )}
 
           <div>
             <h6>Contact</h6>

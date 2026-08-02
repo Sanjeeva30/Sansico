@@ -1,6 +1,7 @@
 import siteSettings    from "./siteSettings";
 import navItem         from "./navItem";
 import pageSettings    from "./pageSettings";
+import { navChild, navTopItem, footerLink, footerColumn, navigation } from "./navigation";
 import homePage        from "./homePage";
 import companyPage     from "./companyPage";
 import careersPage     from "./careersPage";
@@ -29,6 +30,7 @@ export const schemaTypes = [
 
   // shared / carried over from v1
   siteSettings, navItem, pageSettings,
+  navigation, navTopItem, navChild, footerColumn, footerLink,
   homePage, companyPage, careersPage,
   capability, market,
   productCategory, productItem,

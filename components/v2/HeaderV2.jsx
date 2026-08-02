@@ -31,7 +31,12 @@ export default function HeaderV2({ site, isDraft = false }) {
   const categories = site.categories || [];
   const audiences = site.audiences || [];
 
-  const MAIN = [
+  // navigation.mainNav is the editable source once seeded (Studio → Navigation
+  // & Footer). Falls back to the original hardcoded menu so the header still
+  // renders correctly before that document is ever populated.
+  const navDoc = site.nav;
+  const navEdit = (path) => (isDraft && navDoc?._id ? editAttr({ id: navDoc._id, type: navDoc._type || "navigation", path }) : undefined);
+  const FALLBACK_MAIN = [
     { label: "Capabilities", href: "/capabilities", menu: capabilities.map((c) => ({ label: NAV(c.title), href: `/capabilities#${c.slug}` })) },
     { label: "Products", href: "/products", menu: categories.map((c) => ({ label: NAV(c.name), href: `/products/${c.slug}` })) },
     { label: "Company", href: "/company", menu: [{ label: "About Us", href: "/company" }, { label: "Facilities", href: "/company#facilities" }] },
@@ -40,6 +45,18 @@ export default function HeaderV2({ site, isDraft = false }) {
     { label: "Careers", href: "/careers" },
     { label: "Blog", href: "/blog" },
   ];
+  const MAIN = navDoc?.mainNav?.length
+    ? navDoc.mainNav.map((n, i) => ({
+        label: n.label,
+        href: n.href,
+        edit: navEdit(`mainNav[${i}].label`),
+        menu: n.autoMenu === "capabilities"
+          ? capabilities.map((c) => ({ label: NAV(c.title), href: `/capabilities#${c.slug}` }))
+          : n.autoMenu === "products"
+          ? categories.map((c) => ({ label: NAV(c.name), href: `/products/${c.slug}` }))
+          : (n.children || []).map((c) => ({ label: c.label, href: c.href, edit: navEdit(`mainNav[${i}].children[_key=="${c._key}"].label`) })),
+      }))
+    : FALLBACK_MAIN;
 
   return (
     <>
@@ -66,10 +83,14 @@ export default function HeaderV2({ site, isDraft = false }) {
             <nav className="v2hd-nav" aria-label="Primary">
               {MAIN.map((n) => (
                 <div key={n.href} className={n.menu?.length ? "v2hd-drop" : undefined}>
-                  <Link className="navlink" href={n.href} aria-current={active(n.href) ? "page" : undefined}>{n.label}</Link>
+                  {/* edit attribute goes on the <Link> itself, not a nested span —
+                      these labels are plain strings (no stega), and the header CTA
+                      proved a data-sanity attribute on the link doesn't block its
+                      own click; nesting it on inner text is what breaks navigation. */}
+                  <Link className="navlink" href={n.href} aria-current={active(n.href) ? "page" : undefined} {...(n.edit || {})}>{n.label}</Link>
                   {n.menu?.length ? (
                     <div className="v2hd-menu">
-                      {n.menu.map((m) => <Link key={m.href} href={m.href}>{m.label}</Link>)}
+                      {n.menu.map((m) => <Link key={m.href} href={m.href} {...(m.edit || {})}>{m.label}</Link>)}
                     </div>
                   ) : null}
                 </div>
@@ -96,7 +117,7 @@ export default function HeaderV2({ site, isDraft = false }) {
           </div>
           <nav style={{ flex: 1, padding: "24px 6%" }}>
             {MAIN.map((n) => (
-              <Link key={n.href} href={n.href} onClick={() => setOpen(false)}
+              <Link key={n.href} href={n.href} onClick={() => setOpen(false)} {...(n.edit || {})}
                 style={{
                   display: "flex", justifyContent: "space-between", alignItems: "center",
                   fontFamily: "var(--font-serif), Georgia, serif",

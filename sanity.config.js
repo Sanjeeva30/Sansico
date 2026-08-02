@@ -38,6 +38,8 @@ const structure = (S, context) =>
     .items([
       S.listItem().title("🎨  Appearance & Brand")
         .child(S.document().schemaType("siteSettings").documentId("siteSettings").title("Appearance & Brand")),
+      S.listItem().title("🧭  Navigation & Footer")
+        .child(S.document().schemaType("navigation").documentId("navigation").title("Navigation & Footer")),
       S.divider(),
 
       S.listItem().title("📄  Pages").child(

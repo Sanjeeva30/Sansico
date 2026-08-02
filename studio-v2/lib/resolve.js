@@ -101,6 +101,12 @@ export const locations = {
       locations: [{ title: "Site-wide (header, footer, CTA band)", href: "/" }],
     }),
   }),
+
+  navigation: defineLocations({
+    resolve: () => ({
+      locations: [{ title: "Site-wide (header nav, footer columns)", href: "/" }],
+    }),
+  }),
 };
 
 export const mainDocuments = defineDocuments([
