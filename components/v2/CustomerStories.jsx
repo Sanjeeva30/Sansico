@@ -3,7 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Media from "./Media";
 import { getStyled } from "@/lib/styledText";
-import { editAttr } from "@/lib/sanity/edit";
+import { editAttr, clean } from "@/lib/sanity/edit";
 
 // The homepage "Long-Term Partnerships" band: a row of customer names that
 // swaps the quote and photo beneath it.
@@ -66,7 +66,9 @@ export default function CustomerStories({ stories = [], link, editable = false }
           </div>
           {link?.href ? (
             <Link href={link.href} className="t-small" style={{ borderBottom: "1px solid var(--crimson)", color: "var(--crimson)", paddingBottom: 3, ...linkLabel.style }}>
-              {linkLabel.text || "Read more"} →
+              {/* Clean: stega in a link's own text makes the overlay claim the
+                  click, so the preview never navigates. */}
+              {clean(linkLabel.text) || "Read more"} →
             </Link>
           ) : null}
         </div>
