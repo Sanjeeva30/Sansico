@@ -15,10 +15,13 @@ import { editAttr, sectionPath, itemPath, clean } from "@/lib/sanity/edit";
 
 const S = (v) => getStyled(v);
 
-function Txt({ value, as: Tag = "span", className, style, fallback = null }) {
+// `edit` gives the text its own click-to-edit target. Worth passing when the
+// text sits inside a link: the link handles navigation, and the explicit target
+// is what lets a click on the words open the field instead.
+function Txt({ value, as: Tag = "span", className, style, fallback = null, edit }) {
   const s = S(value);
   if (!s.text) return fallback;
-  return <Tag className={className} style={{ ...style, ...s.style }}>{s.text}</Tag>;
+  return <Tag className={className} style={{ ...style, ...s.style }} {...(edit || {})}>{s.text}</Tag>;
 }
 
 // Headline supporting the site's "|word|" italic-accent convention.
@@ -338,9 +341,9 @@ function CapabilityCardsBlock({ b, ctx }) {
             <>
               {flat ? null : <div className={`art ${GATE_ART[i % GATE_ART.length]}`} aria-hidden="true" />}
               <div className="inner">
-                <span className="num" style={tag.style}>{tag.text}</span>
-                <h3 style={title.style}>{title.text}</h3>
-                <p style={desc.style}>{desc.text}</p>
+                <span className="num" style={tag.style} {...(ctx?.itemAttr("cards", c._key, "tag") || {})}>{tag.text}</span>
+                <h3 style={title.style} {...(ctx?.itemAttr("cards", c._key, "title") || {})}>{title.text}</h3>
+                <p style={desc.style} {...(ctx?.itemAttr("cards", c._key, "desc") || {})}>{desc.text}</p>
                 <span className="go">Explore <Arrow /></span>
               </div>
             </>
@@ -365,6 +368,7 @@ function TileGridBlock({ b, ctx }) {
             <>
               <Media value={t.image} ratio="4/3" showCaption={false} edit={ctx?.itemAttr("tiles", t._key, "image")} />
               <Txt value={t.label} as="div" className="v2-tag"
+                edit={ctx?.itemAttr("tiles", t._key, "label")}
                 style={{ marginTop: 16, background: t.bgColor || undefined, color: t.textColor || undefined,
                   borderColor: t.bgColor || undefined }} />
             </>
@@ -745,8 +749,10 @@ function BlogGridBlock({ b, ctx }) {
           <Link href={`/blog/${p.slug}`} key={p._id || i} {...(ctx?.docAttr(p._id, p._type, "title") || {})}>
             <Media value={p.cover} ratio="4/3" showCaption={false}
               edit={ctx?.docAttr(p._id, p._type, "cover")} />
-            <Txt value={p.tag} as="div" className="v2-tag" style={{ margin: "16px 0 12px" }} />
-            <Txt value={p.title} as="div" className="t-h3" style={{ fontSize: 17, marginBottom: 8 }} />
+            <Txt value={p.tag} as="div" className="v2-tag" style={{ margin: "16px 0 12px" }}
+              edit={ctx?.docAttr(p._id, p._type, "tag")} />
+            <Txt value={p.title} as="div" className="t-h3" style={{ fontSize: 17, marginBottom: 8 }}
+              edit={ctx?.docAttr(p._id, p._type, "title")} />
             <Txt value={p.date} as="div" className="t-small" />
           </Link>
         ))}
