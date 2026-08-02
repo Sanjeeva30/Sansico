@@ -4,9 +4,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { getStyled } from "@/lib/styledText";
-import { editAttr } from "@/lib/sanity/edit";
+import { editAttr, clean } from "@/lib/sanity/edit";
 
 const S = (v) => getStyled(v).text;
+// Navigation labels only. Sanity strings carry invisible stega metadata, and the
+// visual-editing overlay treats any stega-bearing text as a click-to-edit target
+// — which swallows the click before the <Link> ever sees it, so the preview never
+// navigates. Nav labels are stripped so the links stay links; they are still
+// edited from their own document (Audience page → Label, Capability → Title).
+const NAV = (v) => clean(S(v));
 
 export default function HeaderV2({ site, isDraft = false }) {
   const chrome = (path) => (isDraft ? editAttr({ id: "siteSettings", type: "siteSettings", path }) : undefined);
@@ -26,8 +32,8 @@ export default function HeaderV2({ site, isDraft = false }) {
   const audiences = site.audiences || [];
 
   const MAIN = [
-    { label: "Capabilities", href: "/capabilities", menu: capabilities.map((c) => ({ label: S(c.title), href: `/capabilities#${c.slug}` })) },
-    { label: "Products", href: "/products", menu: categories.map((c) => ({ label: S(c.name), href: `/products/${c.slug}` })) },
+    { label: "Capabilities", href: "/capabilities", menu: capabilities.map((c) => ({ label: NAV(c.title), href: `/capabilities#${c.slug}` })) },
+    { label: "Products", href: "/products", menu: categories.map((c) => ({ label: NAV(c.name), href: `/products/${c.slug}` })) },
     { label: "Company", href: "/company", menu: [{ label: "About Us", href: "/company" }, { label: "Facilities", href: "/company#facilities" }] },
     { label: "Sustainability", href: "/sustainability" },
     { label: "Why Indonesia", href: "/why-indonesia" },
@@ -43,7 +49,7 @@ export default function HeaderV2({ site, isDraft = false }) {
           <div className="wrap">
             {audiences.map((a) => (
               <Link key={a.slug} href={`/${a.slug}`} aria-current={active(`/${a.slug}`) ? "page" : undefined}>
-                {S(a.label)}
+                {NAV(a.label)}
               </Link>
             ))}
           </div>
@@ -104,7 +110,7 @@ export default function HeaderV2({ site, isDraft = false }) {
             <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginTop: 26 }}>
               {audiences.map((a) => (
                 <Link key={a.slug} href={`/${a.slug}`} onClick={() => setOpen(false)} className="t-small" style={{ color: "var(--ink-soft)" }}>
-                  {S(a.label)}
+                  {NAV(a.label)}
                 </Link>
               ))}
             </div>

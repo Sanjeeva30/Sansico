@@ -1,9 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getStyled } from "@/lib/styledText";
-import { editAttr } from "@/lib/sanity/edit";
+import { editAttr, clean } from "@/lib/sanity/edit";
 
 const S = (v) => getStyled(v).text;
+// See HeaderV2: link labels are stripped of stega so the visual-editing overlay
+// doesn't claim the click and stop the preview from navigating.
+const NAV = (v) => clean(S(v));
 
 export default function FooterV2({ site, isDraft = false }) {
   // site chrome lives on siteSettings, so it points there rather than at a page
@@ -44,11 +47,11 @@ export default function FooterV2({ site, isDraft = false }) {
             ["Blog", "/blog"],
           ]} />
 
-          <Col title="For" links={audiences.map((a) => [S(a.label).replace(/^For\s+/i, ""), `/${a.slug}`])} />
+          <Col title="For" links={audiences.map((a) => [NAV(a.label).replace(/^For\s+/i, ""), `/${a.slug}`])} />
 
           <Col title="Capabilities" links={
             capabilities.length
-              ? capabilities.map((c) => [S(c.title), `/capabilities#${c.slug}`])
+              ? capabilities.map((c) => [NAV(c.title), `/capabilities#${c.slug}`])
               : [["Capabilities", "/capabilities"]]
           } />
 

@@ -1,6 +1,12 @@
+"use client";
+import { usePathname } from "next/navigation";
+
 // Small persistent marker so nobody mistakes a draft preview for the live site
 // — the single most common confusion once preview mode exists.
 export default function PreviewBar() {
+  // Exiting drops the draft cookie and comes back to the page you were reading,
+  // rather than bouncing to the homepage.
+  const path = usePathname();
   return (
     <div
       style={{
@@ -16,7 +22,7 @@ export default function PreviewBar() {
       <span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--citrus, #BDDA5F)" }} />
       Draft preview
       <a
-        href="/api/draft-mode/disable"
+        href={`/api/draft-mode/disable?redirect=${encodeURIComponent(path || "/")}`}
         style={{ color: "var(--citrus, #BDDA5F)", borderBottom: "1px solid currentColor", paddingBottom: 1 }}
       >
         Exit
