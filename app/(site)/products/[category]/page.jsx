@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 import Media from "@/components/v2/Media";
 import CtaBandV2 from "@/components/v2/CtaBandV2";
 import { getCategory, getCategories } from "@/lib/v2";
+import { draftMode } from "next/headers";
 import { getStyled } from "@/lib/styledText";
+import { editAttr } from "@/lib/sanity/edit";
 
 const S = (v) => getStyled(v);
 
@@ -23,6 +25,9 @@ export default async function CategoryPage({ params }) {
   const { category } = await params;
   const cat = await getCategory(category);
   if (!cat) notFound();
+  // Editing metadata only inside Presentation, never for visitors.
+  const isDraft = (await draftMode()).isEnabled;
+  const at = (id, type, path) => (isDraft ? editAttr({ id, type, path }) : undefined);
 
   const name = S(cat.name);
   const blurb = S(cat.blurb || cat.description);
@@ -45,7 +50,8 @@ export default async function CategoryPage({ params }) {
               const pn = S(p.name);
               return (
                 <Link href={`/products/${cat.slug}/${p.slug}`} key={p.slug}>
-                  <Media value={{ url: p.thumbUrl, alt: pn.text }} ratio="4/3" showCaption={false} />
+                  <Media value={{ url: p.thumbUrl, alt: pn.text }} ratio="4/3" showCaption={false}
+                    edit={at(p._id, p._type, "photos")} />
                   <div className="t-h3" style={{ margin: "16px 0 6px", fontSize: 17 }}>{pn.text}</div>
                   <div className="t-small">{S(p.material).text}</div>
                 </Link>

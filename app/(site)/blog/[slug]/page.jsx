@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 import Media from "@/components/v2/Media";
 import CtaBandV2 from "@/components/v2/CtaBandV2";
 import { getPost, getPosts } from "@/lib/v2";
+import { draftMode } from "next/headers";
 import { getStyled } from "@/lib/styledText";
+import { editAttr } from "@/lib/sanity/edit";
 
 const S = (v) => getStyled(v);
 
@@ -42,6 +44,8 @@ export default async function ArticlePage({ params }) {
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) notFound();
+  const isDraft = (await draftMode()).isEnabled;
+  const at = (path) => (isDraft ? editAttr({ id: post._id, type: post._type, path }) : undefined);
 
   const all = await getPosts();
   const others = all.filter((p) => p.slug !== post.slug).slice(0, 3);
@@ -62,7 +66,7 @@ export default async function ArticlePage({ params }) {
       </div>
 
       <div className="wrap" style={{ maxWidth: 1080, paddingTop: 48 }}>
-        <Media value={post.cover} ratio="16/9" w={1800} h={1010} />
+        <Media value={post.cover} ratio="16/9" w={1800} h={1010} edit={at("cover")} />
       </div>
 
       <section className="v2-section">
@@ -81,7 +85,8 @@ export default async function ArticlePage({ params }) {
             <div className="grid-n" style={{ "--cols": 3 }}>
               {others.map((p) => (
                 <Link href={`/blog/${p.slug}`} key={p.slug}>
-                  <Media value={p.cover} ratio="4/3" showCaption={false} />
+                  <Media value={p.cover} ratio="4/3" showCaption={false}
+                    edit={isDraft ? editAttr({ id: p._id, type: p._type, path: "cover" }) : undefined} />
                   <div className="v2-tag" style={{ margin: "16px 0 12px" }}>{S(p.tag).text}</div>
                   <div className="t-h3" style={{ fontSize: 17, marginBottom: 8 }}>{S(p.title).text}</div>
                   <div className="t-small">{S(p.date).text}</div>

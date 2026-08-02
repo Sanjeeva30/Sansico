@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 import Media from "@/components/v2/Media";
 import CtaBandV2 from "@/components/v2/CtaBandV2";
 import { getProduct, getCategories } from "@/lib/v2";
+import { draftMode } from "next/headers";
 import { getStyled } from "@/lib/styledText";
+import { editAttr } from "@/lib/sanity/edit";
 
 const S = (v) => getStyled(v);
 
@@ -34,6 +36,8 @@ export default async function ProductPage({ params }) {
   const { category, product } = await params;
   const p = await getProduct(product);
   if (!p) notFound();
+  const isDraft = (await draftMode()).isEnabled;
+  const at = (path) => (isDraft ? editAttr({ id: p._id, type: p._type, path }) : undefined);
 
   const name = S(p.name);
   const catName = S(p.category?.name);
@@ -65,7 +69,8 @@ export default async function ProductPage({ params }) {
         <div className="wrap">
           {variants.map((v, i) => (
             <div className="grid12 rv" key={i} style={{ marginBottom: 64, alignItems: "start" }}>
-              <div className="c-8"><Media value={v.image} ratio="16/9" w={1600} h={900} /></div>
+              <div className="c-8"><Media value={v.image} ratio="16/9" w={1600} h={900}
+                edit={at(v._key ? `variants[_key=="${v._key}"].image` : "photos")} /></div>
               <div className="c-4">
                 <SpecRow label="Material" value={v.material || p.material} />
                 <SpecRow label="Technique" value={v.technique} />
