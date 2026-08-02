@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { ApplyForm } from "@/components/v2/Forms";
 import { getRole, getRoles } from "@/lib/v2";
 import { getStyled } from "@/lib/styledText";
+import { draftMode } from "next/headers";
+import { editAttr } from "@/lib/sanity/edit";
 
 const S = (v) => getStyled(v);
 
@@ -36,6 +38,10 @@ export default async function RolePage({ params }) {
   if (!r) notFound();
 
   const title = S(r.role);
+  // Click-to-edit for the role's own fields. Gated on draft mode so the public
+  // page carries no document ids or field paths.
+  const isDraft = (await draftMode()).isEnabled;
+  const at = (path) => (isDraft ? editAttr({ id: r._id, type: r._type, path }) : undefined);
 
   return (
     <>
@@ -47,9 +53,9 @@ export default async function RolePage({ params }) {
         <div className="c-7">
           <h1 className="t-h1" style={{ marginBottom: 22, ...title.style }}>{title.text}</h1>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 40 }}>
-            {[r.dept, r.location, r.type].map((t, i) => {
+            {[["dept", r.dept], ["location", r.location], ["type", r.type]].map(([f, t], i) => {
               const v = S(t);
-              return v.text ? <span className="v2-tag" key={i}>{v.text}</span> : null;
+              return v.text ? <span className="v2-tag" key={i} {...(at(f) || {})}>{v.text}</span> : null;
             })}
           </div>
           <a className="btn btn-crimson" href="#apply" style={{ marginBottom: 64, display: "inline-flex" }}>Apply for this role →</a>
@@ -81,10 +87,10 @@ export default async function RolePage({ params }) {
         <div className="c-5">
           <div className="v2-card" style={{ background: "var(--paper-warm)", position: "sticky", top: 120 }}>
             <div className="t-kicker" style={{ marginBottom: 22 }}>Job Snapshot</div>
-            {[["Department", r.dept], ["Location", r.location], ["Employment type", r.type]].map(([l, v], i) => {
+            {[["Department", r.dept, "dept"], ["Location", r.location, "location"], ["Employment type", r.type, "type"]].map(([l, v, f], i) => {
               const val = S(v);
               return val.text ? (
-                <div key={i} style={{ marginBottom: 20 }}>
+                <div key={i} style={{ marginBottom: 20 }} {...(at(f) || {})}>
                   <div className="t-small">{l}</div>
                   <div className="t-body" style={{ color: "var(--ink)" }}>{val.text}</div>
                 </div>
