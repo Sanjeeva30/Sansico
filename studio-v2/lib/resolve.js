@@ -104,10 +104,26 @@ export const locations = {
 };
 
 export const mainDocuments = defineDocuments([
+  // Order matters: the first matching route wins. The nine section-block pages
+  // are listed explicitly because a bare "/:slug" would swallow them and then
+  // filter for audiencePage, which never matches — leaving the editor pointing
+  // at whatever document was open before, on every page except the homepage.
   { route: "/", filter: `_type == "v2Page" && pageId == "home"` },
-  { route: "/:slug", filter: `_type == "audiencePage" && slug.current == $slug` },
+  { route: "/capabilities", filter: `_type == "v2Page" && pageId == "capabilities"` },
+  { route: "/products", filter: `_type == "v2Page" && pageId == "products"` },
+  { route: "/company", filter: `_type == "v2Page" && pageId == "company"` },
+  { route: "/sustainability", filter: `_type == "v2Page" && pageId == "sustainability"` },
+  { route: "/why-indonesia", filter: `_type == "v2Page" && pageId == "why-indonesia"` },
+  { route: "/careers", filter: `_type == "v2Page" && pageId == "careers"` },
+  { route: "/blog", filter: `_type == "v2Page" && pageId == "blog"` },
+  { route: "/contact", filter: `_type == "v2Page" && pageId == "contact"` },
+
+  // Deeper routes before shallower ones of the same prefix.
+  { route: "/products/:category/:slug", filter: `_type == "productItem" && slug.current == $slug` },
+  { route: "/products/:slug", filter: `_type == "productCategory" && slug.current == $slug` },
   { route: "/blog/:slug", filter: `_type == "blogPost" && slug.current == $slug` },
   { route: "/careers/:slug", filter: `_type == "jobRole" && slug.current == $slug` },
-  { route: "/products/:slug", filter: `_type == "productCategory" && slug.current == $slug` },
-  { route: "/products/:category/:slug", filter: `_type == "productItem" && slug.current == $slug` },
+
+  // Catch-all last: the three audience pages live at the site root.
+  { route: "/:slug", filter: `_type == "audiencePage" && slug.current == $slug` },
 ]);
