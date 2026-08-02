@@ -16,6 +16,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { presentationTool } from "sanity/presentation";
 import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
+import { media } from "sanity-plugin-media";
 
 import { schemaTypes } from "./studio-v2/schemas";
 import { locations, mainDocuments } from "./studio-v2/lib/resolve";
@@ -98,6 +99,11 @@ export default defineConfig({
       resolve: { locations, mainDocuments },
     }),
     structureTool({ structure }),
+
+    // Tags, folder-like filtering, and a usage panel on every asset showing
+    // which documents reference it — so nobody deletes an image still live
+    // on the site, out of 160+ assets in this dataset.
+    media(),
   ],
 
   schema: { types: schemaTypes },

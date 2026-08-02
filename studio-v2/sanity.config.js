@@ -2,6 +2,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
+import { media } from "sanity-plugin-media";
 import { schemaTypes } from "./schemas";
 
 const PAGES = [
@@ -72,6 +73,11 @@ export default defineConfig({
     // it — the preview pane just renders blank. Visual editing lives in the
     // Studio embedded at /studio on the site itself, which is same-origin.
     structureTool({ structure }),
+
+    // Tags, folder-like filtering, and — the thing that actually matters at
+    // 160+ assets — a usage panel on every asset showing which documents
+    // reference it, so nobody deletes an image that's still live on the site.
+    media(),
 
     // Vision is a developer query console — editors never use it, and it drags
     // in CodeMirror plus refractor's syntax highlighting for ~290 languages,
