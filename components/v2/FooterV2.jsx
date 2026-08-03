@@ -52,7 +52,11 @@ export default function FooterV2({ site, isDraft = false }) {
 
           {companyCol ? (
             <Col title={companyCol.title} edit={navEdit(`footerColumns[_key=="${companyCol._key}"].title`)}
-              links={(companyCol.links || []).map((l) => [l.label, l.href, navEdit(`footerColumns[_key=="${companyCol._key}"].links[_key=="${l._key}"].label`)])} />
+              links={(companyCol.links || [])
+                // Same guard as HeaderV2: a link row an editor hasn't finished
+                // typing yet has no href, and Presentation re-renders live.
+                .filter((l) => l.label && l.href)
+                .map((l) => [l.label, l.href, navEdit(`footerColumns[_key=="${companyCol._key}"].links[_key=="${l._key}"].label`)])} />
           ) : (
             <Col title="Company" links={[
               ["About Us", "/company"],
@@ -72,7 +76,9 @@ export default function FooterV2({ site, isDraft = false }) {
 
           {resourcesCol ? (
             <Col title={resourcesCol.title} edit={navEdit(`footerColumns[_key=="${resourcesCol._key}"].title`)}
-              links={(resourcesCol.links || []).map((l) => [l.label, l.href, navEdit(`footerColumns[_key=="${resourcesCol._key}"].links[_key=="${l._key}"].label`)])} />
+              links={(resourcesCol.links || [])
+                .filter((l) => l.label && l.href)
+                .map((l) => [l.label, l.href, navEdit(`footerColumns[_key=="${resourcesCol._key}"].links[_key=="${l._key}"].label`)])} />
           ) : (
             <Col title="Resources" links={[
               ["Products", "/products"],

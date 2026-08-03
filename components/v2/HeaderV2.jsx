@@ -46,16 +46,25 @@ export default function HeaderV2({ site, isDraft = false }) {
     { label: "Blog", href: "/blog" },
   ];
   const MAIN = navDoc?.mainNav?.length
-    ? navDoc.mainNav.map((n, i) => ({
-        label: n.label,
-        href: n.href,
-        edit: navEdit(`mainNav[${i}].label`),
-        menu: n.autoMenu === "capabilities"
-          ? capabilities.map((c) => ({ label: NAV(c.title), href: `/capabilities#${c.slug}` }))
-          : n.autoMenu === "products"
-          ? categories.map((c) => ({ label: NAV(c.name), href: `/products/${c.slug}` }))
-          : (n.children || []).map((c) => ({ label: c.label, href: c.href, edit: navEdit(`mainNav[${i}].children[_key=="${c._key}"].label`) })),
-      }))
+    ? navDoc.mainNav
+        .map((n, i) => ({ n, i })) // keep each item's real index before filtering
+        // An editor adding a new item has an incomplete one (no label/href yet)
+        // for as long as it takes to type both fields in. Presentation re-renders
+        // on every keystroke, so a bare `<Link href={undefined}>` would crash the
+        // whole preview mid-edit rather than just leave a gap. Skip it instead.
+        .filter(({ n }) => n.label && n.href)
+        .map(({ n, i }) => ({
+          label: n.label,
+          href: n.href,
+          edit: navEdit(`mainNav[${i}].label`),
+          menu: n.autoMenu === "capabilities"
+            ? capabilities.map((c) => ({ label: NAV(c.title), href: `/capabilities#${c.slug}` }))
+            : n.autoMenu === "products"
+            ? categories.map((c) => ({ label: NAV(c.name), href: `/products/${c.slug}` }))
+            : (n.children || [])
+                .filter((c) => c.label && c.href)
+                .map((c) => ({ label: c.label, href: c.href, edit: navEdit(`mainNav[${i}].children[_key=="${c._key}"].label`) })),
+        }))
     : FALLBACK_MAIN;
 
   return (

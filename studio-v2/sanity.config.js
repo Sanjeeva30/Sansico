@@ -74,9 +74,9 @@ export default defineConfig({
     // Studio embedded at /studio on the site itself, which is same-origin.
     structureTool({ structure }),
 
-    // Tags, folder-like filtering, and — the thing that actually matters at
-    // 160+ assets — a usage panel on every asset showing which documents
-    // reference it, so nobody deletes an image that's still live on the site.
+    // Tags, folder-like filtering, and a usage panel on every asset showing
+    // which documents reference it, so nobody deletes an image that's still
+    // live on the site, out of 160+ assets in this dataset.
     media(),
 
     // Vision is a developer query console — editors never use it, and it drags
